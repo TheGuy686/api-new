@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "ES2019",
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "resolveJsonModule": true,
+        "baseUrl": ".",
+        "paths": {
+            "@eezze": ["plugins/eezze"],
+            "@eezze/*": ["plugins/eezze/*"],
+            "@templates": ["plugins/eezze/templates"],
+            "@templates/*": ["plugins/eezze/templates/*"],
+            "libs/*": ["src/libs/*"],
+            "dtos/*": ["src/dtos/*"],
+            "services/*": ["src/services/*"],
+            "models/*": ["src/models/*"],
+            "datasources/*": ["src/datasources/*"],
+            "repos/*": ["src/repos/*"],
+            "node_modules/*": [
+                "node_modules/*"
+            ],
+            "plugins/*": [
+                "src/plugins/*"
+            ],
+        },
+    },
+    "include": [
+        "src/**/*",
+        "plugins/**/*",
+    ]
+}

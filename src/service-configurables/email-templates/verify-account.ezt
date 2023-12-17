@@ -1,0 +1,12 @@
+## Welcome to Eezze!
+
+{% if firstName %}
+Dear. **{{ firstName }} {{ lastName }}** {% if username %}(**{{ username }}**){% endif %}
+{% else %}
+To whom it may concern
+{% endif %}
+
+Please click the link to verify your account. **[Verify Account]({{ verifyEmailLink }}?token={{ token }})**
+
+Thank you from the
+**Eezze Team**

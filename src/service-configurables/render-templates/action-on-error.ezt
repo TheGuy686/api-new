@@ -1,0 +1,3 @@
+// #{{ hook.name | raw }}
+@Error()
+{% include 'action-variable-context-func-block.ezt' with { cbName: '_error', prop: hook } %}

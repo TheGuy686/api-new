@@ -1,0 +1,115 @@
+export default {
+    {% if logger %}
+        logger: '{{ logger }}',
+    {% endif %}
+
+    type: '{{ type }}',
+
+    {% if auth %}
+        auth: {{ auth }},
+    {% endif %}
+
+    {% if method %}
+        method: '{{ method }}',
+    {% endif %}
+
+    url: `{{ host }}`,
+
+    {% if path %}
+        path: '/{{ path }}',
+    {% endif %}
+    
+    headers: {
+        {% for item in input.headers %}
+
+            {% if item.type == 'text' %}
+
+                '{{ item.name }}': '{{ item.value }}',
+
+            {% elseif item.type == 'number' %}
+
+                '{{ item.name }}': {{ item.value }},
+
+            {% elseif item.type == 'boolean' %}
+
+                '{{ item.name }}': {{ item.value }},
+
+            {% elseif item.type == 'date' %}
+
+                '{{ item.name }}': '{{ item.value }}',
+
+            {% elseif item.type == 'object' %}
+
+                '{{ item.name }}': {{ ez.pj(item.value) | raw }},
+
+            {% elseif item.type == 'list' %}
+
+                '{{ item.name }}': {{ ez.pj(item.value, true) | raw }},
+
+            {% endif %}
+
+        {% endfor %}
+    },
+    urlParams: {
+        {% for item in input.urlParams %}
+
+            {% if item.type == 'text' %}
+
+                '{{ item.name }}': '{{ item.value }}',
+
+            {% elseif item.type == 'number' %}
+
+                '{{ item.name }}': {{ item.value }},
+
+            {% elseif item.type == 'boolean' %}
+
+                '{{ item.name }}': {{ item.value }},
+
+            {% elseif item.type == 'date' %}
+
+                '{{ item.name }}': '{{ item.value }}',
+
+            {% elseif item.type == 'object' %}
+
+                '{{ item.name }}': {{ ez.pj(item.value) | raw }},
+
+            {% elseif item.type == 'list' %}
+
+                '{{ item.name }}': {{ ez.pj(item.value, true) | raw }},
+
+            {% endif %}
+
+        {% endfor %}
+    },
+    requestBody: {
+        {% for item in input.requestBody %}
+
+            {% if item.type == 'text' %}
+
+                '{{ item.name }}': '{{ item.value }}',
+
+            {% elseif item.type == 'number' %}
+
+                '{{ item.name }}': {{ item.value }},
+
+            {% elseif item.type == 'boolean' %}
+
+                '{{ item.name }}': {{ item.value }},
+
+            {% elseif item.type == 'date' %}
+
+                '{{ item.name }}': '{{ item.value }}',
+
+            {% elseif item.type == 'object' %}
+
+                '{{ item.name }}': {{ ez.pj(item.value) | raw }},
+
+            {% elseif item.type == 'list' %}
+
+                '{{ item.name }}': {{ ez.pj(item.value, true) | raw }},
+
+            {% endif %}
+
+        {% endfor %}
+    }
+}

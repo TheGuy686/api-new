@@ -1,0 +1,1 @@
+../plugins/eezze/libs/StringMethods.ts

@@ -1,0 +1,79 @@
+require('module-alias/register');
+require('dotenv-json')({ path: '.env.json' });
+require('source-map-support').install();
+
+import { isDir, mkdir, readFile } from '../libs/FileMethods';
+import PDC from '../classes/DocPdc';
+import Logger from '../classes/Logger';
+
+const fs = require('fs');
+const HTMLtoDOCX = require('html-to-docx');
+const Blob = require('blob');
+var toBuffer = require('blob-to-buffer')
+
+console.clear();
+
+// unoconv is a potential cli alternative to the libreopenoffice suite
+// sudo apt-get install default-jre libreoffice-java-common - this fixes the terminal errors when running libra command
+// libreoffice --headless --convert-to odt plugins/eezze/templates/docs/entity-tpl.html --outdir ./docs-api/models/
+(async () => {
+
+    const output = await PDC.initDependancyCache(new Logger('doc_parser'));
+
+    let mdl: any;
+
+    const mdlsRoot = `${__dirname}/../../../docs-api/models/`;
+
+    if (!isDir(mdlsRoot)) mkdir(mdlsRoot);
+
+    for (mdl of Object.values(output.models)) {
+        if (mdl.modelProps) {
+            const htmlContent = readFile({
+                path: `${__dirname}/../templates/docs`,
+                file: 'entity-tpl.html',
+            });
+
+            const data = {
+                projectName: 'An awesome project',
+            };
+
+            const outputFile = `${__dirname}/../../../docs-api/models/${mdl.metadata.name}.docx`;
+
+            const options = {
+                centered: true,
+                margins: {
+                    top: 1000,
+                    right: 1000,
+                    bottom: 1000,
+                    left: 1000,
+                },
+                table: {
+                    row: {
+                        cantSplit: true,
+                    },
+                },
+                pageNumber: true,
+                footer: true,
+            };             
+
+            const fileBuffer = await HTMLtoDOCX(htmlContent, null, {
+                table: { row: { cantSplit: true } },
+                footer: true,
+                pageNumber: true,
+            });
+            
+            fs.writeFile(outputFile, fileBuffer, (error: any) => {
+                if (error) {
+                    console.log('Docx file creation failed');
+                    return;
+                }
+                console.log('Docx file created successfully');
+            });
+            
+            console.log('Doc should have saved');
+
+            break
+        }
+    }
+
+})();

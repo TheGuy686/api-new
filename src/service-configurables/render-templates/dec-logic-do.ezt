@@ -1,0 +1,8 @@
+// #{{ action.name }}
+@Do({
+    {% if action.schema.run %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'run', prop: action.schema.run } %}
+    {% endif %}
+
+    {% include 'dec-finalize.ezt' with { action: action } %}
+})

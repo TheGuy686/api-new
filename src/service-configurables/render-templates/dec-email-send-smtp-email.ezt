@@ -1,0 +1,48 @@
+// #{{ action.name }}
+@SendSMTPEmail({
+    {% if action.schema.datasource %}
+        datasource: '{{ action.schema.datasource }}',
+    {% endif %}
+
+    {% if action.schema.to %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'to', prop: action.schema.to } %}
+    {% endif %}
+
+    {% if action.schema.from %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'from', prop: action.schema.from } %}
+    {% endif %}
+
+    {% if action.schema.fromFirstName %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'fromFirstName', prop: action.schema.fromFirstName } %}
+    {% endif %}
+
+    {% if action.schema.fromLastName %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'fromLastName', prop: action.schema.fromLastName } %}
+    {% endif %}
+
+    {% if action.schema.subject %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'subject', prop: action.schema.subject } %}
+    {% endif %}
+
+    {% if action.schema.template %}
+        template: '{{ action.schema.templateName }}',
+    {% endif %}
+
+    {% if action.schema.templateVars %}
+        {% include 'action-variable-context-obj.ezt' with { mainProp: 'templateVars', prop: action.schema.templateVars } %}
+    {% endif %}
+
+    {% if action.schema.message %}
+        {#% include 'action-variable-context.ezt' with { mainProp: 'message', prop: action.schema.message } %#}
+        message: `{{ action.schema.message | raw }}`,
+    {% endif %}
+
+    {% if action.schema.html %}
+        {#% include 'action-variable-context.ezt' with { mainProp: 'html', prop: action.schema.html } %#}
+        html: `{{ action.schema.html | html | raw }}`,
+    {% endif %}
+
+    {% if action.schema.output %}
+        {% include 'action-variable-context-obj.ezt' with { mainProp: 'output', prop: action.schema.output } %}
+    {% endif %}
+})

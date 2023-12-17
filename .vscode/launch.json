@@ -1,0 +1,87 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+
+
+    {
+      "name": "Launch WS Server",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+          "-r",
+          "ts-node/register"
+      ],
+      "args": [
+          "${workspaceFolder}/src/apps/generation-ws-server.ts"
+      ]
+    },
+    {
+      "name": "Launch WS Stats",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+          "-r",
+          "ts-node/register"
+      ],
+      "args": [
+          "${workspaceFolder}}/src/apps/eezze-ws-stats.ts"
+      ]
+    },
+    {
+      "name": "Launch REST Server",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+          "-r",
+          "ts-node/register"
+      ],
+      "args": [
+          "${workspaceFolder}/src/apps/eezze-project-api.ts"
+      ]
+    },
+    {
+      "name": "Launch WS Logger Server",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+          "-r",
+          "ts-node/register"
+      ],
+      "args": [
+          "${workspaceFolder}}/src/apps/generation-ws-log-server.ts"
+      ]
+    },
+    {
+      "name": "LogicChain Exec",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+          "-r",
+          "ts-node/register"
+      ],
+      "args": [
+          "${workspaceFolder}/dev/business-logic-uts/exec.ts"
+      ]
+    },
+    {
+      "name": "LogicChain Menu State Exec",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": [
+          "<node_internals>/**"
+      ],
+      "runtimeExecutable": "/usr/local/bin/nodemon",
+      "restart": true,
+      "runtimeArgs": [
+          "-e", "ts,js,ezt",
+          "--ignore", "dist/**",
+          "--exec", "node_modules/.bin/ts-node ./dev/fe-context-menu/index.ts"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

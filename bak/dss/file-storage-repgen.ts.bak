@@ -1,0 +1,15 @@
+import { EDataSource } from '@eezze/decorators';
+
+@EDataSource({
+	datasourceType: 'FileStorage',
+	// @Rolf: you need to add the ${ projectId } and any other vars
+	// needed to take care of the multi tenancy part of our system
+	// all these vars that you put into this string will be parsed
+	// from the incoming "actionInput" vars
+	rootPath: process.env.PROJECTS_FILE_ROOT,
+	fileType: 'json',
+	// fileName: 'repgen.json',
+	fileName: 'configs/${ projectId }/repgen.json',
+	createFileIfNotExists: false
+})
+export default class JsonDbRepgen { }

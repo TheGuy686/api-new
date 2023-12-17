@@ -1,0 +1,87 @@
+{% if prop is defined %}
+
+    {% if prop.baseType == 'logic-chain' and prop.actions | length > 0 %}
+            
+        async {{ cbName }}(adm: ADM, lc: LogicChain) {
+
+            {% if isAlwaysObject %}
+
+                lc.assign(
+                    '{{ act.property }}',
+                    (ilc: LogicChain) => {
+                        {% for act in prop.actions %}
+
+                            {% include 'action-lc-item.ezt' with { action: act } %}
+                                
+                        {% endfor %}
+                    }
+                );
+
+            {% else %}
+
+                {% include 'action-lc-item.ezt' with { action: prop, lcAlias: 'lc' } %}
+
+            {% endif %}
+
+            {% if isAlwaysObject %}
+
+                return {
+                    {% for act in prop.actions %}
+
+                        '{{ prop.property }}': lc.prop('{{ prop.property | raw }}'),
+
+                    {% endfor %}
+                }
+
+            {% else %}
+
+                // evaluate the result and then return the result
+                adm.setResult(await lc.result());
+
+            {% endif %}
+        }
+
+    {% elseif prop.baseType == 'context-mapping' %}
+
+        {{ cbName }}(adm: ADM, lc: LogicChain) {
+            adm.setResult({{ prop.raw | raw }});
+        }
+        
+    {% elseif prop.baseType == 'primitive' %}
+
+        {% if prop.type == 'text' %}
+
+            {{ cbName }}(adm: ADM) {
+                adm.setResult(`{{ prop.raw | raw }}`);
+            }
+
+        {% elseif prop.type == 'number' %}
+
+            {{ cbName }}(adm: ADM) {
+                adm.setResult({{ prop.raw | raw }});
+            }
+
+        {% elseif prop.type == 'boolean' %}
+
+            {{ cbName }}(adm: ADM) {
+                adm.setResult(!!{{ prop.raw | raw }});
+            }
+
+        {% else %}
+
+            {{ cbName }}(adm: ADM) {
+                adm.setResult(`{{ prop.raw | raw }}`);
+            }
+
+        {% endif %}
+        
+    {% else %}
+        // invalid prop.baseType
+        {{ cbName }}(adm: ADM) {}
+
+    {% endif %}
+{% else %}
+    // "prop" was not defined
+    {{ cbName }}(adm: ADM) {}
+
+{% endif %}

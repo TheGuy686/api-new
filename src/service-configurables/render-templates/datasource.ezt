@@ -1,0 +1,203 @@
+{% autoescape false %}
+import { EDataSource } from '@eezze/decorators'; 
+import { ActionDataManager as ADM, LogicChain } from '@eezze/classes';
+
+{% if type == 'mysql' %}
+    @EDataSource({
+        datasourceType: 'Mysql',
+
+        {% if secure %}
+            secure: {{ secure == 1 ? 'true' : 'false' }},
+        {% endif %}
+
+        {% if protocol %}
+            protocol: {{ (ez.matches('process\.env', protocol) ? protocol : "'" ~ protocol ~ "'") | raw }},
+        {% endif %}
+
+        {% if secureProtocol %}
+            secureProtocol: {{ (ez.matches('process\.env', secureProtocol) ? secureProtocol : "'" ~ secureProtocol ~ "'") | raw }},
+        {% endif %}
+
+        {% if host %}
+            host: {{ (ez.matches('process\.env', host) ? host : "'" ~ host ~ "'") | raw }},
+        {% endif %}
+
+        {% if localhost %}
+            localhost: {{ (ez.matches('process\.env', localhost) ? localhost : "'" ~ localhost ~ "'") | raw }},
+        {% endif %}
+
+        {% if port %}
+            port: {{ port }},
+        {% endif %}
+
+        {% if path %}
+            path: {{ (ez.matches('process\.env', path) ? path : "'" ~ path ~ "'") | raw }},
+        {% endif %}
+
+        databaseName: '{{ databaseName | underscoreCase }}',
+        user: process.env['{{ userKey  }}'],
+        password: process.env['{{ passKey }}'],
+    })
+
+{% elseif type == 'file-storage' %}
+
+    @EDataSource({
+        datasourceType: 'FileStorage',
+
+        {% if connection %}
+            connection: '{{ connection }}',
+        {% endif %}
+
+        {% if secure %}
+            secure: {{ secure == 1 ? 'true' : 'false' }},
+        {% endif %}
+
+        {% if protocol %}
+            protocol: {{ (ez.matches('process\.env', protocol) ? protocol : "'" ~ protocol ~ "'") | raw }},
+        {% endif %}
+
+        {% if secureProtocol %}
+            secureProtocol: {{ (ez.matches('process\.env', secureProtocol) ? secureProtocol : "'" ~ secureProtocol ~ "'") | raw }},
+        {% endif %}
+
+        {% if host %}
+            host: {{ (ez.matches('process\.env', host) ? host : "'" ~ host ~ "'") | raw }},
+        {% endif %}
+
+        {% if localhost %}
+            localhost: {{ (ez.matches('process\.env', localhost) ? localhost : "'" ~ localhost ~ "'") | raw }},
+        {% endif %}
+
+        {% if port %}
+            port: {{ port }},
+        {% endif %}
+
+        {% if path %}
+            path: {{ (ez.matches('process\.env', path) ? path : "'" ~ path ~ "'") | raw }},
+        {% endif %}
+
+        {% if rootPath %}
+            {% include 'action-variable-context.ezt' with { mainProp: 'rootPath', prop: rootPath } %}
+        {% endif %}
+    })
+
+{% elseif type == 'smtp-mail-service' %}
+
+    @EDataSource({
+        datasourceType: 'SmtpMailService',
+
+        {% if secure %}
+            secure: {{ secure == 1 ? 'true' : 'false' }},
+        {% endif %}
+
+        {% if protocol %}
+            protocol: {{ (ez.matches('process\.env', protocol) ? protocol : "'" ~ protocol ~ "'") | raw }},
+        {% endif %}
+
+        {% if secureProtocol %}
+            secureProtocol: {{ (ez.matches('process\.env', secureProtocol) ? secureProtocol : "'" ~ secureProtocol ~ "'") | raw }},
+        {% endif %}
+
+        {% if host %}
+            host: {{ (ez.matches('process\.env', host) ? host : "'" ~ host ~ "'") | raw }},
+        {% endif %}
+
+        {% if localhost %}
+            localhost: {{ (ez.matches('process\.env', localhost) ? localhost : "'" ~ localhost ~ "'") | raw }},
+        {% endif %}
+
+        {% if port %}
+            port: {{ port }},
+        {% endif %}
+
+        {% if path %}
+            path: {{ (ez.matches('process\.env', path) ? path : "'" ~ path ~ "'") | raw }},
+        {% endif %}
+
+        {% if userKey %}
+            user: process.env['{{ userKey }}'],
+        {% endif %}
+
+        {% if passKey %}
+            password: process.env['{{ passKey }}'],
+        {% endif %}
+    })
+
+{% elseif type == 'rest-api-integration' %}
+
+    @EDataSource({
+        datasourceType: 'rest-integration',
+
+        {% if secure %}
+            secure: {{ secure == 1 ? 'true' : 'false' }},
+        {% endif %}
+
+        {% if secure %}
+            secure: {{ secure == 1 ? 'true' : 'false' }},
+        {% endif %}
+
+        {% if protocol %}
+            protocol: {{ (ez.matches('process\.env', protocol) ? protocol : "'" ~ protocol ~ "'") | raw }},
+        {% endif %}
+
+        {% if secureProtocol %}
+            secureProtocol: {{ (ez.matches('process\.env', secureProtocol) ? secureProtocol : "'" ~ secureProtocol ~ "'") | raw }},
+        {% endif %}
+
+        {% if host %}
+            host: {{ (ez.matches('process\.env', host) ? host : "'" ~ host ~ "'") | raw }},
+        {% endif %}
+
+        {% if localhost %}
+            localhost: {{ (ez.matches('process\.env', localhost) ? localhost : "'" ~ localhost ~ "'") | raw }},
+        {% endif %}
+
+        {% if port %}
+            port: {{ port }},
+        {% endif %}
+
+        {% if path %}
+            path: {{ (ez.matches('process\.env', path) ? path : "'" ~ path ~ "'") | raw }},
+        {% endif %}
+    })
+
+{% elseif type == 'ws-api-integration' %}
+
+    @EDataSource({
+        datasourceType: 'ws-integration',
+        {% if secure %}
+            secure: {{ secure == 1 ? 'true' : 'false' }},
+        {% endif %}
+
+        {% if secure %}
+            secure: {{ secure == 1 ? 'true' : 'false' }},
+        {% endif %}
+
+        {% if protocol %}
+            protocol: {{ (ez.matches('process\.env', protocol) ? protocol : "'" ~ protocol ~ "'") | raw }},
+        {% endif %}
+
+        {% if secureProtocol %}
+            secureProtocol: {{ (ez.matches('process\.env', secureProtocol) ? secureProtocol : "'" ~ secureProtocol ~ "'") | raw }},
+        {% endif %}
+
+        {% if host %}
+            host: {{ (ez.matches('process\.env', host) ? host : "'" ~ host ~ "'") | raw }},
+        {% endif %}
+
+        {% if localhost %}
+            localhost: {{ (ez.matches('process\.env', localhost) ? localhost : "'" ~ localhost ~ "'") | raw }},
+        {% endif %}
+
+        {% if port %}
+            port: {{ port }},
+        {% endif %}
+
+        {% if path %}
+            path: {{ (ez.matches('process\.env', path) ? path : "'" ~ path ~ "'") | raw }},
+        {% endif %}
+    })
+{% endif %}
+
+export default class {{ name | pascalCase }}{}
+{% endautoescape %}

@@ -1,0 +1,80 @@
+import { WsController } from '@eezze/base';
+import {
+
+	SocketController,
+
+	{% for evt in events %}
+
+		{{ evt | pascalCase }},
+
+	{% endfor %}
+
+} from '@eezze/decorators';
+import { ActionDataManager as ADM, LogicChain } from '@eezze/classes';
+
+@SocketController({
+	server: '{{ datasource }}',
+})
+export default class {{ serviceId }}Controller extends WsController {
+
+	{% for serv in services %}
+
+		{% if serv.eventType == 'on' %}
+
+			@On({ event: '{{ serv.eventName }}' })
+
+		{% elseif serv.onConnectionSubscribe == true %}
+
+			@OnConnection()
+
+		{% elseif serv.onDisConnectionSubscribe == true %}
+
+			@OnDisconnect()
+
+		{% else %}
+
+			@{{ serv.eventType | pascalCase }}({
+
+			{% if serv.eventName is defined and serv.eventName != '' %}
+
+				event: '{{ serv.eventName }}',
+
+			{% endif %}
+
+			{% if serv.id is defined %}
+
+				id: '{{ serv.id }}',
+
+			{% endif %}
+
+			{% if serv.channel is defined %}
+
+				{% include 'action-variable-context.ezt' with { mainProp: 'channel', prop: serv.channel } %}
+
+			{% endif %}
+
+			{% if serv.connection is defined %}
+
+				{% include 'action-variable-context.ezt' with { mainProp: 'connection', prop: serv.connection } %}
+
+			{% endif %}
+
+			{% if serv.user is defined %}
+
+				{% include 'action-variable-context.ezt' with { mainProp: 'user', prop: serv.user } %}
+
+			{% endif %}
+
+			{% if serv.emitState is defined %}
+
+				emitState: {{ serv.emitState ? 'true' : 'false' }},
+
+			{% endif %}
+
+			})
+		{% endif %}
+
+		async {{ serv.name | camelCase }}() {}
+
+	{% endfor %}
+}

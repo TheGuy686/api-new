@@ -1,0 +1,6 @@
+{% macro name(relation) %}
+{% import _self as macros %}
+{% apply spaceless %}
+{{relation | replace({'-': " "}) | title | replace({' ': ""}) }}
+{% endapply %}
+{% endmacro %}

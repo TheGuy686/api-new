@@ -1,0 +1,40 @@
+# System: Ubuntu 22.04
+user: {{ ssh_user }}
+ubuntu_version: jammy
+environment_file: "/etc/environment"
+bashrc_file: "/home/{{ ssh_user }}/.bashrc"
+
+# Monitoring
+ctop_version: "0.7.3"
+
+# Docker
+# Not recommended to change; docker_data_root: "/home/{{ ssh_user }}/docker-data"
+docker_compose_version: "2.18.1"
+docker_packages:
+- docker-ce
+- docker-ce-cli
+- containerd.io
+- docker-compose-plugin
+docker_dep_packages:
+- apt-transport-https
+- ca-certificates
+- curl
+- gnupg-agent
+- software-properties-common
+- git
+- net-tools
+- unzip
+docker__default_daemon_json: |
+  "log-driver": "journald",
+  "features": {
+    "buildkit": true
+  }
+docker_symlink:
+  - name: "docker-compose"
+    path: "/usr/local/bin/docker-compose"
+    src: "/usr/libexec/docker/cli-plugins/docker-compose"
+
+# Github
+github_repo: https://{{ github_token }}@github.com/{{ github_project_url_path }}.git
+build_relative_dir: {{ build_relative_dir }} 
+github_destination_dir: /home/{{ ssh_user }}/ansible-eezze-connection

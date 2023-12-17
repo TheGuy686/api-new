@@ -1,0 +1,54 @@
+// #{{ action.name }}
+@Login({
+    {% if action.schema.authenticator %}
+        authenticator: '{{ action.schema.authenticatorLbe }}',
+    {% endif %}
+    
+    {% if action.schema.type %}
+        type: '{{ action.schema.type }}',
+    {% endif %}
+
+    {% if action.schema.secret %}
+        secret: process.env['{{ action.schema.secret }}'],
+    {% endif %}
+
+    {% if action.schema.expiresIn %}
+        expiresIn: { minutes: {{ action.schema.expiresIn }} },
+    {% endif %}
+
+    {% if action.schema.password %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'password', prop: action.schema.password } %}
+    {% endif %}
+
+    {% if action.schema.verifier %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'verifier', prop: action.schema.verifier } %}
+    {% endif %}
+
+    {% if action.schema.failOn %}
+
+        failOn: [
+
+            {% for ent in action.schema.failOn %}
+                // {{ ent.property}}
+                {
+                    {% if ent.message %}
+
+                        {% include 'action-variable-context.ezt' with { mainProp: 'message', prop: ent.message } %}
+
+                    {% endif %}
+
+                    {% if ent.condition %}
+
+                        {% include 'action-variable-context.ezt' with { mainProp: 'condition', prop: ent.condition } %}
+
+                    {% endif %}
+                },
+
+            {% endfor %}
+
+        ]
+
+    {% endif %}
+
+    {% include 'dec-finalize.ezt' with { action: action } %}
+})

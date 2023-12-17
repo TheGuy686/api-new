@@ -1,0 +1,3 @@
+
+1. Invalidate all the assigments of the inner logic chains
+2. Create a menu item based on inner logic chain (Inside a bl chain modal or a prop lc chain. This is because all the inner assignments are showing up available to scopes i.e other props that isn't valid)

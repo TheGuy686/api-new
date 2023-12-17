@@ -1,0 +1,18 @@
+name: Eezze Authentication Service
+description:
+version: 1.0
+license: Not MIT
+author: Ryan J. Cooke
+services:
+  retrieveAuthUser:
+    authenticator: ExpressAuthentication
+  getUsers:
+    authenticator: ExpressAuthentication
+  removeAuthUser:
+    authenticator: ExpressAuthentication
+  updateAccount:
+    authenticator: ExpressAuthentication
+  uploadUserAvatar:
+    authenticator: ExpressAuthentication
+  updatePassword:
+    authenticator: ExpressAuthentication

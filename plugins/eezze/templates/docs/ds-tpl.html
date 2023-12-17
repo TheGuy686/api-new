@@ -1,0 +1,222 @@
+{% import "macros.ezt" as ezm %}
+
+{% set c = { ez: ez, theme: theme } %}
+
+<html>
+<head>
+<style>
+    font-face {
+        font-family: 'inter', sans-serif;
+    }
+
+    body {
+        font-family: 'inter', sans-serif;
+    }
+</style>
+</head>
+
+<body style="font-family: 'inter', sans-serif; background-color: #fff; margin: 20px;">
+
+    <img style="height: 70px; width: auto; border: none; margin-bottom: 28px;" src="{{ projectInfo.logo }}" />
+
+    {{ ezm.h3(c, projectInfo.companyName) }}
+
+    {% if projectInfo.address is defined %}
+
+        {% for l in projectInfo.address %}
+
+            {{ ezm.info(c, l, { 'margin': '0px', 'padding': '0px' }) }}
+
+        {% endfor %}
+
+    {% endif %}
+
+    {{ ezm.space(4, c) }}
+
+    {{ ezm.h2(c, 'Data Model & Entities for: ', { 
+        'margin-bottom': '0px',
+        'padding-bottom': '0px',
+        'padding-top': '50px',
+        'margin-top': '250px',
+    }) }}
+
+    {{ ezm.h1(c, ez.capitalCase(ds.name), { 'padding-top': '0px', 'word-spacing': '0', 'font-size': '34px' }) }}
+
+    {{ ezm.info(c, 'Date of creation: ' + projectInfo.dataOfLastEdit, { 'font-size': '14px', 'font-weight': '400' }) }}
+
+    {{ ezm.pb() }}
+<!-- 
+    -- TOC START --
+
+    {INSERT-TOC-HERE}
+
+    -- TOC END -- -->
+
+    {{ ezm.pb() }}
+
+    {{ ezm.h1(c, 'Vocabulary') }}
+
+    {{ ezm.space(1, c) }}
+
+    {{ ezm.h2(c, 'Column Types') }}
+
+    {{ ezm.ul(c) }}
+
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>UID</b>: <i>UID (Unique Identifier) - An unassigned auto-incrementing integer value, often used to uniquely identify and distinguish each entity or object in a dataset.</i></span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>INT</b>: <i>Integer - A whole number that does not contain a decimal or fractional part, often used for counting or indexing.</i></span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>DECIMAL</b>: <i>Decimal - A number that can have a fractional part, allowing for more precise representation of values with non-integer components.</i></span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>STRING</b>: <i>String - A sequence of characters or text, used to represent textual data.</i></span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>TEXT</b>: <i>Text / Long Text - Typically refers to a longer sequence of characters or text data, suitable for storing paragraphs or extensive textual information.</i></span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>BOOLEAN</b>: <i>Boolean - A data type with two possible values, often representing true or false, on or off, or yes or no.</i></span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>JSON</b>: <i>JSON (JavaScript Object Notation) - A lightweight data interchange format that uses a human-readable text format to represent structured data, often used for data exchange between a server and a web application.</i></span></li>
+
+    </ul>
+
+    {{ ezm.h2(c, 'Relations') }}
+
+    {{ ezm.ul(c) }}
+
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>OTO</b>: <i><span style="color: blue !important;">One to One</span> - A "one-to-one" relationship in an Entity-Relationship Diagram (ERD) signifies that for every record in Entity A, there is a single corresponding and unique record in Entity B, and vice versa. It means that both entities are directly and exclusively related, with each record in Entity A linked to only one record in Entity B, and each record in Entity B associated with only one record in Entity A. This relationship is often used when specific attributes or information must be separated into two distinct entities, ensuring a precise and unambiguous association.</i></span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>OTM</b>: <i><span style="color: orange !important;">One to Many</span> - A "one-to-many" relationship signifies that for each record in Entity A, there can be multiple associated records in Entity B, but each record in Entity B can be related to only one record in Entity A. It represents an asymmetric connection where Entity A is the "one" side, and Entity B is the "many" side. This relationship is commonly used when one entity needs to reference or link to several related records in another entity, while each record in the second entity pertains to a single record in the first entity.</i></span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>MTO</b>: <i><span style="color: green !important;">Many to One</span> - A "many-to-one" relationship signifies that multiple records in Entity A can be associated with a single record in Entity B. In this relationship, Entity B is often referred to as the "one" side, while Entity A represents the "many" side. It is used when multiple instances in one entity need to reference or point to a common record in another entity. This relationship allows for shared connections from many records to a single, related record.</i></span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>MTM</b>: <i><span style="color: purple !important;">Many to Many</span> - A "many-to-many" relationship represents a connection where multiple records in Entity A can be related to multiple records in Entity B. It's a many-to-many association, meaning that each entity is not constrained to a one-to-one or one-to-many relationship. In this type of relationship, multiple records in Entity A can be associated with multiple records in Entity B, and vice versa. It's often used to model complex relationships where entities have a diverse and shared connection with one another. To implement such a relationship, a bridge table or junction table is typically used to manage the associations between the two entities.</i></span></li>
+
+    </ul>
+
+    {{ ezm.h2(c, 'Miscellaneous') }}
+
+    {{ ezm.ul(c) }}
+
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>MySql</b>: <i>MySQL Database (Mysql) - A widely used, open-source relational database management system (RDBMS) that stores data in structured tables and is commonly employed in web applications, business, and various software projects. MySQL is known for its performance, scalability, and ease of use, making it a popular choice for data storage and retrieval.</i></span></li>
+
+    </ul>
+
+    {{ ezm.pb() }}
+
+    {{ ezm.h1(c, 'Datasource Information') }}
+
+    {{ ezm.space(1, c) }}
+
+    {{ ezm.p(c, 'Ds Description') }}
+
+    {{ ezm.tbl(c, { 'margin-top': '10px' }) }}                        
+
+        <tbody>
+
+            <tr>
+                {{ ezm.th(c) }} Connection:</th>
+                {{ ezm.td(c) }} {{ ds.connection }}</td>
+            </tr>
+
+            <tr>
+                {{ ezm.th(c) }} Name:</th>
+                {{ ezm.td(c) }} {{ ds.name }}</td>
+            </tr>
+
+            <tr>
+                {{ ezm.th(c) }} Type:</th>
+                {{ ezm.td(c) }} {{ ds.type }}</td>
+            </tr>
+
+            <tr>
+                {{ ezm.th(c) }} Database Name:</th>
+                {{ ezm.td(c) }} {{ ds.dbName }}</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+  
+    {{ ezm.pb() }}
+
+    {{ ezm.h1(c, 'Datasource Entities') }}
+
+    {{ ezm.p(c, 'Ds Entities Description') }}
+
+    {% for e in models %}
+
+        {{ ezm.h2(c, e.name, { 'padding-bottom': '10px;', 'margin-top': '20px;' }) }}
+
+        {{ ezm.p(c, 'description') }}
+
+        {{ ezm.h4(c, 'Table Information', { 'margin-top': '0px' }) }}
+
+        {{ ezm.tbl(c, { 'margin-bottom': '38px' }) }}
+
+            <tbody>
+
+                <tr>
+                    {{ ezm.th(c) }}Table Name</th>
+
+                    {{ ezm.td(c) }}{{ ez.underscoreCase(e.name) }}</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        {{ ezm.h4(c, 'Table Fields') }}
+
+        {{ ezm.tbl(c, { 'margin-bottom': '25px' }) }}
+
+            <thead>
+
+                <tr>
+                    {{ ezm.th(c) }}Field Name</th>
+
+                    {{ ezm.th(c) }}Type</th>    
+                </tr>
+
+            </thead>                                
+
+            <tbody>
+
+                {% for p in e.properties %}
+
+                    {% set relColor = '' %}
+
+                    {% if p.relationType.code == 'OTO' %}
+
+                        {% set relColor = 'blue' %}
+                    
+                    {% elseif p.relationType.code == 'OTM' %}
+
+                        {% set relColor = 'orange' %}
+
+                    {% elseif p.relationType.code == 'MTO' %}
+
+                        {% set relColor = 'green' %}
+
+                    {% elseif p.relationType.code == 'MTM' %}
+
+                        {% set relColor = 'purple' %}
+                
+                    {% endif %}
+
+                    <tr>
+                        {{ ezm.td(c) }}{{ p.name }}</td>
+                        {{ ezm.td(c, { scope: 'row' }) }}<span>{% if p.isEntity %}{{ p.type | ucFirst }} {{ ezm.info(
+                            c,
+                            ' <b><i>[' + p.relationType.code + ']</i></b>',
+                            { 
+                                color: relColor,
+                                'font-style': 'italic',
+                            }
+                        ) }}{% elseif p.isTransient %}{{ p.type | ucFirst }} {{ ezm.info(
+                            c,
+                            ' <b><i>[IS TRANSIENT]</i></b>',
+                            { color: 'blue' }
+                        )
+                        }}{% else %}{{ p.type | upper }}{% endif %}</span></td>
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% endfor %}
+
+</body>
+</html>

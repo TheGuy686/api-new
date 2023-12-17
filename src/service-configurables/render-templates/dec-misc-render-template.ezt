@@ -1,0 +1,12 @@
+// #{{ action.name }}
+@RenderTemplate({
+    {% if action.schema.template %}
+        template: '{{ action.schema.templateName }}',
+    {% endif %}
+
+    {% if action.schema.templateVars %}
+        {% include 'action-variable-context-obj.ezt' with { mainProp: 'templateVars', prop: action.schema.templateVars } %}
+    {% endif %}
+
+    {% include 'dec-finalize.ezt' with { action: action } %}
+})

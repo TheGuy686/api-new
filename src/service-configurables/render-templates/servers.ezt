@@ -1,0 +1,217 @@
+{% if type == 'rest-service' %}
+    import { ExpressServer } from '@eezze/decorators';
+    {% if hasLogger %}
+        import Logger from '@eezze/classes/Logger';
+        import ADM from '@eezze/classes/ActionDataManager';
+    {% endif %}
+
+    @ExpressServer({
+        connection: '{{ connection }}',
+        {% if hasLogger %}
+            logger: new Logger('{{ name | underscoreCase }}', (adm: ADM) => {
+                if (!(adm instanceof ADM)) {
+                    console.trace('adm was not an instance of ADM');
+                    throw `Not an adm instance`;
+                }
+
+                const prId = adm.request.requestBody?.projectId ?? adm?.request.urlParams?.projectId;
+
+                if (!prId) return {};
+
+                return {
+                    host: `{{ loggerProtocol }}://{{ loggerHost }}`,
+                    {% if loggerPort %}
+                        port: {{ loggerPort }},
+                    {% endif %}
+                    {% if loggerPath %}
+                        path: '{{ loggerPath }}',
+                    {% endif %}
+                    projectId: prId,
+                };
+            }),
+        {% else %}
+            logger: new Logger('{{ name | underscoreCase }}'),
+        {% endif %}
+
+        {% if secure %}
+            secure: {{ secure == 1 ? 'true' : 'false' }},
+        {% endif %}
+
+        {% if protocol %}
+            protocol: '{{ protocol }}',
+        {% endif %}
+
+        {% if secureProtocol %}
+            secureProtocol: '{{ secureProtocol }}',
+        {% endif %}
+
+        {% if host %}
+            host: '{{ host }}',
+        {% endif %}
+
+        {% if localhost %}
+            localhost: '{{ localhost }}',
+        {% endif %}
+
+        {% if port %}
+            port: {{ port }},
+        {% endif %}
+
+        {% if path %}
+            path: '{{ path }}',
+        {% endif %}
+
+        {% if storeState %}
+            storeState: '{{ storeState }}',
+        {% endif %}
+
+        {% if storeStateInterval %}
+            storeStateInterval: '{{ storeStateInterval }}',
+        {% endif %}
+
+        {% if healthCheckPort %}
+            healthCheckPort: {{ healthCheckPort }},
+        {% endif %}
+    })
+    export default class {{ name | pascalCase }} {}
+
+{% elseif type == 'ws-service' %}
+    import { WSServer } from '@eezze/decorators';
+    import Logger from '@eezze/classes/Logger';
+    {% if connectionId or hasLogger %}
+        import { ActionDataManager as ADM, LogicChain } from '@eezze/classes';
+    {% endif %}
+    
+    @WSServer({
+        connection: '{{ connection }}',
+
+        {% if authenticator or hasLogger %}
+            authenticator: '{{ authenticator }}',
+        {% endif %}
+
+        {% if hasLogger %}
+            logger: new Logger('{{ name | underscoreCase }}', (adm: ADM) => {
+                if (!(adm instanceof ADM)) {
+                    console.trace('adm was not an instance of ADM');
+                    throw `Not an adm instance`;
+                }
+
+                const prId = adm.request.requestBody?.projectId ?? adm?.request.urlParams?.projectId;
+
+                if (!prId) return {};
+
+                return {
+                    host: `{{ loggerProtocol }}://{{ loggerHost }}`,
+                    {% if loggerPort %}
+                        port: {{ loggerPort }},
+                    {% endif %}
+                    {% if loggerPath %}
+                        path: '{{ loggerPath }}',
+                    {% endif %}
+                    projectId: prId,
+                };
+            }),
+        {% else %}
+            logger: new Logger('{{ name | underscoreCase }}'),
+        {% endif %}
+
+        {% if connectionId %}
+            {% include 'action-variable-context.ezt' with { mainProp: 'connectionId', prop: connectionId, isAlwaysObject: false } %}
+        {% endif %}
+
+        {% if secure %}
+            secure: {{ secure == 1 ? 'true' : 'false' }},
+        {% endif %}
+
+        {% if protocol %}
+            protocol: '{{ protocol }}',
+        {% endif %}
+
+        {% if secureProtocol %}
+            secureProtocol: '{{ secureProtocol }}',
+        {% endif %}
+
+        {% if host %}
+            host: '{{ host }}',
+        {% endif %}
+
+        {% if localhost %}
+            localhost: '{{ localhost }}',
+        {% endif %}
+
+        {% if port %}
+            port: {{ port }},
+        {% endif %}
+
+        {% if path %}
+            path: '{{ path }}',
+        {% endif %}
+
+        {% if storeState %}
+            storeState: '{{ storeState }}',
+        {% endif %}
+
+        {% if storeStateInterval %}
+            storeStateInterval: '{{ storeStateInterval }}',
+        {% endif %}
+
+        {% if healthCheckPort %}
+            healthCheckPort: {{ healthCheckPort }},
+        {% endif %}
+    })
+    export default class {{ name | pascalCase }} {}
+
+{% elseif type == 'eezze-logger' %}
+    import { WSLoggingServer } from '@eezze/decorators';
+    import Logger from '@eezze/classes/Logger';
+
+    {#% if hasLogger %#}
+        import ADM from '@eezze/classes/ActionDataManager';
+    {#% endif %#}
+
+    @WSLoggingServer({
+        logger: new Logger('{{ name | underscoreCase }}'),
+        connection: '{{ connection }}',
+        {% if secure %}
+            secure: {{ secure == 1 ? 'true' : 'false' }},
+        {% endif %}
+
+        {% if protocol %}
+            protocol: '{{ protocol }}',
+        {% endif %}
+
+        {% if secureProtocol %}
+            secureProtocol: '{{ secureProtocol }}',
+        {% endif %}
+
+        {% if host %}
+            host: '{{ host }}',
+        {% endif %}
+
+        {% if localhost %}
+            localhost: '{{ localhost }}',
+        {% endif %}
+
+        {% if port %}
+            port: {{ port }},
+        {% endif %}
+
+        {% if path %}
+            path: '{{ path }}',
+        {% endif %}
+
+        {% if storeState %}
+            storeState: '{{ storeState }}',
+        {% endif %}
+
+        {% if storeStateInterval %}
+            storeStateInterval: '{{ storeStateInterval }}',
+        {% endif %}
+
+        {% if healthCheckPort %}
+            healthCheckPort: {{ healthCheckPort }},
+        {% endif %}
+    })
+    export default class {{ name | pascalCase }} {}
+
+{% endif %}

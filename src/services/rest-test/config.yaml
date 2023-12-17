@@ -1,0 +1,12 @@
+name:  Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  createTest:
+    authenticator: ExpressAuthentication
+  promiseIssue2:
+    authenticator: ExpressAuthentication
+  testCreatePackage:
+    authenticator: ExpressAuthentication

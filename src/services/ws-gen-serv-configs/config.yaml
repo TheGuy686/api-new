@@ -1,0 +1,12 @@
+name:  Generate Connections Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  generateServConfigCreateUpdate:
+    authenticator: ExpressAuthentication
+  generateServConfigSaveTplFile:
+    authenticator: ExpressAuthentication
+  generateServConfigDelete:
+    authenticator: ExpressAuthentication

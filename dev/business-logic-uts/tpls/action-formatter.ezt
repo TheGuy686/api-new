@@ -1,0 +1,85 @@
+// {{ ma.name | raw }} - {{ li.name | raw }}
+{% if li.logic.subtype == 'string-interpolate' %}
+    {{ lcAlias | default('ilc') }}.string.format(
+        `{{ li.logic.raw | raw}}`,
+        {% if li.logic.variables | length > 0 %}
+            [
+                {% for vr in li.logic.variables %}
+                    {{ vr.value }},
+                {% endfor %}
+            ]
+        {% endif %}
+    );
+
+{% elseif li.logic.subtype == 'date-interpolate' %}
+    {% if li.logic.format == 'custom' %}
+        {{ lcAlias | default('ilc') }}.date({{ li.logic.source }}).format(
+            `{{ li.logic.raw | raw }}`,
+            {% if li.logic.variables | length > 0 %}
+                [
+                    {% for vr in li.logic.variables %}
+                        {% if vr.value == '' %}
+                            {{ lcAlias | default('ilc') }}.current.format('{{ vr.format.value }}'),
+                        {% else %}
+                            {{ vr.value }},
+                        {% endif %}
+                    {% endfor %}
+                ]
+            {% endif %}
+        );
+
+    {% else %}
+        {{ lcAlias | default('ilc') }}.date({{ li.logic.source }}).format(
+            `{{ li.logic.format | raw }}`,
+            {% if li.logic.variables | length > 0 %}
+                [
+                    {% for vr in li.logic.variables %}
+                        {% if vr.format.value == '' %}
+                            {{ lcAlias | default('ilc') }}.current.format('{{ vr.format.value }}')
+                        {% else %}
+                            {{ vr.value }},
+                        {% endif %}
+                    {% endfor %}
+                ]
+            {% endif %}
+        );
+
+    {% endif %}
+
+{% elseif li.logic.subtype == 'number' %}
+    {{ lcAlias | default('ilc') }}.number.format(`{{ ez.escapeString(li.logic.raw) | raw }}`,
+        {% if li.logic.variables | length > 0 %}
+            [
+                {% for vr in li.logic.variables %}
+                    {% if vr.format.value == '' %}
+                        {{ lcAlias | default('ilc') }}.current.format('{{ vr.format.value }}')
+                    {% else %}
+                        {{ vr.value }},
+                    {% endif %}
+                {% endfor %}
+            ]
+        {% endif %}
+    );
+
+{% elseif li.logic.subtype == 'object' %}
+    {{ lcAlias | default('ilc') }}.object({
+        {% if li.logic.raw | length > 0 %}
+            {% for prop in li.logic.raw %}
+                {% if prop.data | length > 0 %}
+
+                    '{{ prop.key }}': {
+                        {% include 'action-format-object-prop.ezt' with { prop: prop } %}
+                    },
+
+                {% else %}
+
+                    '{{ prop.key }}': {{ prop.value }},
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endif %}
+    });
+
+{% endif %}

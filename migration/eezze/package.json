@@ -1,0 +1,14 @@
+{
+   "name": "eezze",
+   "version": "0.0.1",
+   "description": "Database migrations with TypeORM.",
+   "type": "commonjs",
+   "dependencies": {
+      "typeorm": "^0.3.12",
+      "mysql2": "^2.2.5"
+   },
+   "scripts": {
+      "create-migration": "npx typeorm migration:generate ./src/migration/eezze -d ./src/datasource.js -o -p",
+      "run-migration": "npx typeorm migration:run -d ./src/datasource.js"
+   }
+}

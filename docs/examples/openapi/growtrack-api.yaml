@@ -1,0 +1,2729 @@
+openapi: 3.0.1
+info:
+  title: grow-track
+  version: 0.3.0
+  description: "Grow Track is a cannabis farm management system"
+  termsOfService: "http://growtrack.io/tos"
+  contact:
+    email: "rolf@multithreadlabs.io"
+servers:
+- url: https://api.growtrack.io/
+  variables:
+    basePath:
+      default: /
+x-amazon-apigateway-request-validators:
+  all:
+    validateRequestBody: true
+    validateRequestParameters: true
+  params:
+    validateRequestBody: false
+    validateRequestParameters: true
+  body:
+    validateRequestBody: true
+    validateRequestParameters: false
+  none:
+    validateRequestBody: false
+    validateRequestParameters: false
+
+paths:
+  /identity/authenticate:
+    post:
+      operationId: identityAuthenticate
+      description: Authenticate user (either login, or continue session)
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Authenticate'
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${IdentityFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Identity
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /identity/register:
+    post:
+      operationId: identityRegister
+      description: Register new Business user
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${IdentityFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Identity
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /identity/reset:
+    post:
+      operationId: identityReset
+      description: 1) To request, only send username, 2) to finalize reset; send username, password and confirmation code.
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reset'
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${IdentityFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Identity
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /user:
+    post:
+      operationId: postUser
+      description: update a user
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUser'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UserFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - User
+    put:
+      operationId: putUser
+      description: Create an Organization user
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutUser'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UserFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - User
+    delete:
+      operationId: deleteUser
+      description: Delete a user
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/user_id'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UserFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - User
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /user/all:
+    get:
+      operationId: getUserAll
+      description: get all users for Organization with this farm_id
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UserFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - User
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /farm/notifications:
+    get:
+      operationId: getNotifications
+      description: Retrieve event notifications for this Farm, optionally filter per lot_id
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/farm_id'
+       - $ref: '#/components/parameters/lot_id'
+       - $ref: '#/components/parameters/batch_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FarmFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Farm
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /farm/dashboard:
+    get:
+      operationId: getDashboard
+      description: Initializes Lot, Batches, Events, and statistics for a particular Farm
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/farm_id'
+       - $ref: '#/components/parameters/lot_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FarmFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Farm
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /farm/init:
+    get:
+      operationId: initFarm
+      description: get Basic objects from Farm
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/farm_id'
+       - $ref: '#/components/parameters/types'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FarmFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Farm
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /farm/report:
+    get:
+      operationId: getReport
+      description: get Report generated from Batches and Organization data
+      parameters:
+        - $ref: '#/components/parameters/farm_id'
+        - $ref: '#/components/parameters/batchIds'
+      security:
+        - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FarmFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Farm
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /eventtype:
+    get:
+      operationId: getEventType
+      description: get EventType details by ID
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/event_type_id'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${EventTypeFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - EventType
+    put:
+      operationId: putEventType
+      description: create a new EventType
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutEventType'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${EventTypeFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - EventType
+    post:
+      operationId: postEventType
+      description: update an EventType
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostEventType'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${EventTypeFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - EventType
+    delete:
+      operationId: deleteEventType
+      description: Delete an EventType
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/event_type_id'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${EventTypeFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - EventType
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /batch:
+    get:
+      operationId: getBatch
+      description: get Batch details by ID
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/batch_id'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${BatchFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Batch
+    put:
+      operationId: putBatch
+      description: create a new batch
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutBatch'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${BatchFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Batch
+    post:
+      operationId: postBatch
+      description: update a Batch
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostBatch'
+      security:
+      - cognitoUserPoolAuthorizer: []        
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${BatchFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Batch
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /batch/all:
+    get:
+      operationId: getBatchAll
+      description: get All Batches by farm_id
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/farm_id'
+       - $ref: '#/components/parameters/lot_id'
+       - $ref: '#/components/parameters/includeDeleted'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${BatchFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Batch
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /lot:
+    get:
+      operationId: getLot
+      description: get lot details by ID
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/lot_id'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LotFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Lot
+    put:
+      operationId: putLot
+      description: create a new Lot
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutLot'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LotFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Lot
+    post:
+      operationId: postLot
+      description: update a Lot
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostLot'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LotFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Lot
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /plantphase/all:
+    get:
+      operationId: getPlantPhaseAll
+      description: get All plant phases
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/includeDeleted'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantPhaseFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant-phase
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /plantgenetic:
+    get:
+      operationId: getPlantGenetic
+      description: get plant genetics
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/plant_genetic_id'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantGeneticFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant-genetics
+    put:
+      operationId: putPlantGenetics
+      description: create a new plant genetics
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutPlantGenetics'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantGeneticFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant-genetics
+    post:
+      operationId: postPlantGenetics
+      description: update a Plant-genetics
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPlantGenetics'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantGeneticFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant-genetics
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /plantgenetic/all:
+    get:
+      operationId: getPlantGeneticAll
+      description: get All plant genetics
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/includeDeleted'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantGeneticFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant-genetics
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /plantphase:
+    get:
+      operationId: getPlantPhase
+      description: get plant phase
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/plant_phase_id'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantPhaseFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant-phase
+    put:
+      operationId: putPlantPhase
+      description: create a new plant phase
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlantPhase'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantPhaseFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant-phase
+    post:
+      operationId: postPlantPhase
+      description: update a Plant Phase
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlantPhase'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantPhaseFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant-phase
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /plant:
+    get:
+      operationId: getPlant
+      description: get plant
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/plant_id'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant
+    post:
+      operationId: postPlant
+      description: update a Plant
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPlant'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant
+    put:
+      operationId: putPlant
+      description: create a new plant
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutPlant'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant
+    delete:
+      operationId: deletePlant
+      description: soft delete a plant
+      parameters:
+      - $ref: '#/components/parameters/correlationIdHeader'
+      - $ref: '#/components/parameters/debugHeader'
+      - $ref: '#/components/parameters/plant_id'
+      - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /plant/all:
+    get:
+      operationId: getPlantAll
+      description: get All plants 
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/includeDeleted'
+       - $ref: '#/components/parameters/farm_id'
+       - $ref: '#/components/parameters/lot_id'
+       - $ref: '#/components/parameters/batch_id'
+       - $ref: '#/components/parameters/pageSize'
+       - $ref: '#/components/parameters/page'
+       - $ref: '#/components/parameters/code'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PlantFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Plant
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /organization:
+    get:
+      operationId: getOrganization
+      description: get organization
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/organization_id'
+       - $ref: '#/components/parameters/farm_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${OrganizationFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Organization
+    post:
+      operationId: postOrganization
+      description: update an Organization
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostOrganization'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${OrganizationFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Organization
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /event:
+    put:
+      operationId: putEvent
+      description: create a new Event
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutEvent'
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${EventFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Event
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /event/all:
+    get:
+      operationId: getEventAll
+      description: get All events 
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+       - $ref: '#/components/parameters/includeDeleted'
+       - $ref: '#/components/parameters/farm_id'
+       - $ref: '#/components/parameters/lot_id'
+       - $ref: '#/components/parameters/batch_id'
+       - $ref: '#/components/parameters/plant_id'
+      security:
+      - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-request-validator: ${RequestValidator}
+      x-amazon-apigateway-integration:
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${EventFunction.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis:
+          Ref: APITimeout
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Event
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-correlation-id,x-debug-level'"
+              method.response.header.Access-Control-Allow-Origin: 
+                Fn::Sub: "'${CORS}'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+components:
+  parameters:
+    role_id:
+      description: Role identifier
+      in: query
+      name: role_id
+      schema:
+        type: string
+    user_id:
+      description: User identifier
+      in: query
+      name: user_id
+      schema:
+        type: string
+    batch_id:
+      description: Batch identifier
+      in: query
+      name: batch_id
+      schema:
+        type: string
+    plant_genetic_id:
+      description: Plant genetic identifier
+      in: query
+      name: plant_genetic_id
+      schema:
+        type: string
+    plant_phase_id:
+      description: Plant phase identifier
+      in: query
+      name: plant_phase_id
+      schema:
+        type: string
+    plant_id:
+      description: Plant identifier
+      in: query
+      name: plant_id
+      schema:
+        type: string
+    organization_id:
+      description: Organization identifier
+      in: query
+      name: organization_id
+      schema:
+        type: string
+    farm_id:
+      description: Farm identifier
+      in: query
+      name: farm_id
+      schema:
+        type: string
+      required: true
+    lot_id:
+      description: Lot identifier
+      in: query
+      name: lot_id
+      schema:
+        type: string
+    event_id:
+      description: Event identifier
+      in: query
+      name: event_id
+      schema:
+        type: string
+    event_type_id:
+      description: EventType identifier
+      in: query
+      name: event_type_id
+      schema:
+        type: string
+    pageSize:
+      description: Page size, how many records are retrieved in one call.
+      in: query
+      name: pageSize
+      schema:
+        type: number
+        enum: [10, 50, 100]
+      example: 10
+    page:
+      description: Page number, which page gets returned.
+      in: query
+      name: page
+      schema:
+        type: number
+      example: 10
+    code:
+      description: Unique plant code in a Batch of plants. 
+      in: query
+      name: code
+      schema:
+        type: string
+      example: "010"
+    batchIds:
+      description: Batch ids
+      in: query
+      name: batchIds
+      schema:
+        type: array
+        items: 
+          type: string
+    includeDeleted:
+      description: Include deleted items
+      in: query
+      name: includeDeleted
+      schema:
+        type: boolean
+    correlationIdHeader:
+      description: Unique string that can trace execution across services
+      in: header
+      name: x-correlation-id
+      schema:
+        type: string
+      required: true
+    x-amz-invocation-type:
+      description: Sets async function execution
+      in: header
+      name: x-amz-invocation-type
+      schema:
+        type: string
+      example: Event
+      required: true
+    debugHeader:
+      description: Force debug level for this execution run
+      in: header
+      name: x-debug-level
+      schema:
+        type: string
+        enum: [error, debug, info]  
+      example: debug
+      required: false
+    types:
+      description: Comma separated string with any of these; events,plant-genetics,plant-phases,batches,lots,plants
+      in: query
+      name: types
+      schema:
+          type: string
+  schemas:
+    Role:
+      type: object
+      title: Role
+      required:
+        - ID
+        - name
+        - title
+        - description
+        - organization_id
+        - role
+        - user
+      properties:
+        ID:
+          type: string
+          example: "1"
+        name:
+          type: string
+          enum: [ADMIN, STAFF, SUPERUSER]
+        title:
+          type: string
+          example: "Administrator"
+        description:
+          type: string
+          example: "Administrator role has full access to edit every aspect of the business"
+        creation_date:
+          type: string
+          example: "2019-03-15T12:33:33Z"
+        modify_date:
+          type: string
+          example: "2019-03-15T12:33:33Z"
+        organization_id:
+          type: string
+          example: "org_2891b9c8-6192-4313-be54-f6e09340466b"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        role:
+          type: string
+          example: "rwud"
+        user:
+          type: string
+          example: "rwud"
+    Batch:
+      title: Batch
+      type: object
+      required:
+        - title
+        - code
+        - lot_id
+        - plant_phase_id
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "Batch 22"
+        code:
+          type: string
+          example: ""
+        lot_id:
+          type: string
+          example: ""
+        plant_phase_id:
+          type: string
+          example: ""
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+        total_removed: 
+          type: number
+        total_harvested:
+          type: number
+        yield:
+          type: number
+        harvest_date_start:
+          type: string
+        harvest_date_end:
+          type: string
+        batch_date_start:
+          type: string
+    PostBatch:
+      title: Batch post object
+      type: object
+      required:
+        - batch_id
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "Batch 22"
+        code:
+          type: string
+          example: ""
+        lot_id:
+          type: string
+          example: "lot_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        plant_phase_id:
+          type: string
+          example: "pph_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        batch_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    PutBatch:
+      title: Batch Put Object
+      type: object
+      required:
+        - title
+        - code
+        - lot_id
+        - plant_phase_id
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "Batch 22"
+        code:
+          type: string
+          example: ""
+        lot_id:
+          type: string
+          example: "lot_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        plant_phase_id:
+          type: string
+          example: "pph_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+
+    Lot:
+      title: Lot
+      type: object
+      required:
+        - title
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "2020"
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        start_date:
+          type: string
+          example: ""
+          description: will be set when first plant of a batch is added
+        end_date:
+          type: string
+          example: ""
+    PutLot:
+      title: Lot put object
+      type: object
+      required:
+        - title
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "2020"
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    PostLot:
+      title: Lot put object
+      type: object
+      required:
+        - title
+        - lot_id
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "2020"
+        lot_id:
+          type: string
+          example: "lot_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"  
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    PutPlantGenetics:
+      title: PlantGenetics
+      type: object
+      required:
+        - title
+        - code
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "Genetic 1"
+        code:
+          type: string
+          example: "22"
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    PostPlantGenetics:
+      title: PlantGenetics
+      type: object
+      required:
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "Genetic 1"
+        code:
+          type: string
+          example: "22"
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    PlantPhase:
+      title: PlantPhase
+      type: object
+      required:
+        - title
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "Plant phase 1"
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    Event:
+      title: Event
+      type: object
+      required:
+        - title
+        - event_name
+        - eventType
+        - farm_id
+        - batch_id
+        - lot_id
+      properties:
+        title:
+          type: string
+          example: "Reintegrate"
+        value:
+          anyOf:
+            - type: string
+            - type: number
+          example: 9
+          description: the value of this event, optional.
+        other_reason:
+          type: string
+          example: "some reason"
+        event_name:
+          type: string
+          enum:
+            - plant
+            - batch
+          example: "plant"
+          description: type of the event, either batch or plant
+        eventType:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "Reintegrated"
+            event_type_id:
+              type: string
+              example: "evt_1f201752-a158-4ae7-93f3-0eed8e834c73"
+        has_file:
+          type: boolean
+          example: false
+          description: if set to true, requires image attribute to be set
+        image:
+          type: string
+          description: string representation of jpg file
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+        batch_id:
+          type: string
+          example: "bat_a48242c3-e45f-4afa-8eaa-e18b4da020b6"
+        lot_id:
+          type: string
+          example: "lot_493bec33-be7d-477e-9df4-b8807b02bb06"
+        plantIds:
+          type: array
+          items: 
+            type: string
+          example: ["pln_b2463115-9e9c-47cc-962c-ba1d1db2ab60", "pln_760c65d4-feb6-4eea-ba2a-f75ebda9a9a7", "pln_887e3fe2-469f-4885-8d5c-84bfcfc1f708"]
+    PutEvent:
+      title: Event for put
+      type: object
+      required:
+        - farm_id
+        - batch_id
+        - lot_id
+      properties:
+        value:
+          anyOf:
+            - type: string
+            - type: number
+          example: 9
+          description: the value of this event, optional.
+        other_reason:
+          type: string
+          example: "some reason"
+        event_type_id:
+          type: string
+          example: "evt_1f201752-a158-4ae7-93f3-0eed8e834c73"
+        has_file:
+          type: boolean
+          example: false
+          description: if set to true, requires image attribute to be set
+        image:
+          type: string
+          description: string representation of jpg file, bulk events do not support image
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+        batch_id:
+          type: string
+          example: "bat_a48242c3-e45f-4afa-8eaa-e18b4da020b6"
+        lot_id:
+          type: string
+          example: "lot_a48242c3-e45f-4afa-8eaa-e18b4da020b6"
+        connectionId:
+          type: string
+          example: alblWdamoAMCF9g=
+        executionId:
+          type: string
+          example: a48242c3-e45f-4afa-8eaa-e18b4da020b6
+        plantIds:
+          type: array
+          items: 
+            type: string
+          example: ["pln_b2463115-9e9c-47cc-962c-ba1d1db2ab60", "pln_760c65d4-feb6-4eea-ba2a-f75ebda9a9a7", "pln_887e3fe2-469f-4885-8d5c-84bfcfc1f708"]
+    PutEventType:
+      title: EventType for put
+      type: object
+      required:
+        - title
+        - value_data_type
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "event 1"
+        value_data_type:
+          type: string
+          enum:
+            - "float"
+            - "integer"
+            - "string"
+          example: "float"
+        is_dynamic:
+          type: boolean
+          example: true
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    PostEventType:
+      title: EventType for post
+      type: object
+      required:
+        - title
+        - value_data_type
+        - farm_id
+        - event_type_id
+      properties:
+        title:
+          type: string
+          example: "event 1"
+        value_data_type:
+          type: string
+          enum:
+            - "float"
+            - "integer"
+            - "string"
+          example: "float"
+        is_dynamic:
+          type: boolean
+          example: true
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        event_type_id:
+          type: string
+          example: "evt_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    Organization:
+      title: Organization
+      type: object
+      required:
+        - title
+        - add_line_1
+        - district
+        - state_province
+        - country
+        - postal_code
+        - email
+        - website
+        - contact_number
+        - tax_id
+        - company_registration_number
+      properties:
+        title:
+          type: string
+          example: "Full name"
+        add_line_1:
+          type: string
+          example: "address"
+        add_line_2:
+          type: string
+          example: ""
+        district:
+          type: string
+          example: "address"
+        state_province:
+          type: string
+          example: ""
+        country:
+          type: string
+          example: "address"
+        postal_code:
+          type: string
+          example: ""
+        email:
+          type: string
+          example: ""
+        website:
+          type: string
+          example: "address"
+        contact_number:
+          type: string
+          example: ""
+        tax_id:
+          type: string
+          example: ""
+        company_registration_number:
+          type: string
+          example: ""
+    PostOrganization:
+      title: Organization post object
+      type: object
+      required:
+        - farm_id
+      properties:
+        title:
+          type: string
+          example: "Full name"
+        add_line_1:
+          type: string
+          example: "address"
+        add_line_2:
+          type: string
+          example: ""
+        district:
+          type: string
+          example: "address"
+        state_province:
+          type: string
+          example: ""
+        country:
+          type: string
+          example: "address"
+        postal_code:
+          type: string
+          example: ""
+        email:
+          type: string
+          example: ""
+        website:
+          type: string
+          example: "address"
+        contact_number:
+          type: string
+          example: ""
+        tax_id:
+          type: string
+          example: ""
+        logo:
+          type: string
+          example: ""
+        company_registration_number:
+          type: string
+          example: ""
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    Plant:
+      title: Plant
+      type: object
+      required:
+        - lot
+        - batch
+        - plantGenetic
+        - plantPhase
+        - farm_id
+        - quantity
+      properties:
+        quantity:
+          type: number
+          example: 10
+        lot:
+          type: object
+          properties:
+            title:
+              type: string
+              example: ""
+            lot_id:
+              type: string
+              example: ""
+        batch:
+          type: object
+          properties:
+            title:
+              type: string
+              example: ""
+            batch_id:
+              type: string
+              example: ""
+        plantGenetic:
+          type: object
+          properties:
+            title:
+              type: string
+              example: ""
+            plant_genetic_id:
+              type: string
+              example: ""
+        plantPhase:
+          type: object
+          properties:
+            title:
+              type: string
+              example: ""
+            plant_phase_id:
+              type: string
+              example: ""
+        yield:
+          type: number
+          example: 11
+        is_nursery:
+          type: boolean
+          example: false  
+        is_removed:
+          type: boolean
+          example: false 
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+        plant_id:
+          type: string
+          example: ""
+    PutPlant:
+      title: Plant put object
+      type: object
+      required:
+        - batch_id
+        - plant_genetic_id
+        - plant_phase_id
+        - farm_id
+        - quantity
+      properties:
+        quantity:
+          type: string
+          example: "10"
+        batch_id:
+          type: string
+          example: "bat_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        plant_genetic_id:
+          type: string
+          example: "pge_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        plant_phase_id:
+          type: string
+          example: "pph_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    PostPlant:
+      title: Plant post object
+      type: object
+      required:
+        - plant_id
+        - farm_id
+      properties:
+        yield:
+          type: string
+          example: "10.000"
+        farm_id:
+          type: string
+          example: "frm_72895e23-6df9-46ad-a52f-1da6f53789d7" 
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" 
+        is_nursery:
+          type: boolean
+          example: false  
+        is_removed:
+          type: boolean
+          example: false
+        plant_id:
+          type: string
+          example: "pln_72895e23-6df9-46ad-a52f-1da6f53789d7"
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    Authenticate:
+      title: Authenticate
+      type: object
+      properties:
+        username:
+          type: string
+          example: "userTest"
+        password:
+          type: string
+          example: "123$SFF22l"
+        refresh_token:
+          type: string
+          example: "sdfasjdfsfj43242342fsalkfjflksak23424"
+    Register:
+      title: Register
+      type: object
+      description: Only an Organization can register, this User is its representative
+      required:
+        - email
+        - password
+        - username
+        - title
+      properties:
+        title:
+          type: string
+          example: "Organization title"
+        email:
+          type: string
+          example: "user@business.com"
+          pattern: "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+        password:
+          type: string
+          example: "Password123!"
+        username:
+          type: string
+          example: "testUsername"
+    Reset:
+      title: Reset
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+          example: "userTest"
+        confirmation_code:
+          type: string
+          example: "234553"
+        password:
+          type: string
+          example: "testPassword123!"
+    User:
+      type: object
+      title: User
+      required:
+        - username
+        - first_name
+        - last_name
+        - password
+      properties:
+        username:
+          type: string
+          example: "rolf-streefkerk"
+        password:
+          type: string
+          example: "aasdad"
+        first_name:
+          type: string
+          example: "Rolf"
+        last_name:
+          type: string
+          example: "Streefkerk"
+        role_name:
+          type: string
+          example: "ADMIN"
+    PostUser:
+      type: object
+      title: User post object
+      required:
+        - farm_id
+        - user_id
+      properties:
+        username:
+          type: string
+          example: "rolf-streefkerk"
+        password:
+          type: string
+          example: "aasdad"
+        first_name:
+          type: string
+          example: "Rolf"
+        last_name:
+          type: string
+          example: "Streefkerk"
+        role:
+          type: string
+          example: "ADMIN"
+        user_id:
+          type: string
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        farm_id:
+          type: string
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    PutUser:
+      type: object
+      title: User put object
+      required:
+        - username
+        - first_name
+        - last_name
+        - role
+        - farm_id
+        - password
+      properties:
+        username:
+          type: string
+          example: "rolf-streefkerk"
+        password:
+          type: string
+          example: "aasdad"
+        first_name:
+          type: string
+          example: "Rolf"
+        last_name:
+          type: string
+          example: "Streefkerk"
+        role:
+          type: string
+          example: "ADMIN"
+        farm_id:
+          type: string
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        organization_id:
+          type: string
+          pattern: "[a-z]{3}_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"  
+
+    Lambda:
+      type: object
+      title: Lambda
+      required:
+        - isBase64Encoded
+        - statusCode
+        - body
+      properties:
+        isBase64Encoded:
+          type: boolean
+          example: false
+        statusCode:
+          type: number
+          example: 200
+        body:
+          type: object
+    Empty:
+      title: "Empty Schema"
+      type: "object"
+  responses:
+    404NotFound:
+      description: The specified resource was not found.
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Max-Age:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: string
+                example: "404"
+              message:
+                type: string
+                example: The specified resource was not found
+    500APIError:
+      description: Unexpected error
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Max-Age:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: string
+                example: "500"
+              message:
+                type: string
+                example: This is an error
+    user:
+      description: User
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    lambda:
+      description: Lambda
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Max-Age:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Lambda'
+    cors:
+      description: "200 response"
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Max-Age:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Empty"
+  securitySchemes:
+    cognitoUserPoolAuthorizer:
+      type: "apiKey"
+      name: "Authorization"
+      in: "header"
+      x-amazon-apigateway-authtype: "cognito_user_pools"
+      x-amazon-apigateway-authorizer:
+        providerARNs:
+        - Ref: CognitoUserPoolARN
+        type: "cognito_user_pools"
+tags:
+  - name: Identity
+    description: Identity management
+  - name: User
+    description: User data
+  - name: Batch
+    description: Batch data
+  - name: Lot
+    description: Lot data
+  - name: Event
+    description: Event data
+  - name: Plant
+    description: Plant data
+  - name: Organization
+    description: Organization data
+  - name: Plant-phase
+    description: Plant phase data
+  - name: Plant-genetics
+    description: Plant genetic data
+  - name: EventType
+    description: Event types
+  - name: Farm
+    description: Farm initialization API's

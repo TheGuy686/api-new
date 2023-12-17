@@ -1,0 +1,16 @@
+// #{{ action.name }}
+@FileRead({
+    {% if action.schema.datasource %}
+        datasource: '{{ action.schema.datasource }}',
+    {% endif %}
+
+    {% if action.schema.folder %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'folder', prop: action.schema.folder } %}
+    {% endif %}
+
+    {% if action.schema.fileName %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'fileName', prop: action.schema.fileName } %}
+    {% endif %}
+
+    {% include 'dec-finalize.ezt' with { action: action } %}
+})

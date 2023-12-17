@@ -1,0 +1,7 @@
+import { BaseService } from '@eezze/base';
+import { EService } from '@eezze/decorators';
+
+@EService()
+export default class {{ OperationId }}Service extends BaseService {
+    async run() {return await this.action.run()}
+}

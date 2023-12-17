@@ -1,0 +1,31 @@
+import BaseActionInput from '@eezze/base/BaseActionInput';
+import { ActionDataManager } from '@eezze/classes';
+import { EActionInput } from '@eezze/decorators';
+import { String } from '@eezze/decorators/models/types';
+
+@EActionInput()
+export default class DeleteActionInput extends BaseActionInput {
+	@String({
+		required: true,
+		input: (adm: ActionDataManager) => adm.request.requestBody?.actionId,
+		message: 'Action "actionId" was not set',
+	})
+	actionId: string;
+
+	@String({
+		input: (adm: ActionDataManager) => adm.request.requestBody?.operationId,
+	})
+	private operationId: string;
+
+	@String({
+		required: true,
+		input: (adm: ActionDataManager) => adm.request.auth?.user?.id,
+		message: 'Action "userId" was not set',
+	})
+	userId: string;
+
+	@String({
+		input: (adm: ActionDataManager) => adm.request.auth?.user?.projectId,
+	})
+	private projectId: string;
+}

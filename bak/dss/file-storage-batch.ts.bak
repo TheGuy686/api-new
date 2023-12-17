@@ -1,0 +1,11 @@
+import { EDataSource } from '@eezze/decorators';
+
+@EDataSource({
+	datasourceType: 'FileStorage',
+	rootPath: process.env.PROJECTS_FILE_ROOT,
+	fileType: 'json',
+	// fileName: 'batch.json'
+	fileName: 'configs/${ projectId }/batch.json',
+	createFileIfNotExists: false
+})
+export default class JsonDbBatch { }

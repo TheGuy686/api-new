@@ -1,0 +1,17 @@
+{
+    "name": "Profile",
+    "columns": {
+        "id": {
+            "type": "text",
+            "unique": false,
+            "primary": true,
+            "nullable": false
+        }
+    },
+    "relations": {
+        "User": {
+            "target": "User",
+            "type": "one-to-one"
+        }
+    }
+}

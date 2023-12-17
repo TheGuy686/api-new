@@ -1,0 +1,92 @@
+require('module-alias/register');
+require('dotenv-json')({ path: '.env.json' });
+require('source-map-support').install();
+
+import { deleteFile, fileExists, isDir, mkdir, readFile, rmdir, writeFile } from '../libs/FileMethods';
+import PDC from '../classes/DocPdc';
+import Logger from '../classes/Logger';
+import os from 'node:os';
+
+import EezzeTpl from '../classes/EezzeTpl';
+import { eexec } from '../libs/Command';
+
+import shelljs from 'shelljs';
+
+const fs = require('fs');
+
+const tmp = '/var/www/html/test/';
+
+// console.clear();
+
+(async () => {
+
+    const output = await PDC.initDependancyCache(new Logger('doc_parser'));
+
+    let mdl: any;
+
+    const mdlsRoot = `${__dirname}/../../../docs-api/models/`;
+
+    if (!isDir(mdlsRoot)) mkdir(mdlsRoot);
+
+    const templates = {
+        'macros.ezt': readFile({
+            path: `${__dirname}/../templates/docs`,
+            file: 'macros.ezt',
+        }),
+        'entity.ezt': readFile({
+            path: `${__dirname}/../templates/docs`,
+            file: 'entity-tpl.html',
+        }),
+    }
+
+    for (mdl of Object.values(output.models)) {
+        if (mdl.modelProps) {
+            const outputDir = `${__dirname}/../../../docs-api/models/`;
+
+            console.log(`rm ${outputDir}`);
+
+            await shelljs.ls(`rm ${outputDir}*`);
+
+            const htmlContent = await EezzeTpl.render({
+                templateVars: {
+                    theme: {
+                        primary: '#012840',
+                    },
+                    projectName: 'An awesome project',
+                },
+                templates,
+                template: 'entity',
+                prettify: false,
+            });
+
+            const tmpFile = `${tmp}${mdl.metadata.name}.html`;
+            const outputFile = `${mdl.metadata.name}.odt`;
+
+            writeFile({
+                createPathIfNotExists: false,
+                // path: os.tmpdir(),
+                path: tmp,
+                file: `${mdl.metadata.name}.html`,
+                data: htmlContent,
+            });
+
+            // delete out the old file if it exists
+            if (fileExists(`${outputDir}${outputFile}`)) deleteFile(`${outputDir}${outputFile}`);
+
+            console.log(await shelljs.ls(tmp).stdout);
+
+            const outputCmd = `libreoffice --headless --convert-to odt ${tmpFile} --outdir ${outputDir} ${outputFile} > ${outputDir}libreoffice.log 2>&1`;
+
+            console.log(`\nRUnning: ${outputCmd}\n`);
+
+            setTimeout(async () => {
+                const res = await shelljs.exec(outputCmd, { silent: true });
+
+                console.log('\n\nREs: ', res);
+            }, 100);
+
+            break
+        }
+    }
+
+})();

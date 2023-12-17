@@ -1,0 +1,16 @@
+name:  Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  createCredentialsVault:
+    authenticator: ExpressAuthentication
+  deleteCredentialsVault:
+    authenticator: ExpressAuthentication
+  readAllCredentialsVaults:
+    authenticator: ExpressAuthentication
+  readCredentialsVault:
+    authenticator: ExpressAuthentication
+  updateCredentialsVault:
+    authenticator: ExpressAuthentication

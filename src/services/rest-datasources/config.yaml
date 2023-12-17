@@ -1,0 +1,20 @@
+name:  Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  createDatasource:
+    authenticator: ExpressAuthentication
+  deleteDatasource:
+    authenticator: ExpressAuthentication
+  readDatasourceAll:
+    authenticator: ExpressAuthentication
+  updateDatasource:
+    authenticator: ExpressAuthentication
+  updateDatasourceEntities:
+    authenticator: ExpressAuthentication
+  transformDsEntities:
+    authenticator: ExpressAuthentication
+  runDatasourceMigration:
+    authenticator: ExpressAuthentication

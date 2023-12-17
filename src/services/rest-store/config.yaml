@@ -1,0 +1,36 @@
+name:  Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  createStore:
+    authenticator: ExpressAuthentication
+  deleteStore:
+    authenticator: ExpressAuthentication
+  readStore:
+    authenticator: ExpressAuthentication
+  publishStoreModule:
+    authenticator: ExpressAuthentication
+  updateModule:
+    authenticator: ExpressAuthentication
+  addReview:
+    authenticator: ExpressAuthentication
+  allUserStoreModules:
+    authenticator: ExpressAuthentication
+  allInternalModules:
+    authenticator: ExpressAuthentication
+  readAllAwaitingApproval:
+    authenticator: ExpressAuthentication
+  search:
+    authenticator: ExpressAuthentication
+  searchOnTags:
+    authenticator: ExpressAuthentication
+  getStoreTags:
+    authenticator: ExpressAuthentication
+  storeCategories:
+    authenticator: ExpressAuthentication
+  storeMenuCategories:
+    authenticator: ExpressAuthentication
+  storeCategoryModules:
+    authenticator: ExpressAuthentication

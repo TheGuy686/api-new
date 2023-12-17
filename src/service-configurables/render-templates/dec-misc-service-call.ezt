@@ -1,0 +1,24 @@
+// #{{ action.name }}
+@ServiceCaller({
+    {% if action.schema.service %}
+        service: '{{ action.schema.service }}',
+    {% endif %}
+
+    {% if action.schema.actionListSource %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'actionListSource', prop: action.schema.actionListSource } %}
+    {% endif %}
+
+    {% if action.schema.headers %}
+        {% include 'action-variable-context-obj.ezt' with { mainProp: 'headers', prop: action.schema.headers } %}
+    {% endif %}
+
+    {% if action.schema.urlParams %}
+        {% include 'action-variable-context-obj.ezt' with { mainProp: 'urlParams', prop: action.schema.urlParams } %}
+    {% endif %}
+
+    {% if action.schema.requestBody %}
+        {% include 'action-variable-context-obj.ezt' with { mainProp: 'requestBody', prop: action.schema.requestBody } %}
+    {% endif %}
+
+    {% include 'dec-finalize.ezt' with { action: action } %}
+})

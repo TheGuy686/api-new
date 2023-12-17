@@ -1,0 +1,2 @@
+[remote]
+{{ remote_ip_address }} ansible_user={{ ssh_user }} ansible_become_pass={{ sudo_password }} ansible_ssh_pass={{ sudo_password }} ansible_become_method=sudo {% if private_key %}ansible_ssh_private_key_file=./ssh_key{% endif %}

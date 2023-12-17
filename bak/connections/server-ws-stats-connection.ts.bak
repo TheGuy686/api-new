@@ -1,0 +1,10 @@
+import { EConnection } from '@eezze/decorators';
+
+@EConnection({
+    id: 1,
+    types: [ 'installable-services' ],
+    port: process.env.DEFAULT_WS_STATS_SERVER_PORT,
+    storeState: true,
+    storeStateInterval: 1000,
+})
+export default class ServerWsStatsConnection {}

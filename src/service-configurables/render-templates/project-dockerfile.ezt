@@ -1,0 +1,63 @@
+#
+# Create base Eezze image
+#
+FROM ubuntu:22.04 as eezze
+
+# This will pass on the host system user and group id's, to align permissions.
+# src: https://vsupalov.com/docker-shared-permissions/
+#
+
+ARG USER_ID
+ARG GROUP_ID
+
+RUN addgroup --gid $GROUP_ID user
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+
+# Install updates
+RUN \
+  apt update -y
+
+# Install Node 16
+RUN \ 
+  apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates \
+  && curl -sL https://deb.nodesource.com/setup_16.x | bash \
+  && apt -y install nodejs build-essential
+
+# Install typescript and related dependencies
+RUN \
+  npm install -g ts-node typescript nodemon
+
+# Install Git and setup ssh key for github.com and mysql client
+RUN \
+  apt -y install openssh-client git mysql-client
+
+# This does not work under windows with WSL (1 or 2), there's no ssh agent running.
+#RUN \
+#  --mount=type=ssh mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+# Add Github SSH on build
+ARG SSH_PRIVATE_KEY
+
+USER user
+
+RUN mkdir ~/.ssh/ && echo "${SSH_PRIVATE_KEY}" | base64 --d > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+# User for subsequent images, root
+USER root
+
+#
+# Create project Eezze-API
+#
+FROM eezze as eezze-api
+
+RUN mkdir -p /usr/www && chown -R user:user /usr/www
+
+USER user
+WORKDIR /usr/www/api
+
+ARG BUILD_FORCE=1
+RUN \
+  git clone git@github.com:eezze-projects/<project-name>.git .
+RUN \
+  npm i

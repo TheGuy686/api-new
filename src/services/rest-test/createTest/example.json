@@ -1,0 +1,1033 @@
+{
+  "id": "test",
+  "name": "test",
+  "description": "some service",
+  "actionInput": [
+    {
+      "id": "action-1",
+      "property": "filename",
+      "name": "",
+      "desc": "",
+      "type": "text",
+      "actions": [
+        {
+          "id": "2",
+          "type": "text",
+          "name": "Action 2",
+          "actions": [
+            {
+              "id": "2-1",
+              "type": "number-operation",
+              "logic": {
+                "subtype": "calculation",
+                "formula": "123*${1}+73+12${2}/${3}",
+                "raw": "123${1}+73+12${2}${3}",
+                "variables": [
+                  {
+                    "id": 1,
+                    "pos": 1,
+                    "color": "blue",
+                    "value": "fill-path",
+                    "example": 2
+                  },
+                  {
+                    "id": 2,
+                    "pos": 2,
+                    "color": "orange",
+                    "value": "fill-path",
+                    "example": 2
+                  },
+                  {
+                    "id": 3,
+                    "pos": 3,
+                    "color": "black",
+                    "value": "fill-path",
+                    "example": 2
+                  }
+                ]
+              },
+              "returns": "number",
+              "actions": []
+            },
+            {
+              "id": "2-2",
+              "type": "number-operation",
+              "logic": {
+                "subtype": "calculation",
+                "formula": "123${1}*73+12${2}",
+                "raw": "123${1}*73+12${2}",
+                "variables": [
+                  {
+                    "id": 1,
+                    "example": 2,
+                    "value": "fill-path"
+                  },
+                  {
+                    "id": 2,
+                    "example": 2,
+                    "value": "fill-path"
+                  },
+                  {
+                    "id": 3,
+                    "example": 2,
+                    "value": "fill-path"
+                  }
+                ]
+              },
+              "returns": "number",
+              "actions": [
+                {
+                  "id": "2-2-1",
+                  "type": "list-process",
+                  "logic": "",
+                  "returns": "list",
+                  "actions": []
+                },
+                {
+                  "id": "2-2-2",
+                  "type": "number-operation",
+                  "logic": {
+                    "subtype": "calculation",
+                    "formula": "123${1}*73+12${2}",
+                    "raw": "123${1}*73+12${2}",
+                    "variables": [
+                      {
+                        "id": 1,
+                        "example": 2
+                      },
+                      {
+                        "id": 2,
+                        "example": 2
+                      },
+                      {
+                        "id": 3,
+                        "example": 2
+                      }
+                    ]
+                  },
+                  "returns": "number",
+                  "actions": []
+                }
+              ]
+            },
+            {
+              "id": "2-2-3",
+              "type": "assign-values",
+              "logic": "",
+              "returns": "void",
+              "actions": [
+                {
+                  "id": "assign-id-test-1",
+                  "type": "number-operation",
+                  "logic": {
+                    "subtype": "calculation",
+                    "prop": "prop12",
+                    "formula": "123${1}*73+12${2}",
+                    "raw": "123${1}*73+12${2}",
+                    "variables": [
+                      {
+                        "id": 1,
+                        "example": 2
+                      },
+                      {
+                        "id": 2,
+                        "example": 2
+                      },
+                      {
+                        "id": 3,
+                        "example": 2
+                      }
+                    ]
+                  },
+                  "returns": "number",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-2",
+                  "type": "formatter",
+                  "logic": {
+                    "subtype": "string-interpolate",
+                    "prop": "prop2",
+                    "raw": "${1} - ${2}",
+                    "variables": [
+                      {
+                        "id": 1,
+                        "example": "Ryan",
+                        "value": "fill-path"
+                      },
+                      {
+                        "id": 2,
+                        "example": "Cooke",
+                        "value": "fill-path"
+                      }
+                    ]
+                  },
+                  "returns": "text",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-3",
+                  "type": "formatter",
+                  "logic": {
+                    "subtype": "date-interpolate",
+                    "prop": "prop3",
+                    "format": "DD/MM/YYYY",
+                    "source": "full-url",
+                    "example": "2022-01-12 18:10:43",
+                    "raw": "",
+                    "operation": "",
+                    "opArgs": [
+                    ],
+                    "variables": [
+                    ]
+                  },
+                  "returns": "text",
+                  "actions": []
+                },
+                {
+                    "id": "assign-id-test-3",
+                    "type": "formatter",
+                    "logic": {
+                      "subtype": "date-interpolate",
+                      "prop": "prop3",
+                      "format": "",
+                      "source": "full-url",
+                      "example": "2022-01-12 18:10:43",
+                      "raw": "${1}-${2}-${3}: ${4}",
+                      "operation": "addDays",
+                      "opArgs": [
+                        {
+                          "id": "arg-1",
+                          "value": 1,
+                          "example": "12"
+                        }
+                      ],
+                      "variables": [
+                        {
+                          "id": 1,
+                          "pos": 1,
+                          "color": "blue",
+                          "format": {
+                            "group": "year",
+                            "value": "YYYY"
+                          },
+                          "value": "${adm.input.full-url}",
+                          "example": "2022"
+                        },
+                        {
+                          "id": 2,
+                          "pos": 2,
+                          "color": "orange",
+                          "format": {
+                            "group": "month",
+                            "value": "MM"
+                          },
+                          "value": "full-url",
+                          "example": "02"
+                        },
+                        {
+                          "id": 3,
+                          "pos": 3,
+                          "color": "brown",
+                          "format": {
+                            "group": "quarter",
+                            "value": "Q"
+                          },
+                          "value": "full-url",
+                          "example": "31"
+                        },
+                        {
+                          "id": 4,
+                          "pos": 4,
+                          "color": "red",
+                          "value": "host",
+                          "example": "31"
+                        }
+                      ]
+                    },
+                    "returns": "text",
+                    "actions": []
+                  },
+                  {
+                    "id": "assign-id-test-3",
+                    "type": "formatter",
+                    "logic": {
+                      "subtype": "date-interpolate",
+                      "prop": "prop3",
+                      "format": "",
+                      "source": "01-01-2000: 18:00:00",
+                      "example": "2022-01-12 18:10:43",
+                      "raw": "${1}-${2}-${3}: ${4}",
+                      "operation": "addDays",
+                      "opArgs": [
+                        {
+                          "id": "arg-1",
+                          "value": 1,
+                          "example": "12"
+                        }
+                      ],
+                      "variables": [
+                        {
+                          "id": 1,
+                          "pos": 1,
+                          "color": "blue",
+                          "format": {
+                            "group": "year",
+                            "value": "YYYY"
+                          },
+                          "value": "${adm.input.full-url}",
+                          "example": "2022"
+                        },
+                        {
+                          "id": 2,
+                          "pos": 2,
+                          "color": "orange",
+                          "format": {
+                            "group": "month",
+                            "value": "MM"
+                          },
+                          "value": "full-url",
+                          "example": "02"
+                        },
+                        {
+                          "id": 3,
+                          "pos": 3,
+                          "color": "brown",
+                          "format": {
+                            "group": "quarter",
+                            "value": "Q"
+                          },
+                          "value": "full-url",
+                          "example": "31"
+                        },
+                        {
+                          "id": 4,
+                          "pos": 4,
+                          "color": "red",
+                          "value": "host",
+                          "example": "31"
+                        }
+                      ]
+                    },
+                    "returns": "text",
+                    "actions": []
+                  },
+                {
+                  "id": "assign-id-test-4",
+                  "type": "action-context",
+                  "logic": {
+                    "subtype": "host",
+                    "prop": "prop4",
+                    "raw": "",
+                    "variables": []
+                  },
+                  "returns": "text",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-5",
+                  "type": "number-operation",
+                  "logic": {
+                    "subtype": "addition",
+                    "prop": "prop5",
+                    "format": "",
+                    "source": "",
+                    "example": "",
+                    "raw": "",
+                    "opArgs": [
+                      {
+                        "id": "arg-1",
+                        "value": "host",
+                        "example": "12"
+                      }
+                    ],
+                    "variables": []
+                  },
+                  "returns": "number",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-6",
+                  "type": "assign-primitive",
+                  "logic": {
+                    "prop": "prop6",
+                    "subtype": "text",
+                    "raw": "This is just a string",
+                    "format": "",
+                    "example": "",
+                    "source": "",
+                    "variables": [],
+                    "opArgs": []
+                  },
+                  "returns": "text",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-7",
+                  "type": "assign-primitive",
+                  "logic": {
+                    "prop": "prop7",
+                    "subtype": "number",
+                    "raw": "${1}0${2}34${3}5",
+                    "format": "",
+                    "example": "",
+                    "source": "",
+                    "variables": [
+                      {
+                        "id": 1,
+                        "pos": 1,
+                        "color": "blue",
+                        "value": "full-url",
+                        "example": "2022"
+                      },
+                      {
+                        "id": 2,
+                        "pos": 2,
+                        "color": "orange",
+                        "value": "full-url",
+                        "example": "02"
+                      },
+                      {
+                        "id": 3,
+                        "pos": 3,
+                        "color": "brown",
+                        "value": "full-url",
+                        "example": "31"
+                      }
+                    ],
+                    "opArgs": []
+                  },
+                  "returns": "text",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-8",
+                  "type": "assign-primitive",
+                  "logic": {
+                    "prop": "prop17",
+                    "subtype": "object",
+                    "raw": [
+                      {
+                        "key": "propMain",
+                        "value": "host",
+                        "returns": "object",
+                        "data": [
+                          {
+                            "key": "prop1",
+                            "value": "host",
+                            "returns": "number",
+                            "data": []
+                          },
+                          {
+                            "key": "prop2",
+                            "value": "host",
+                            "returns": "text",
+                            "data": []
+                          },
+                          {
+                            "key": "prop3",
+                            "value": "full-url",
+                            "returns": "boolean",
+                            "data": []
+                          },
+                          {
+                            "key": "prop34",
+                            "value": "",
+                            "returns": "object",
+                            "data": [
+                              {
+                                "key": "prop344",
+                                "value": "",
+                                "returns": "object",
+                                "data": [
+                                  {
+                                    "key": "prop34546",
+                                    "value": "",
+                                    "returns": "object",
+                                    "data": [
+                                      {
+                                        "key": "prop348765",
+                                        "value": "host",
+                                        "returns": "boolean",
+                                        "data": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "key": "rtyuhf",
+                        "value": "host",
+                        "returns": "number",
+                        "data": []
+                      }
+                    ],
+                    "format": "",
+                    "example": "",
+                    "source": "",
+                    "variables": [],
+                    "opArgs": []
+                  },
+                  "returns": "object",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-9",
+                  "type": "assign-primitive",
+                  "logic": {
+                    "prop": "prop8",
+                    "subtype": "boolean",
+                    "raw": [
+                      {
+                        "type": "condition",
+                        "operator": "equals-to",
+                        "opArgs": [
+                          {
+                            "id": "arg-1",
+                            "type": "boolean",
+                            "value": "host",
+                            "example": "3"
+                          },
+                          {
+                            "id": "arg-2",
+                            "type": "number",
+                            "value": "host",
+                            "example": "3"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "linker",
+                        "operator": "and",
+                        "opArgs": []
+                      },
+                      {
+                        "type": "condition",
+                        "operator": "equals-to",
+                        "opArgs": [
+                          {
+                            "id": "arg-3",
+                            "type": "number",
+                            "value": "host",
+                            "example": "3"
+                          },
+                          {
+                            "id": "arg-4",
+                            "type": "number",
+                            "value": "host",
+                            "example": "3"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "linker",
+                        "operator": "or",
+                        "opArgs": []
+                      },
+                      {
+                        "type": "condition-group",
+                        "opArgs": [],
+                        "group": [
+                          {
+                            "type": "condition",
+                            "operator": "equals-to",
+                            "opArgs": [
+                              {
+                                "id": "arg-5",
+                                "type": "number",
+                                "value": "host",
+                                "example": "31"
+                              },
+                              {
+                                "id": "arg-6",
+                                "type": "number",
+                                "value": "host",
+                                "example": "31"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "linker",
+                            "operator": "or",
+                            "opArgs": []
+                          },
+                          {
+                            "type": "condition",
+                            "operator": "is-less-than",
+                            "opArgs": [
+                              {
+                                "id": "arg-7",
+                                "type": "number",
+                                "value": "host",
+                                "example": "100"
+                              },
+                              {
+                                "id": "arg-8",
+                                "type": "number",
+                                "value": "host",
+                                "example": "101"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "linker",
+                            "operator": "and",
+                            "opArgs": []
+                          },
+                          {
+                            "type": "condition-group",
+                            "opArgs": [],
+                            "group": [
+                              {
+                                "type": "condition",
+                                "operator": "equals-to",
+                                "opArgs": [
+                                  {
+                                    "id": "arg-5",
+                                    "type": "number",
+                                    "value": "host",
+                                    "example": "10"
+                                  },
+                                  {
+                                    "id": "arg-6",
+                                    "type": "number",
+                                    "value": "host",
+                                    "example": "10"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "linker",
+                                "operator": "and",
+                                "opArgs": []
+                              },
+                              {
+                                "type": "condition",
+                                "operator": "is-less-than",
+                                "opArgs": [
+                                  {
+                                    "id": "arg-7",
+                                    "type": "number",
+                                    "value": "host",
+                                    "example": "-9"
+                                  },
+                                  {
+                                    "id": "arg-8",
+                                    "type": "number",
+                                    "value": "host",
+                                    "example": "0"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "linker",
+                        "operator": "or",
+                        "opArgs": []
+                      },
+                      {
+                        "type": "condition",
+                        "operator": "number-is-between-range",
+                        "opArgs": [
+                          {
+                            "id": "arg-10",
+                            "type": "number",
+                            "value": "host",
+                            "example": "2"
+                          },
+                          {
+                            "id": "arg-11",
+                            "type": "number",
+                            "value": "host",
+                            "example": "1"
+                          },
+                          {
+                            "id": "arg-12",
+                            "type": "number",
+                            "value": "host",
+                            "example": "3"
+                          }
+                        ]
+                      }
+                    ],
+                    "format": "",
+                    "example": true,
+                    "source": "",
+                    "variables": [],
+                    "opArgs": []
+                  },
+                  "returns": "boolean",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-10",
+                  "type": "assign-primitive",
+                  "logic": {
+                    "prop": "prop99",
+                    "subtype": "list",
+                    "raw": [],
+                    "format": "",
+                    "example": [],
+                    "source": "",
+                    "variables": [],
+                    "opArgs": []
+                  },
+                  "returns": "list",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-11",
+                  "type": "custom",
+                  "logic": {
+                    "prop": "prop99",
+                    "raw": "const ryan = 'hello';\n\nlet ryan1         =     `${ryan} - something`;\n\nlet ryan3;\n\nlet ryan4       =          'ryan5';\n\nlet           ryan5 = 'ryan22';\n\nlet    ryan6 = 'ryan0';\n\nlet ryan7='ryan1';\n\nlet ryan8 = 'ryan2'\n\nlet ryan9;\n\nlet ryan10, ryan11, ryan12;\n\nlet ryan13, \n    ryan14, \n    ryan15;\n\nryan9 = `ryan was here`;\n\nreturn ryan;",
+                    "format": "",
+                    "example": [],
+                    "source": "",
+                    "variables": [],
+                    "opArgs": [],
+                    "subtype": ""
+                  },
+                  "returns": "text",
+                  "actions": []
+                }
+              ]
+            },
+            {
+              "id": "2-2-4",
+              "type": "format-value",
+              "logic": "",
+              "returns": "text",
+              "actions": []
+            },
+            {
+              "id": "2-2-5",
+              "type": "list-process",
+              "logic": "",
+              "returns": "list",
+              "actions": []
+            },
+            {
+              "id": "2-2-6",
+              "type": "list-process",
+              "logic": "",
+              "returns": "list",
+              "actions": [
+                {
+                  "id": "2-2-6-1",
+                  "type": "list-process",
+                  "logic": "",
+                  "returns": "list",
+                  "actions": [
+                    {
+                      "id": "2-2-6-1-1",
+                      "type": "list-process",
+                      "logic": "",
+                      "returns": "list",
+                      "actions": []
+                    },
+                    {
+                      "id": "2-2-6-1-2",
+                      "type": "format-value",
+                      "logic": "",
+                      "returns": "text",
+                      "actions": [
+                        {
+                          "id": "2-2-6-1-2-1",
+                          "type": "format-value",
+                          "logic": "",
+                          "returns": "text",
+                          "actions": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "action-1-logic-2-logic-54-logic-2",
+                  "type": "list-process",
+                  "logic": "",
+                  "returns": "list",
+                  "actions": []
+                }
+              ]
+            },
+            {
+              "id": "action-1-logic-2-logic-6",
+              "type": "set-state-values",
+              "logic": "",
+              "returns": "boolean",
+              "actions": [
+                {
+                  "id": "assign-id-test-1",
+                  "type": "number-operation",
+                  "logic": {
+                    "subtype": "calculation",
+                    "prop": "prop12",
+                    "formula": "123${1}*73+12${2}",
+                    "raw": "123${1}*73+12${2}",
+                    "variables": [
+                      {
+                        "id": 1,
+                        "example": 2
+                      },
+                      {
+                        "id": 2,
+                        "example": 2
+                      },
+                      {
+                        "id": 3,
+                        "example": 2
+                      }
+                    ]
+                  },
+                  "returns": "number",
+                  "actions": []
+                }
+              ]
+            },
+            {
+              "id": "action-1-logic-2-logic-74",
+              "type": "set-stash-values",
+              "logic": "",
+              "returns": "boolean",
+              "actions": [
+                {
+                  "id": "assign-id-test-1",
+                  "type": "number-operation",
+                  "logic": {
+                    "subtype": "calculation",
+                    "prop": "prop12",
+                    "formula": "123${1}*73+12${2}",
+                    "raw": "123${1}*73+12${2}",
+                    "variables": [
+                      {
+                        "id": 1,
+                        "example": 2
+                      },
+                      {
+                        "id": 2,
+                        "example": 2
+                      },
+                      {
+                        "id": 3,
+                        "example": 2
+                      }
+                    ]
+                  },
+                  "returns": "number",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-2",
+                  "type": "formatter",
+                  "logic": {
+                    "subtype": "string-interpolate",
+                    "prop": "prop2",
+                    "raw": "${1} - ${2}",
+                    "variables": [
+                      {
+                        "id": 1,
+                        "example": "Ryan"
+                      },
+                      {
+                        "id": 2,
+                        "example": "Cooke"
+                      }
+                    ]
+                  },
+                  "returns": "text",
+                  "actions": []
+                },
+                {
+                  "id": "assign-id-test-9",
+                  "type": "assign-primitive",
+                  "logic": {
+                    "prop": "prop8",
+                    "subtype": "boolean",
+                    "raw": [
+                      {
+                        "type": "condition",
+                        "operator": "equals-to",
+                        "opArgs": [
+                          {
+                            "id": "arg-1",
+                            "value": "host",
+                            "example": "3"
+                          },
+                          {
+                            "id": "arg-2",
+                            "value": "host",
+                            "example": "3"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "linker",
+                        "operator": "and",
+                        "opArgs": []
+                      },
+                      {
+                        "type": "condition",
+                        "operator": "equals-to",
+                        "opArgs": [
+                          {
+                            "id": "arg-3",
+                            "value": "host",
+                            "example": "3"
+                          },
+                          {
+                            "id": "arg-4",
+                            "value": "host",
+                            "example": "3"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "linker",
+                        "operator": "or",
+                        "opArgs": []
+                      },
+                      {
+                        "type": "condition-group",
+                        "opArgs": [],
+                        "group": [
+                          {
+                            "type": "condition",
+                            "operator": "equals-to",
+                            "opArgs": [
+                              {
+                                "id": "arg-5",
+                                "value": "host",
+                                "example": "31"
+                              },
+                              {
+                                "id": "arg-6",
+                                "value": "host",
+                                "example": "31"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "linker",
+                            "operator": "or",
+                            "opArgs": []
+                          },
+                          {
+                            "type": "condition",
+                            "operator": "is-less-than",
+                            "opArgs": [
+                              {
+                                "id": "arg-7",
+                                "value": "host",
+                                "example": "100"
+                              },
+                              {
+                                "id": "arg-8",
+                                "value": "host",
+                                "example": "101"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "linker",
+                            "operator": "and",
+                            "opArgs": []
+                          },
+                          {
+                            "type": "condition-group",
+                            "opArgs": [],
+                            "group": [
+                              {
+                                "type": "condition",
+                                "operator": "equals-to",
+                                "opArgs": [
+                                  {
+                                    "id": "arg-5",
+                                    "value": "host",
+                                    "example": "10"
+                                  },
+                                  {
+                                    "id": "arg-6",
+                                    "value": "host",
+                                    "example": "10"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "linker",
+                                "operator": "and",
+                                "opArgs": []
+                              },
+                              {
+                                "type": "condition",
+                                "operator": "is-less-than",
+                                "opArgs": [
+                                  {
+                                    "id": "arg-7",
+                                    "value": "host",
+                                    "example": "-9"
+                                  },
+                                  {
+                                    "id": "arg-8",
+                                    "value": "host",
+                                    "example": "0"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "linker",
+                        "operator": "or",
+                        "opArgs": []
+                      },
+                      {
+                        "type": "condition",
+                        "operator": "number-is-between-range",
+                        "opArgs": [
+                          {
+                            "id": "arg-10",
+                            "value": "host",
+                            "example": "2"
+                          },
+                          {
+                            "id": "arg-11",
+                            "value": "host",
+                            "example": "1"
+                          },
+                          {
+                            "id": "arg-12",
+                            "value": "host",
+                            "example": "3"
+                          }
+                        ]
+                      }
+                    ],
+                    "format": "",
+                    "example": true,
+                    "source": "",
+                    "variables": [],
+                    "opArgs": []
+                  },
+                  "returns": "boolean",
+                  "actions": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "logic": []
+}

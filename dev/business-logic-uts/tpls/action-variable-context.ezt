@@ -1,0 +1,94 @@
+{% if mainProp %}
+
+    {{ mainProp }}: 
+
+{% endif %}
+
+{% if prop is defined %}
+
+    {% if prop.baseType == 'logic-chain' and prop.actions | length > 0 %}
+
+        {% if isExtendedType %}
+            async (value: any, adm: ADM, lc: LogicChain) => {
+        {% else %}
+            async (adm: ADM, lc: LogicChain) => {
+        {% endif %}
+
+            {% if isAlwaysObject %}
+
+                lc.assign(
+                    '{{ act.property }}',
+                    (ilc: LogicChain) => {
+                        {% for act in prop.actions %}
+
+                            {% include 'action-lc-item.ezt' with { action: act } %}
+                                
+                        {% endfor %}
+                    }
+                );
+
+            {% else %}
+
+                {% include 'action-lc-item.ezt' with { action: prop, lcAlias: 'lc' } %}
+
+            {% endif %}
+
+            {% if isAlwaysObject %}
+
+                return {
+                    {% for act in prop.actions %}
+
+                        '{{ prop.property }}': lc.prop('{{ prop.property }}'),
+
+                    {% endfor %}
+                }
+
+            {% else %}
+
+                // evaluate the result and then return the result
+                return await lc.result();
+
+            {% endif %}
+        }
+
+    {% elseif prop.baseType == 'context-mapping' %}
+
+        {% if isExtendedType %}
+            (value: any, adm: ADM) => {{ prop.raw }},
+        {% else %}
+            (adm: ADM) => {{ prop.raw }},
+        {% endif %}
+        
+    {% elseif prop.baseType == 'primitive' %}
+     
+        () => 
+
+        {% if prop.type == 'text' %}
+
+            `{{ prop.raw }}`,
+
+        {% elseif prop.type == 'number' %}
+
+            {{ prop.raw }},
+
+        {% elseif prop.type == 'boolean' %}
+
+            !!{{ prop.raw }},
+
+        {% else %}
+
+            `{{ prop.raw }}`,
+
+        {% endif %}
+        
+    {% else %}
+
+        // invalid prop.baseType
+
+    {% endif %}
+
+{% else %}
+
+    // "prop" was not defined
+
+{% endif %}

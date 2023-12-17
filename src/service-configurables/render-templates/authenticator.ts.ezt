@@ -1,0 +1,44 @@
+import { BaseAuthenticator } from '@eezze/base';
+import { EAuthenticator } from '@eezze/decorators';
+import { ActionDataManager as ADM, LogicChain } from '@eezze/classes';
+import EJson from '@eezze/classes/logic/json';
+
+@EAuthenticator({
+	type: 'jwt',
+    {% if additionalHeaders is defined %}
+        additionalHeaders: {
+            {% for h in additionalHeaders %}
+                '{{ h.key }}': {{ (ez.matches('process\.env', h.value) ? h.value : "'" ~ h.value ~ "'") | raw }},
+            {% endfor %}
+        },
+    {% endif %}
+
+    {% if secret is defined %}
+	    secret: '{{ secret }}',
+    {% endif %}
+
+    {% if sources is defined %}
+        sources: [
+            {% for s in sources %}
+                {
+                    {% if s.condition is defined %}
+                        {% include 'action-variable-context.ezt' with { mainProp: 'condition', prop: s.condition } %}
+                    {% endif %}
+
+                    {% if s.src is defined %}
+                        {% include 'action-variable-context.ezt' with { mainProp: 'src', prop: s.src } %}
+                    {% endif %}
+                },
+            {% endfor %}
+        ],
+    {% endif %}
+
+    {% if user is defined %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'user', prop: user } %}
+    {% endif %}
+
+    {% if roles is defined %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'roles', prop: roles } %}
+    {% endif %}
+})
+export default class {{ sgId }}Authenticator extends BaseAuthenticator {}

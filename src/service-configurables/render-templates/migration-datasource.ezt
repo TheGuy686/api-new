@@ -1,0 +1,29 @@
+{% autoescape false %}
+const { DataSource, EntitySchema } = require('typeorm');
+
+{% if entities|length > 0 %}
+    {% for entity in entities %}
+const {{ entity|lower }}Table = require("./entity/{{ entity|lower }}.json");    
+    {% endfor %}
+{% endif %}
+
+const AppDataSource = new DataSource({
+    type: 'mysql',
+    host: '{{ host }}',
+    port: {{ port }},
+    username: '{{ user }}',
+    password: '{{ pass }}',
+    database: '{{ databaseName }}',
+    synchronize: false,
+    entities: [
+       {% if entities|length > 0 %}
+        {% for entity in entities %}
+            new EntitySchema({{ entity|lower }}Table),
+        {% endfor %}
+       {% endif %}
+    ],
+    migrations: ['src/migration/*.js']
+});
+
+module.exports = { AppDataSource };
+{% endautoescape %}

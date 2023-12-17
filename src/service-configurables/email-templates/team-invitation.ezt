@@ -1,0 +1,10 @@
+## Eezze Team Invitation!
+
+Dear. **{{ name }}** (**{{ username }}**)
+
+Please click the link to accept your invitation. **[Accept Invitation]({{ acceptInvitationLink }}?token={{ token }})**
+
+If the details in this email was not you then please contact admin ASAP.
+
+Thank you from the 
+**Eezze Team**

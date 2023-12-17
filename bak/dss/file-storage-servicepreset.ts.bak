@@ -1,0 +1,11 @@
+import { EDataSource } from '@eezze/decorators';
+
+@EDataSource({
+	datasourceType: 'FileStorage',
+	rootPath: process.env.PROJECTS_FILE_ROOT,
+	fileType: 'json',
+	// fileName: 'servicepreset.json',
+	fileName: 'configs/${ projectId }/servicepreset.json',
+	createFileIfNotExists: false
+})
+export default class JsonDbServicePreset { }

@@ -1,0 +1,4 @@
+{% macro name(relation) %}
+{% import _self as macros %}
+{% import "entity-relation-pascal-case.ezt" as relationMacro %}
+{{ relationMacro.name(relation) }}Model{% endmacro %}

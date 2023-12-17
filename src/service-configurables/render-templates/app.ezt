@@ -1,0 +1,5 @@
+require('../../plugins/eezze/init-app');
+
+const {{ name | pascalCase }} = require('../servers/{{ name | kebabCase }}').default;
+
+new {{ name | pascalCase }}().run();

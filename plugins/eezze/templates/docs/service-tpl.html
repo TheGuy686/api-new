@@ -1,0 +1,257 @@
+{% import "macros.ezt" as ezm %}
+
+{% set c = { ez: ez, theme: theme } %}
+
+<html>
+<head>
+<style>
+    font-face {
+        font-family: 'inter', sans-serif;
+    }
+
+    body {
+        font-family: 'inter', sans-serif;
+    }
+</style>
+</head>
+
+<body style="font-family: 'inter', sans-serif; background-color: #fff; margin: 20px;">
+
+    <img style="height: 70px; width: auto; border: none; margin-bottom: 28px;" src="{{ projectInfo.logo }}" />
+
+    {{ ezm.h3(c, projectInfo.companyName) }}
+
+    {% if projectInfo.address is defined %}
+
+        {% for l in projectInfo.address %}
+
+            {{ ezm.info(c, l, { 'margin': '0px', 'padding': '0px' }) }}
+
+        {% endfor %}
+
+    {% endif %}
+
+    {{ ezm.space(4, c) }}
+
+    {{ ezm.h2(c, 'Service Overview for: ', { 
+        'margin-bottom': '0px',
+        'padding-bottom': '0px',
+        'padding-top': '50px',
+        'margin-top': '250px',
+    }) }}
+
+    {{ ezm.h1(c, ez.capitalCase(ser.name), { 'padding-top': '0px', 'word-spacing': '0', 'font-size': '34px' }) }}
+
+    {{ ezm.info(c, 'Date of creation: ' + projectInfo.dataOfLastEdit, { 'font-size': '14px', 'font-weight': '400' }) }}
+
+    {{ ezm.pb() }}
+
+    {INSERT-TOC-HERE}
+
+    {{ ezm.pb() }}
+
+    {{ ezm.h1(c, 'Vocabulary') }}
+
+    {{ ezm.ul(c) }}
+
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>Micro Service</b>: <i>Micro Service</i> - A refined and highly focused service that constitutes a small, independent component in a microservices architecture. Microservices are designed to perform one specific task or function, and they communicate with other microservices to collectively deliver the overall functionality of an application.</span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>SG</b>: <i>Service Group</i> - A comprehensive label for a collection of microservices, encompassing REST Endpoints, WebSocket Events, and Cron Tasks, that work collaboratively to fulfill a shared purpose. For example, a "users" Service Group manages various tasks related to data management and notification delivery associated with this specific grouping.</span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>Service</b>: <i>Service</i> - A term used to denote a self-contained, functional component or module that performs specific tasks or functions within an application or system. Services are often designed to be reusable and can include various functionalities such as data processing, communication, or computation.</span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>REST</b>: <i>REST (Representational State Transfer)</i> - A software architectural style for designing networked applications. RESTful services use standard HTTP methods for communication and are known for their simplicity, scalability, and statelessness.</span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>WS</b>: <i>WebSocket</i> - A communication protocol that provides full-duplex, bidirectional communication channels over a single TCP connection. WebSockets enable real-time data exchange and are commonly used in web applications for live updates and interactive features.</span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>Cron</b>: <i>Cron (Scheduled Task)</i> - A time-based job scheduler in Unix-like operating systems. Cron allows users to automate repetitive tasks by specifying when and how often certain commands or scripts should be executed.</span></li>
+
+    </ul>
+
+    {{ ezm.pb() }}
+
+    {{ ezm.h2(c, '"' + ez.capitalCase(ser.name) + '" Service Overview', { 'font-size': '34px' }) }}
+
+    {{ ezm.p(c, 'Service Description') }}
+
+    {{ ezm.p(c, 'Service Function') }}
+
+    <!-- AUTHENTICATOR DETAILS -->
+
+    {% if ser.metadata.roles is not empty %}
+
+        {{ ezm.h1(c, 'Roles') }}
+
+        {{ ezm.ul(c) }}
+
+            {% for r in ser.metadata.roles %}
+
+                {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>{{ r }}</b>: Role Desc</span></li>
+            
+            {% endfor %}
+
+        </ul>
+
+    {% endif %}
+
+    {{ ezm.space(1) }}
+
+    {{ ezm.h1(c, 'Service Metadata') }}
+
+    {{ ezm.p(c, 'Service metadata refers to the information that describes the primary prerequisites or data set essential for the execution of the core action sequence.') }}
+
+    {% if ser.service.type == 'restful' %}
+
+        {{ ezm.tbl(c, { 'margin-bottom': '38px' }) }}
+
+            <tbody>
+
+                <tr>
+                    {{ ezm.th(c) }}Method</th>
+                    {{ ezm.td(c) }}{{ ser.service.method | upper }}</td>
+                </tr>
+
+                <tr>
+                    {{ ezm.th(c) }}Path</th>
+                    {{ ezm.td(c) }}{{ ser.service.path }}</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        {{ ezm.space(1) }}
+
+    {% elseif ser.service.type == 'websocket' %}
+
+        {{ ezm.tbl(c, { 'margin-bottom': '38px' }) }}
+
+            <tbody>
+
+                <tr>
+                    {{ ezm.th(c) }}Event Type</th>
+                    {{ ezm.td(c) }}{{ ser.service.eventType }}</td>
+                </tr>
+
+                <tr>
+                    {{ ezm.th(c) }}Event</th>
+                    {{ ezm.td(c) }}{{ ser.service.event }}</td>
+                </tr>
+
+                <tr>
+                    {{ ezm.th(c) }}Path</th>
+                    {{ ezm.td(c) }}{{ ser.service.path }}</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    {% elseif ser.service.type == 'cron' %}
+
+
+    {% else %}
+
+        {{ ezm.p(c, 'No action chain items defined to show') }}
+
+    {% endif %}
+
+    {{ ezm.h1(c, 'Action Input Info') }}
+
+    {{ ezm.p(c, 'The action input constitutes the data necessary for the action chain to operate effectively and in alignment with its defined functionalities.') }}
+
+    {% if ser.service.input is not empty %}
+
+        {{ ezm.tbl(c, { 'margin-bottom': '38px' }) }}
+
+            <tbody>
+
+                <tr>
+                    {{ ezm.th(c) }}Name</th>
+                    {{ ezm.th(c) }}Description</th>
+                    {{ ezm.th(c) }}Type</th>
+                </tr>
+
+                {% for p in ser.service.input %}
+
+                    <tr>
+                        {{ ezm.td(c) }}{{ p.name }}</td>
+                        {{ ezm.td(c) }}Prop Desc</td>
+                        {{ ezm.td(c) }}{{ p.type | upper }}</td>
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% endif%}
+
+    {{ ezm.space(1) }}
+
+    {{ ezm.h1(c, 'Action Chain Info') }}
+
+    {{ ezm.p(c, 'Action Chain Def', { 'margin-bottom': '30px' }) }}
+
+    {% if ser.service.action is not empty %}
+
+        {% for a in ser.service.action %}
+
+            {{ ezm.h2(c, 'Action "' + a.action + '"', { 'font-size': '18px' }) }}
+
+            {{ ezm.p(c, 'Action Step Description', { 'font-size': '14px' }) }}
+
+            {{ ezm.tbl(c, { 'margin-bottom': '38px' }) }}
+
+                <tbody>
+
+                    <tr>
+                        {{ ezm.th(c) }}Name</th>
+                        {{ ezm.th(c) }}Description</th>
+                        {{ ezm.th(c) }}Value</th>
+                    </tr>
+
+                    {% if ser.service.params.input is defined %}
+
+                        <tr>
+                            {{ ezm.td(c) }}input</td>
+                            {{ ezm.td(c) }}{{ ezm.info(c, 'Param Def') }}</td>
+                            {{ ezm.td(c) }}{{ ez.pj(ser.service.params.input) }}</td>
+                        </tr>
+
+                    {% endif %}
+
+                    {% for p, v in a.params %}
+
+                        {% if p != 'input' and p != 'output' %}
+
+                            <tr>
+                                {{ ezm.td(c) }}{{ p }}</td>
+                                {{ ezm.td(c) }}{{ ezm.info(c, 'Param Def') }}</td>
+                                {{ ezm.td(c) }}{{ ez.pjVar(v) }}</td>
+                            </tr>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                    {% if ser.service.params.output is defined %}
+
+                        <tr>
+                            {{ ezm.td(c) }}output</td>
+                            {{ ezm.td(c) }}{{ ezm.info(c, 'Param Def') }}</td>
+                            {{ ezm.td(c) }}{{ ez.pjVar(ser.service.params.output) }}</td>
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        {% endfor %}
+        
+    {% else %}
+
+        {{ ezm.p(c, 'No action chain items defined to show') }}
+
+    {% endif %}
+
+</body>
+</html>

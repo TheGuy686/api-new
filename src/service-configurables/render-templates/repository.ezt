@@ -1,0 +1,9 @@
+import { BaseRepository } from '@eezze/base';
+import { ERepository } from '@eezze/decorators';
+
+@ERepository({
+    datasourceType: '{{ datasourceType }}',
+    datasource: '{{ datasource }}',
+    targetEntity: '{{ entity }}',
+})
+export default class {{ entity }}Repository extends BaseRepository {}

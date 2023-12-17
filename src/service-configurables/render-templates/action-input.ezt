@@ -1,0 +1,5 @@
+{% if prop | length > 0 %}
+    {% include 'action-variable-context-obj.ezt' with { mainProp: 'input', prop: input } %},
+{% else %}
+    input: (adm: ADM) => ({}),
+{% endif %}

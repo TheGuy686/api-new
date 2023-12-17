@@ -1,0 +1,16 @@
+name:  Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  createBlActionType:
+    authenticator: ExpressAuthentication
+  deleteBlActionType:
+    authenticator: ExpressAuthentication
+  readAllBlActionTypes:
+    authenticator: ExpressAuthentication
+  readBlActionType:
+    authenticator: ExpressAuthentication
+  updateBlActionType:
+    authenticator: ExpressAuthentication

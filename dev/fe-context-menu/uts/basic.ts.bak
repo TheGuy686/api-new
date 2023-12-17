@@ -1,0 +1,633 @@
+export default {
+    "actionInput": [],
+    "logic": [
+        {
+            "id": "11",
+            "name": "Action #1",
+            "type": "text",
+            "isNew": false,
+            "output": [],
+            "schema": {
+                "repo": "",
+                "input": [
+                    {
+                        "id": "kmsEJ8cKpJ",
+                        "raw": "",
+                        "desc": "This is mapped value & logic for property email",
+                        "name": "Propery \"email\" mapping",
+                        "type": "text",
+                        "actions": [
+                            {
+                                "id": "action-0",
+                                "name": "Action 1",
+                                "type": "string",
+                                "actions": [
+                                    {
+                                        "id": "action-0-logic-0",
+                                        "name": "Logic item \"0\"",
+                                        "type": "number-operation",
+                                        "logic": {
+                                            "raw": "78*9+3${1}*6/(32-6)",
+                                            "prop": "",
+                                            "formula": "78*9+3${1}*6/(32-6)",
+                                            "subtype": "calculation",
+                                            "variables": {
+                                                "v1": {
+                                                    "pos": 1,
+                                                    "alias": "${1}",
+                                                    "color": "#790c69",
+                                                    "value": "adm.request.prop1",
+                                                    "example": "52"
+                                                }
+                                            },
+                                            "spanPreview": "<span>7</span><span>8</span><span>x</span><span>9</span><span>+</span><span>3</span><span style=\"color: #790c69;\">${1}</span><span>x</span><span>6</span>÷<span>(</span><span>3</span><span>2</span>-<span>6</span><span>)</span>",
+                                            "resultPreview": 783.2307692307693
+                                        },
+                                        "actions": [],
+                                        "returns": "string"
+                                    },
+                                    {
+                                        "id": "action-0-logic-1",
+                                        "name": "Logic item \"1\"",
+                                        "type": "number-operation",
+                                        "logic": {
+                                            "raw": "",
+                                            "prop": "",
+                                            "type": "",
+                                            "opArgs": [
+                                                {
+                                                    "value": "adm.request.prop2",
+                                                    "example": 19
+                                                },
+                                                {
+                                                    "value": "adm.request.prop3",
+                                                    "example": 27
+                                                },
+                                            ],
+                                            "source": "",
+                                            "formula": "",
+                                            "subtype": "subtraction",
+                                            "variables": []
+                                        },
+                                        "actions": [],
+                                        "returns": "string"
+                                    },
+                                    {
+                                        "id": "action-0-logic-2",
+                                        "name": "Logic item \"2\"",
+                                        "type": "formatter",
+                                        "logic": {
+                                            "raw": "${1} / ryan / ${2}",
+                                            "prop": "",
+                                            "format": {},
+                                            "opArgs": [],
+                                            "source": "",
+                                            "formula": "site.io / ryan / 1",
+                                            "subtype": "string-interpolate",
+                                            "variables": [
+                                                {
+                                                    "id": 1,
+                                                    "pos": 1,
+                                                    "color": "#b3ab58",
+                                                    "value": "adm.request.prop4",
+                                                    "format": {},
+                                                    "example": "site.io"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "pos": 2,
+                                                    "color": "#305217",
+                                                    "value": "",
+                                                    "format": {
+                                                        "group": "day",
+                                                        "value": "D"
+                                                    },
+                                                    "example": "1"
+                                                }
+                                            ]
+                                        },
+                                        "actions": [],
+                                        "returns": "text"
+                                    },
+                                    {
+                                        "id": "action-0-logic-3",
+                                        "name": "Logic item \"3\"",
+                                        "type": "assign-values",
+                                        "logic": {
+                                            "raw": "",
+                                            "prop": "",
+                                            "type": "",
+                                            "opArgs": [],
+                                            "source": "",
+                                            "formula": "",
+                                            "subtype": "",
+                                            "variables": []
+                                        },
+                                        "actions": [
+                                            {
+                                                "id": "act-0",
+                                                "type": "number-operation",
+                                                "logic": {
+                                                    "raw": "",
+                                                    "prop": "prop1",
+                                                    "format": "",
+                                                    "opArgs": [
+                                                        {
+                                                            "value": "adm.request.prop5",
+                                                            "example": 27
+                                                        },
+                                                        {
+                                                            "value": "adm.request.prop6",
+                                                            "example": 9
+                                                        }
+                                                    ],
+                                                    "source": "",
+                                                    "example": "",
+                                                    "formula": "",
+                                                    "subtype": "subtraction",
+                                                    "variables": []
+                                                },
+                                                "actions": [],
+                                                "returns": "number"
+                                            },
+                                            {
+                                                "id": "act-1",
+                                                "type": "formatter",
+                                                "logic": {
+                                                    "raw": "${1}  -  ${2} - ryan",
+                                                    "prop": "prop2",
+                                                    "format": "custom",
+                                                    "opArgs": [],
+                                                    "source": "adm.request.prop7",
+                                                    "example": "01/10/2020",
+                                                    "formula": "",
+                                                    "subtype": "date-interpolate",
+                                                    "variables": [
+                                                        {
+                                                            "id": 1,
+                                                            "pos": 1,
+                                                            "color": "#ae860e",
+                                                            "value": "adm.request.prop8",
+                                                            "format": {},
+                                                            "example": "path"
+                                                        },
+                                                        {
+                                                            "id": 2,
+                                                            "pos": 2,
+                                                            "color": "#602695",
+                                                            "value": "",
+                                                            "format": {
+                                                                "group": "month",
+                                                                "value": "M"
+                                                            },
+                                                            "example": "2"
+                                                        }
+                                                    ]
+                                                },
+                                                "actions": [],
+                                                "returns": "text"
+                                            },
+                                            {
+                                                "id": "act-2",
+                                                "type": "number-operation",
+                                                "logic": {
+                                                    "raw": "",
+                                                    "prop": "prop3",
+                                                    "format": "",
+                                                    "opArgs": [
+                                                        {
+                                                            "value": "adm.request.prop9",
+                                                            "example": 68
+                                                        },
+                                                        {
+                                                            "value": "adm.request.prop10",
+                                                            "example": 20
+                                                        }
+                                                    ],
+                                                    "source": "",
+                                                    "example": "",
+                                                    "formula": "",
+                                                    "subtype": "division",
+                                                    "variables": []
+                                                },
+                                                "actions": [],
+                                                "returns": "number"
+                                            },
+                                            {
+                                                "id": "act-3",
+                                                "type": "formatter",
+                                                "logic": {
+                                                    "raw": "${1}/${2}/${3}",
+                                                    "prop": "cvhbjnkm",
+                                                    "format": "custom",
+                                                    "opArgs": [],
+                                                    "source": "adm.request.prop11",
+                                                    "example": "2023-08-01",
+                                                    "formula": "",
+                                                    "subtype": "date-interpolate",
+                                                    "variables": [
+                                                        {
+                                                            "id": 1,
+                                                            "pos": 1,
+                                                            "color": "#932b32",
+                                                            "value": "",
+                                                            "format": {
+                                                                "group": "week-of-year",
+                                                                "value": "w"
+                                                            },
+                                                            "example": "1"
+                                                        },
+                                                        {
+                                                            "id": 2,
+                                                            "pos": 2,
+                                                            "color": "#567100",
+                                                            "value": "",
+                                                            "format": {
+                                                                "group": "week-of-year",
+                                                                "value": "w"
+                                                            },
+                                                            "example": "1"
+                                                        },
+                                                        {
+                                                            "id": 3,
+                                                            "pos": 3,
+                                                            "color": "#619792",
+                                                            "value": "",
+                                                            "format": {
+                                                                "group": "day-of-the-year",
+                                                                "value": "DDDD"
+                                                            },
+                                                            "example": "001"
+                                                        }
+                                                    ]
+                                                },
+                                                "actions": [],
+                                                "returns": "text"
+                                            },
+                                            {
+                                                "id": "act-4",
+                                                "type": "assign-primitive",
+                                                "logic": {
+                                                    "raw": [
+                                                        {
+                                                            "type": "condition-group",
+                                                            "group": [
+                                                                {
+                                                                    "type": "condition",
+                                                                    "opArgs": [
+                                                                        {
+                                                                            "id": "is-not-true",
+                                                                            "type": "text",
+                                                                            "value": "adm.request.prop12",
+                                                                            "example": "2",
+                                                                        },
+                                                                        {
+                                                                            "value": "adm.request.prop13",
+                                                                            "example": 'Cooke'
+                                                                        }
+                                                                    ],
+                                                                    "operator": "is-not-true"
+                                                                },
+                                                                {
+                                                                    "type": "linker",
+                                                                    "opArgs": [],
+                                                                    "operator": "and"
+                                                                },
+                                                                {
+                                                                    "type": "condition",
+                                                                    "opArgs": [
+                                                                        {
+                                                                            "id": "is-not-equals-to",
+                                                                            "type": "text",
+                                                                            "value": "adm.request.prop14",
+                                                                            "example": "2"
+                                                                        },
+                                                                        {
+                                                                            "id": "is-not-equals-to",
+                                                                            "type": "text",
+                                                                            "value": "adm.request.prop15",
+                                                                            "example": "2"
+                                                                        }
+                                                                    ],
+                                                                    "operator": "is-not-equals-to"
+                                                                }
+                                                            ],
+                                                            "opArgs": [
+                                                                {
+                                                                    "id": "is-not-true",
+                                                                    "type": "text",
+                                                                    "value": "adm.request.prop16",
+                                                                    "example": "2",
+                                                                },
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "prop": "xxxxx",
+                                                    "format": "",
+                                                    "opArgs": [],
+                                                    "source": "",
+                                                    "example": "",
+                                                    "formula": "",
+                                                    "subtype": "boolean",
+                                                    "variables": []
+                                                },
+                                                "actions": [],
+                                                "returns": "boolean"
+                                            }
+                                        ],
+                                        "returns": "string"
+                                    },
+                                    {
+                                        "id": "action-0-logic-4",
+                                        "name": "Logic item \"4\"",
+                                        "type": "set-state-values",
+                                        "logic": {
+                                            "raw": "",
+                                            "prop": "",
+                                            "type": "",
+                                            "opArgs": [],
+                                            "source": "",
+                                            "formula": "",
+                                            "subtype": "",
+                                            "variables": []
+                                        },
+                                        "actions": [
+                                            {
+                                                "id": "act-0",
+                                                "type": "custom",
+                                                "logic": {
+                                                    "raw": "\n\n\n\n\n\n\n\n\n\nreturn 'hello there';\n\n\n\n",
+                                                    "prop": "ryan",
+                                                    "format": "",
+                                                    "opArgs": [],
+                                                    "source": "",
+                                                    "example": "",
+                                                    "formula": "",
+                                                    "subtype": "",
+                                                    "variables": []
+                                                },
+                                                "actions": [],
+                                                "returns": "text"
+                                            },
+                                            {
+                                                "id": "act-1",
+                                                "type": "assign-primitive",
+                                                "logic": {
+                                                    "raw": "20",
+                                                    "prop": "boolTest",
+                                                    "format": "",
+                                                    "opArgs": [],
+                                                    "source": "",
+                                                    "example": "",
+                                                    "formula": "20",
+                                                    "subtype": "number",
+                                                    "variables": []
+                                                },
+                                                "actions": [],
+                                                "returns": "number"
+                                            },
+                                            {
+                                                "id": "act-2",
+                                                "type": "assign-primitive",
+                                                "logic": {
+                                                    "raw": [
+                                                        {
+                                                            "key": "prop1",
+                                                            "data": [],
+                                                            "value": "adm.request.prop17",
+                                                            "returns": "text"
+                                                        },
+                                                        {
+                                                            "key": "ads",
+                                                            "data": [
+                                                                {
+                                                                    "key": "dd",
+                                                                    "data": [],
+                                                                    "value": "adm.request.prop18",
+                                                                    "returns": "text"
+                                                                }
+                                                            ],
+                                                            "value": "",
+                                                            "returns": "object"
+                                                        }
+                                                    ],
+                                                    "prop": "numberTest",
+                                                    "format": "",
+                                                    "opArgs": [],
+                                                    "source": "",
+                                                    "example": "",
+                                                    "formula": "",
+                                                    "subtype": "object",
+                                                    "variables": []
+                                                },
+                                                "actions": [],
+                                                "returns": "object"
+                                            },
+                                            {
+                                                "id": "act-3",
+                                                "type": "assign-primitive",
+                                                "logic": {
+                                                    "raw": "${1}${2} - YRNA",
+                                                    "prop": "fourthTest",
+                                                    "format": "custom",
+                                                    "opArgs": [],
+                                                    "source": "now",
+                                                    "example": "2023-08-02",
+                                                    "formula": "",
+                                                    "subtype": "date",
+                                                    "variables": [
+                                                        {
+                                                            "id": 1,
+                                                            "pos": 1,
+                                                            "color": "#9d5f6b",
+                                                            "value": "adm.request.prop19",
+                                                            "format": {},
+                                                            "example": "AkqLe"
+                                                        },
+                                                        {
+                                                            "id": 2,
+                                                            "pos": 2,
+                                                            "color": "#009a41",
+                                                            "value": "adm.request.prop20",
+                                                            "format": {},
+                                                            "example": "xYAWi"
+                                                        }
+                                                    ]
+                                                },
+                                                "actions": [],
+                                                "returns": "date"
+                                            }
+                                        ],
+                                        "returns": "string"
+                                    },
+                                    {
+                                        "id": "action-0-logic-5",
+                                        "name": "Logic item \"5\"",
+                                        "type": "set-stash-values",
+                                        "logic": {
+                                            "raw": "",
+                                            "prop": "",
+                                            "type": "",
+                                            "opArgs": [],
+                                            "source": "",
+                                            "formula": "",
+                                            "subtype": "",
+                                            "variables": []
+                                        },
+                                        "actions": [
+                                            {
+                                                "id": "act-0",
+                                                "type": "custom",
+                                                "logic": {
+                                                    "raw": "\n\n\n\n\n\n\n\nreturn 1;\n\n\n\n\n\n",
+                                                    "prop": "p1",
+                                                    "format": "",
+                                                    "opArgs": [],
+                                                    "source": "",
+                                                    "example": "",
+                                                    "formula": "",
+                                                    "subtype": "",
+                                                    "variables": []
+                                                },
+                                                "actions": [],
+                                                "returns": "text"
+                                            },
+                                            {
+                                                "id": "act-1",
+                                                "type": "custom",
+                                                "logic": {
+                                                    "raw": "\n\nreturn 546;\n\n",
+                                                    "prop": "p2",
+                                                    "format": "",
+                                                    "opArgs": [],
+                                                    "source": "",
+                                                    "example": "",
+                                                    "formula": "",
+                                                    "subtype": "",
+                                                    "variables": []
+                                                },
+                                                "actions": [],
+                                                "returns": "text"
+                                            },
+                                            {
+                                                "id": "act-2",
+                                                "type": "formatter",
+                                                "logic": {
+                                                    "raw": "${1} ${2} ${3} - hello there",
+                                                    "prop": "p3",
+                                                    "format": "",
+                                                    "opArgs": [],
+                                                    "source": "",
+                                                    "example": "",
+                                                    "formula": "Ryan Joseph Cooke - hello there",
+                                                    "subtype": "string-interpolate",
+                                                    "variables": [
+                                                        {
+                                                            "id": 1,
+                                                            "pos": 1,
+                                                            "color": "#56be7e",
+                                                            "value": "adm.request.prop21",
+                                                            "format": {},
+                                                            "example": "Ryan"
+                                                        },
+                                                        {
+                                                            "id": 2,
+                                                            "pos": 2,
+                                                            "color": "#892fa4",
+                                                            "value": "adm.request.prop22",
+                                                            "format": {},
+                                                            "example": "Joseph"
+                                                        },
+                                                        {
+                                                            "id": 3,
+                                                            "pos": 3,
+                                                            "color": "#0baf88",
+                                                            "value": "adm.request.prop23",
+                                                            "format": {},
+                                                            "example": "Cooke"
+                                                        }
+                                                    ]
+                                                },
+                                                "actions": [],
+                                                "returns": "text"
+                                            }
+                                        ],
+                                        "returns": "string"
+                                    },
+                                    {
+                                        "id": "action-0-logic-6",
+                                        "name": "Logic item \"6\"",
+                                        "type": "formatter",
+                                        "logic": {
+                                            "raw": "ryan ${1}",
+                                            "prop": "",
+                                            "format": "custom",
+                                            "opArgs": [],
+                                            "source": "adm.request.prop24",
+                                            "example": "2022-10-31 18:45:35",
+                                            "formula": "",
+                                            "subtype": "date-interpolate",
+                                            "variables": [
+                                                {
+                                                    "id": 1,
+                                                    "pos": 1,
+                                                    "color": "#080a19",
+                                                    "value": "adm.request.prop25",
+                                                    "format": {},
+                                                    "example": "RYAN"
+                                                }
+                                            ]
+                                        },
+                                        "actions": [],
+                                        "returns": "text"
+                                    }
+                                ],
+                                "property": "filename"
+                            }
+                        ],
+                        "example": "",
+                        "baseType": "logic-chain",
+                        "property": "email"
+                    }
+                ],
+                "entity": 4,
+                "_action": {
+                    "action": "create-one",
+                    "category": "database"
+                },
+                "datasource": "Dfghdfgh"
+            },
+            "errorCode": 400,
+            "description": "Action #1 Description",
+            "successCode": 201,
+            "errorMessage": "Error message",
+            "successMessage": "Success message MAIN ERROR"
+        }
+    ],
+    "output": [],
+    "selected": true,
+    "id": 15,
+    "projectId": 1,
+    "serviceGroupId": 11,
+    "type": "rest",
+    "name": "Test REST",
+    "description": "This is just a simple test ",
+    "definition": {
+        "path": "hello-there",
+        "roles": [
+            2
+        ],
+        "method": "get",
+        "condition": {
+            "example": "",
+            "id": "1YOqowltxy",
+            "property": "condition",
+            "name": "Propery \"condition\" mapping",
+            "desc": "This is mapped value & logic for property condition",
+            "baseType": "context-mapping",
+            "type": "text",
+            "raw": "adm.request.prop26",
+            "actions": []
+        }
+    }
+}

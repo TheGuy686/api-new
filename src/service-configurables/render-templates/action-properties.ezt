@@ -1,0 +1,44 @@
+{% macro processing(item, isFunction) %}
+	{% import "action-recursion.ezt" as action %}
+	{% import _self as macros %}
+
+        {% if item.baseType == 'logic-chain' and item.actions|length > 0 %}
+			
+			{% if isFunction %}
+			
+				const {{ item.property }} = {{ action.recursion(item.actions) }};
+
+			{% else %}
+
+				{{ item.property }}: {{ action.recursion(item.actions) }},
+
+			{% endif %}
+
+        {% elseif item.baseType == 'context-mapping' %}
+
+			{{ item.property }}: {{ item.raw }},
+			
+        {% elseif item.baseType == 'primitive' %}
+			
+            {% if item.type == 'text' %}
+
+				{% if isFunction %}
+
+					const {{ item.property }} = '{{ item.raw }}';
+
+				{% else %}
+
+					{{ item.property }}: '{{ item.raw }}',
+
+				{% endif %}
+
+			{% endif %}
+            
+            {% if item.type == 'text' %}
+			
+			{% endif %}
+            
+            
+		{% endif %}
+        
+{% endmacro %}

@@ -1,0 +1,3 @@
+[submodule "plugins/eezze"]
+	path = plugins/eezze
+	url = git@github.com:eezze/eezze-ts-plugin.git

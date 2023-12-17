@@ -1,0 +1,10 @@
+name: ServiceConfig CRUD Service
+description:
+version: 1.0
+license: Not MIT
+author: Ryan J. Cooke
+services:
+  createUpdateStoreServiceConfig:
+    authenticator: ExpressAuthentication
+  deleteStoreServiceConfig:
+    authenticator: ExpressAuthentication

@@ -1,0 +1,90 @@
+{% autoescape false %}
+# General
+environment = "prod"
+region      = "us-east-1"
+project     = "{{ project }}"
+tags = {
+  environment = "production"
+  terraform   = true
+  project     = "{{ project }}"
+  connection  = "{{ connection_name }}"
+}
+aws_profile    = "eezze-prod"
+hosted_zone_id = "Z092212215QBIRCDKU3TK"
+
+# backend app.eezze.io
+ecs_name = "{{ project }}-{{ connection_name }}"
+ecr_list = "{{ ecr_list }}"
+vpc_cidr = "10.0.0.0/16"
+additional_subnet = { # in case your application uses 1 subnet, ALB requires 2
+  cidr_block        = "10.0.2.0/24"
+  availability_zone = "us-east-1b"
+}
+enable_lb_logs = true
+ssl_certificate_arn = "arn:aws:acm:us-east-1:294648980860:certificate/dc139188-22b9-486b-b337-b6f97e13bdc8"
+
+task_definitions = {{ task_definitions }}
+
+# CodePipeline Build
+build_timeout      = 60
+build_compute_type = "BUILD_GENERAL1_SMALL"
+build_image        = "aws/codebuild/standard:7.0"
+
+privileged_mode = true # enables sudo by default, needed for docker deployment
+
+environment_variable_map = [
+  {
+    name  = "AWS_DEFAULT_REGION"
+    value = "us-east-1"
+    type  = "PLAINTEXT"
+  },
+  {
+    name  = "PRIVATE_CONTAINER_LIST"
+    value = "{{ private_container_list }}" #: service_name:image_name,
+    type  = "PLAINTEXT"
+  },
+  {
+    name  = "PUBLIC_CONTAINER_LIST"
+    value = "{{ public_container_list }}" #: service_name:image_name,
+    type  = "PLAINTEXT"
+  },
+  {
+    name  = "DOCKERHUB_USERNAME"
+    value = "eezzeio"
+    type  = "PLAINTEXT"
+  },
+  {
+    name  = "DOCKERHUB_PASSWORD"
+    value = "lHSfniwIZBUuXvJ1l6"
+    type  = "PLAINTEXT"
+  },
+  {
+    name  = "GIT_PROJECT_REPO_PATH"
+    value = "{{ github_project_repo_path }}"
+    type  = "PLAINTEXT"
+  },
+  {
+    name  = "GITHUB_TOKEN"
+    value = "{{ github_token }}"
+    type  = "PLAINTEXT"
+  },
+  {
+    name  = "USER_ID"
+    value = "1000"
+    type  = "PLAINTEXT"
+  },
+  {
+    name  = "GROUP_ID"
+    value = "1000"
+    type  = "PLAINTEXT"
+  },
+]
+
+buildspec = "codebuild.yml" # path to file
+
+source_repository_owner  = "eezze"
+source_repository_name   = "terraform-aws-eezze-connection"
+source_repository_branch = "master"
+
+github_token = "{{ github_token }}"
+{% endautoescape %}

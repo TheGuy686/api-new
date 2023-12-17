@@ -1,0 +1,3 @@
+{
+    {% include 'action-input.ezt' with { prop: input, isAlwaysObject: true } %}
+}

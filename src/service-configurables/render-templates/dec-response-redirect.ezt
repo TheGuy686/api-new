@@ -1,0 +1,8 @@
+// #{{ action.name }}
+@Redirect({
+    {% if action.schema.url %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'url', prop: action.schema.url } %}
+    {% endif %}
+
+    {% include 'dec-finalize.ezt' with { action: action } %}
+})

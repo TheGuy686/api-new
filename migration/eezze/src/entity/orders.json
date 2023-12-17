@@ -1,0 +1,29 @@
+{
+    "name": "Orders",
+    "columns": {
+        "description": {
+            "type": "text",
+            "unique": false,
+            "primary": false,
+            "nullable": false
+        },
+        "id": {
+            "type": "text",
+            "unique": false,
+            "primary": true,
+            "nullable": false
+        },
+        "name": {
+            "type": "text",
+            "unique": false,
+            "primary": false,
+            "nullable": false
+        }
+    },
+    "relations": {
+        "User": {
+            "target": "User",
+            "type": "one-to-many"
+        }
+    }
+}

@@ -1,0 +1,28 @@
+import { RestController } from '@eezze/base';
+import {
+  EController,
+
+  {% for method in methods %}
+
+    E{{ method | pascalCase }},
+
+  {% endfor %}
+  
+} from '@eezze/decorators';
+
+@EController({
+	server: '{{ datasource }}',
+})
+export default class {{ serviceId }}Controller extends RestController {
+    
+  {% for serv in services %}
+    
+    {% if serv.method == 'get' %}@EGet({ path: '{{ serv.path }}' }){% endif %}
+    {% if serv.method == 'post' %}@EPost({ path: '{{ serv.path }}' }){% endif %}
+    {% if serv.method == 'put' %}@EPut({ path: '{{ serv.path }}' }){% endif %}
+    {% if serv.method == 'delete' %}@EDelete({ path: '{{ serv.path }}' }){% endif %}
+
+    static async {{ serv.name | camelCase }}() {}
+
+	{% endfor %}
+}

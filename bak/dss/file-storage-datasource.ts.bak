@@ -1,0 +1,10 @@
+import { EDataSource } from '@eezze/decorators';
+
+@EDataSource({
+	datasourceType: 'FileStorage',
+	rootPath: process.env.PROJECTS_FILE_ROOT,
+	fileType: 'json',
+	fileName: 'configs/${ projectId }/datasource.json',
+	createFileIfNotExists: false
+})
+export default class JsonDbDatasource { }

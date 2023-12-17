@@ -1,0 +1,26 @@
+import { EAction, CreateOne, SocketAction } from '@eezze/decorators';
+import BaseAction from '@eezze/base/action/BaseAction';
+import ActionDataManager from '@eezze/classes/ActionDataManager';
+
+@EAction({
+	roles: ['ROLE_ADMIN', 'ROLE_USER'],
+	targetRepo: 'FileStorage.ActionRepo',
+})
+export default class CreateActionAction extends BaseAction {
+	@CreateOne()
+	@SocketAction({
+		headers: (adm: ActionDataManager) => {
+			return {
+				'authorization': adm.request.auth.idToken
+			}
+		},
+		datasource: 'integration-eezze-ws',
+		eventName: 'generate-action-create',
+		payload: (adm: ActionDataManager) => {
+			console.log("adm", adm.input);
+			let inp = JSON.parse(JSON.stringify(adm.getLastAction().result.body));
+			return inp;
+		}
+	})
+	async _exec() { }
+}

@@ -1,0 +1,12 @@
+{% for p in prop.data %}
+    {% if p.data | length > 0 %}
+        '{{ p.key }}': {
+            {% include 'action-format-object-prop.ezt' with { prop: p, lcAlias: lcAlias } %}
+        },
+
+    {% else %}
+        '{{ p.key }}': {{ p.value }},
+
+    {% endif %}
+
+{% endfor %}

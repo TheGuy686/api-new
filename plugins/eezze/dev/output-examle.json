@@ -1,0 +1,683 @@
+{
+    "inProgress": false,
+    "success": false,
+    "foldersToProcess": [
+        "/home/rolfstreefkerk/dummy/fe-final-version",
+        "/home/rolfstreefkerk/dummy/eezze-assets/",
+        "/home/rolfstreefkerk/dummy/eezze-assets/",
+        "/home/rolfstreefkerk/dummy/eezze-assets",
+        "/home/swapnil/eezze-backend-boilerplate/",
+        "/home/rolfstreefkerk/dummy/eezze-generator-backend"
+    ],
+    "processedFiles": 0,
+    "processedPaths": [],
+    "otherEezzeFiles": [],
+    "pathsNotFound": [],
+    "computerInfo": {
+        "general": {
+            "version": {
+                "0": "5",
+                "1": ".",
+                "2": "1",
+                "3": "4",
+                "4": ".",
+                "5": "4"
+            },
+            "time": {
+                "current": 1669633214168,
+                "uptime": 34939.3,
+                "timezone": "GMT+0700",
+                "timezoneName": "Asia/Bangkok"
+            }
+        },
+        "os": {
+            "uuid": {
+                "os": "7030ac33a8d62d70b4a11f7c62895605",
+                "hardware": "",
+                "macs": [
+                    "dc:71:96:f1:5b:4e"
+                ]
+            },
+            "info": {
+                "platform": "linux",
+                "distro": "Pop",
+                "release": "22.04 LTS",
+                "codename": "jammy",
+                "kernel": "6.0.6-76060006-generic",
+                "arch": "x64",
+                "hostname": "pop-os",
+                "fqdn": "pop-os.localdomain",
+                "codepage": "UTF-8",
+                "logofile": "pop",
+                "serial": "7030ac33a8d62d70b4a11f7c62895605",
+                "build": "",
+                "servicepack": "",
+                "uefi": true
+            },
+            "users": {
+                "0": {
+                    "user": "rolfstreefkerk",
+                    "tty": ":0",
+                    "date": "2022-11-28",
+                    "time": "08:18",
+                    "ip": ":0",
+                    "command": "/usr/libexec/gdm-x-session --register-session --run-script /usr/bin/startplasma-x11"
+                },
+                "1": {
+                    "user": "rolfstreefkerk",
+                    "tty": "pts/0",
+                    "date": "2022-11-28",
+                    "time": "08:18",
+                    "ip": ":0",
+                    "command": "/usr/bin/kded5"
+                }
+            },
+            "shell": {
+                "0": "/",
+                "1": "b",
+                "2": "i",
+                "3": "n",
+                "4": "/",
+                "5": "b",
+                "6": "a",
+                "7": "s",
+                "8": "h"
+            },
+            "versions": {
+                "kernel": "6.0.6-76060006-generic",
+                "openssl": "1.1.1n+quic",
+                "systemOpenssl": "1.1.1s",
+                "systemOpensslLib": "OpenSSL",
+                "node": "16.15.0",
+                "v8": "9.4.146.24-node.20",
+                "npm": "9.1.2",
+                "yarn": "1.22.19",
+                "pm2": "",
+                "gulp": "",
+                "grunt": "",
+                "git": "2.38.1",
+                "tsc": "4.5.5",
+                "mysql": "",
+                "redis": "",
+                "mongodb": "",
+                "apache": "",
+                "nginx": "",
+                "php": "",
+                "docker": "20.10.21",
+                "postfix": "",
+                "postgresql": "",
+                "perl": "5.36.0",
+                "python": "3.10.6",
+                "python3": "3.10.8",
+                "pip": "22.2.2",
+                "pip3": "22.3.1",
+                "java": "",
+                "gcc": "11.3.0",
+                "virtualbox": "",
+                "bash": "5.1.16",
+                "zsh": "",
+                "fish": "",
+                "powershell": "",
+                "dotnet": ""
+            }
+        },
+        "system": {
+            "info": {
+                "manufacturer": "LENOVO",
+                "model": "20QVCT01WW",
+                "version": "ThinkPad X1 Extreme Gen2",
+                "serial": "-",
+                "uuid": "",
+                "sku": "-",
+                "virtual": false
+            },
+            "bios": {
+                "vendor": "LENOVO",
+                "version": "N2OET58W (1.45 )",
+                "releaseDate": "2022-27-10",
+                "revision": "",
+                "serial": ""
+            },
+            "baseboard": {
+                "manufacturer": "LENOVO",
+                "model": "20QVCT01WW",
+                "version": "SDK0K17763 WIN",
+                "serial": "",
+                "assetTag": "Not Available",
+                "memMax": null,
+                "memSlots": null
+            },
+            "chassis": {
+                "manufacturer": "LENOVO",
+                "model": "",
+                "type": "Notebook",
+                "version": "None",
+                "serial": "",
+                "assetTag": "No Asset Information",
+                "sku": ""
+            }
+        },
+        "cpu": {
+            "manufacturer": "Intel",
+            "brand": "Core™ i7-9750H",
+            "vendor": "Intel",
+            "family": "6",
+            "model": "158",
+            "stepping": "10",
+            "revision": "",
+            "voltage": "",
+            "speed": 2.6,
+            "speedMin": 0.8,
+            "speedMax": 4.5,
+            "governor": "powersave",
+            "cores": 12,
+            "physicalCores": 6,
+            "performanceCores": 6,
+            "efficiencyCores": 0,
+            "processors": 1,
+            "socket": "",
+            "flags": "fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d arch_capabilities",
+            "virtualization": true,
+            "cache": {
+                "l1d": 196608,
+                "l1i": 196608,
+                "l2": 1048576,
+                "l3": 12582912
+            }
+        },
+        "wifiNetworks": {
+            "0": {
+                "ssid": "ROLF 2G",
+                "bssid": "2c:08:8c:62:64:e4",
+                "mode": "Infra",
+                "channel": 11,
+                "frequency": 2462,
+                "signalLevel": -50.5,
+                "quality": 99,
+                "security": [
+                    "WPA1",
+                    "WPA2"
+                ],
+                "wpaFlags": [
+                    "pair_tkip",
+                    "pair_ccmp",
+                    "group_tkip",
+                    "psk"
+                ],
+                "rsnFlags": [
+                    "pair_tkip",
+                    "pair_ccmp",
+                    "group_tkip",
+                    "psk"
+                ]
+            },
+            "1": {
+                "ssid": "ROLF 5G",
+                "bssid": "2c:08:8c:62:64:dc",
+                "mode": "Infra",
+                "channel": 36,
+                "frequency": 5180,
+                "signalLevel": -59,
+                "quality": 82,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_tkip",
+                    "pair_ccmp",
+                    "group_tkip",
+                    "psk"
+                ]
+            },
+            "2": {
+                "ssid": "HOME-Y 2G",
+                "bssid": "74:19:f8:e4:db:f1",
+                "mode": "Infra",
+                "channel": 10,
+                "frequency": 2457,
+                "signalLevel": -71.5,
+                "quality": 57,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "3": {
+                "ssid": "Room134/192_2G",
+                "bssid": "a0:72:2c:0f:f7:e8",
+                "mode": "Infra",
+                "channel": 11,
+                "frequency": 2462,
+                "signalLevel": -73,
+                "quality": 54,
+                "security": [
+                    "WPA1",
+                    "WPA2"
+                ],
+                "wpaFlags": [
+                    "pair_tkip",
+                    "pair_ccmp",
+                    "group_tkip",
+                    "psk"
+                ],
+                "rsnFlags": [
+                    "pair_tkip",
+                    "pair_ccmp",
+                    "group_tkip",
+                    "psk"
+                ]
+            },
+            "4": {
+                "ssid": "APSXBKK-0438E1",
+                "bssid": "14:1f:ba:74:91:41",
+                "mode": "Infra",
+                "channel": 1,
+                "frequency": 2412,
+                "signalLevel": -76.5,
+                "quality": 47,
+                "security": [],
+                "wpaFlags": [],
+                "rsnFlags": []
+            },
+            "5": {
+                "ssid": ".@  3BB_WiFi",
+                "bssid": "14:1f:ba:74:91:42",
+                "mode": "Infra",
+                "channel": 1,
+                "frequency": 2412,
+                "signalLevel": -76.5,
+                "quality": 47,
+                "security": [],
+                "wpaFlags": [],
+                "rsnFlags": []
+            },
+            "6": {
+                "ssid": "@ 3BB_WiFi",
+                "bssid": "14:1f:ba:74:88:20",
+                "mode": "Infra",
+                "channel": 6,
+                "frequency": 2437,
+                "signalLevel": -79,
+                "quality": 42,
+                "security": [],
+                "wpaFlags": [],
+                "rsnFlags": []
+            },
+            "7": {
+                "ssid": "sharp go",
+                "bssid": "30:23:03:d2:05:08",
+                "mode": "Infra",
+                "channel": 5,
+                "frequency": 2432,
+                "signalLevel": -80,
+                "quality": 40,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "8": {
+                "ssid": ".@ 3BB_WiFi",
+                "bssid": "14:1f:ba:74:88:22",
+                "mode": "Infra",
+                "channel": 6,
+                "frequency": 2437,
+                "signalLevel": -81.5,
+                "quality": 37,
+                "security": [],
+                "wpaFlags": [],
+                "rsnFlags": []
+            },
+            "9": {
+                "ssid": "HashtagWifi_2G",
+                "bssid": "04:42:1a:e5:37:e8",
+                "mode": "Infra",
+                "channel": 6,
+                "frequency": 2437,
+                "signalLevel": -82.5,
+                "quality": 35,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "10": {
+                "ssid": "",
+                "bssid": "f8:53:29:aa:8e:4b",
+                "mode": "Infra",
+                "channel": 3,
+                "frequency": 2422,
+                "signalLevel": -83,
+                "quality": 34,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "11": {
+                "ssid": "@ 3BB_WiFi",
+                "bssid": "14:1f:ba:74:8a:50",
+                "mode": "Infra",
+                "channel": 11,
+                "frequency": 2462,
+                "signalLevel": -83,
+                "quality": 34,
+                "security": [],
+                "wpaFlags": [],
+                "rsnFlags": []
+            },
+            "12": {
+                "ssid": ".@  3BB_WiFi",
+                "bssid": "14:1f:ba:74:8a:52",
+                "mode": "Infra",
+                "channel": 11,
+                "frequency": 2462,
+                "signalLevel": -83,
+                "quality": 34,
+                "security": [],
+                "wpaFlags": [],
+                "rsnFlags": []
+            },
+            "13": {
+                "ssid": "worker_wifi_2.4G",
+                "bssid": "06:18:d6:c7:fb:6c",
+                "mode": "Infra",
+                "channel": 1,
+                "frequency": 2412,
+                "signalLevel": -84,
+                "quality": 32,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "14": {
+                "ssid": "Connect now!",
+                "bssid": "64:20:e0:2b:32:d3",
+                "mode": "Infra",
+                "channel": 5,
+                "frequency": 2432,
+                "signalLevel": -84,
+                "quality": 32,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            }},
+            "15": {
+                "ssid": "",
+                "bssid": "36:23:03:d2:05:08",
+                "mode": "Infra",
+                "channel": 5,
+                "frequency": 2432,
+                "signalLevel": -84,
+                "quality": 32,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "16": {
+                "ssid": "Void_2.4G",
+                "bssid": "f8:53:29:84:29:e8",
+                "mode": "Infra",
+                "channel": 8,
+                "frequency": 2447,
+                "signalLevel": -84,
+                "quality": 32,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "17": {
+                "ssid": "APSXBKK-0438E3",
+                "bssid": "14:1f:ba:74:8a:51",
+                "mode": "Infra",
+                "channel": 11,
+                "frequency": 2462,
+                "signalLevel": -84,
+                "quality": 32,
+                "security": [],
+                "wpaFlags": [],
+                "rsnFlags": []
+            },
+            "18": {
+                "ssid": "Hoth_system",
+                "bssid": "f4:a4:d6:fd:95:b4",
+                "mode": "Infra",
+                "channel": 1,
+                "frequency": 2412,
+                "signalLevel": -85,
+                "quality": 30,
+                "security": [
+                    "WPA1",
+                    "WPA2"
+                ],
+                "wpaFlags": [
+                    "pair_tkip",
+                    "pair_ccmp",
+                    "group_tkip",
+                    "psk"
+                ],
+                "rsnFlags": [
+                    "pair_tkip",
+                    "pair_ccmp",
+                    "group_tkip",
+                    "psk"
+                ]
+            },
+            "19": {
+                "ssid": "Room 199 2.4G",
+                "bssid": "f8:53:29:aa:8e:48",
+                "mode": "Infra",
+                "channel": 3,
+                "frequency": 2422,
+                "signalLevel": -85,
+                "quality": 30,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "20": {
+                "ssid": "AA2.4 GHz-guest",
+                "bssid": "c2:56:27:64:f0:5b",
+                "mode": "Infra",
+                "channel": 6,
+                "frequency": 2437,
+                "signalLevel": -85.5,
+                "quality": 29,
+                "security": [],
+                "wpaFlags": [],
+                "rsnFlags": []
+            },
+            "21": {
+                "ssid": "AA2.4 GHz",
+                "bssid": "c0:56:27:64:f0:59",
+                "mode": "Infra",
+                "channel": 6,
+                "frequency": 2437,
+                "signalLevel": -85.5,
+                "quality": 29,
+                "security": [
+                    "WPA1",
+                    "WPA2"
+                ],
+                "wpaFlags": [
+                    "pair_tkip",
+                    "group_tkip",
+                    "psk"
+                ],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_tkip",
+                    "psk"
+                ]
+            },
+            "22": {
+                "ssid": "Joedaman",
+                "bssid": "3c:84:6a:63:90:2e",
+                "mode": "Infra",
+                "channel": 8,
+                "frequency": 2447,
+                "signalLevel": -85.5,
+                "quality": 29,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "23": {
+                "ssid": "HOME-S 2G",
+                "bssid": "20:9a:e9:14:8f:76",
+                "mode": "Infra",
+                "channel": 8,
+                "frequency": 2447,
+                "signalLevel": -85.5,
+                "quality": 29,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "24": {
+                "ssid": "HOME-Y 5G",
+                "bssid": "74:19:f8:e4:db:ec",
+                "mode": "Infra",
+                "channel": 157,
+                "frequency": 5785,
+                "signalLevel": -85.5,
+                "quality": 29,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "25": {
+                "ssid": "Room134/192_5G",
+                "bssid": "a0:72:2c:0f:f7:e0",
+                "mode": "Infra",
+                "channel": 161,
+                "frequency": 5805,
+                "signalLevel": -86.5,
+                "quality": 27,
+                "security": [
+                    "WPA1",
+                    "WPA2"
+                ],
+                "wpaFlags": [
+                    "pair_tkip",
+                    "pair_ccmp",
+                    "group_tkip",
+                    "psk"
+                ],
+                "rsnFlags": [
+                    "pair_tkip",
+                    "pair_ccmp",
+                    "group_tkip",
+                    "psk"
+                ]
+            },
+            "26": {
+                "ssid": "",
+                "bssid": "6c:e8:74:ae:1c:4b",
+                "mode": "Infra",
+                "channel": 36,
+                "frequency": 5180,
+                "signalLevel": -88,
+                "quality": 24,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            },
+            "27": {
+                "ssid": "HashtagWifi_5G",
+                "bssid": "04:42:1a:e5:37:ec",
+                "mode": "Infra",
+                "channel": 153,
+                "frequency": 5765,
+                "signalLevel": -90,
+                "quality": 20,
+                "security": [
+                    "WPA2"
+                ],
+                "wpaFlags": [],
+                "rsnFlags": [
+                    "pair_ccmp",
+                    "group_ccmp",
+                    "psk"
+                ]
+            }
+        }
+    }
+}
+
+

@@ -1,0 +1,197 @@
+{% set isInt = false %}
+{% set isString = false %}
+{% set isBool = false %}
+{% set isDate = false %}
+{% set isEmail = false %}
+{% set isJson = false %}
+{% set isText = false %}
+{% set isJwt = false %}
+{% set isObj = false %}
+
+import BaseActionInput from '@eezze/base/BaseActionInput';
+import { EActionInput } from '@eezze/decorators';
+import { ActionDataManager as ADM, LogicChain } from '@eezze/classes';
+import {
+{% for item in actionInput %}
+  {% if item.type == 'number' and isInt == false %}
+    {% set isInt = true %}
+    Int,
+
+  {% elseif item.type == 'object' or item.type == 'list' and isObj == false %}
+    {% set isObj = true %}
+    Obj,
+
+  {% elseif item.type == 'string' and isString == false %}
+    {% set isString = true %}
+    String,
+
+  {% elseif item.type == 'boolean' and isBool == false %}
+    {% set isBool = true %}
+    Boolean,
+
+  {% elseif item.type == 'email' and isEmail == false %}
+    {% set isEmail = true %}
+    Email,
+
+  {% elseif item.type == 'json' and isJson == false %}
+    {% set isJson = true %}
+    Json,
+
+  {% elseif item.type == 'text' and isText == false %}
+    {% set isText = true %}
+    Text,
+
+  {% elseif item.type == 'jwt-token' and isJwt == false %}
+    {% set isJwt = true %}
+
+    JWTToken,
+    JWTTokenDecoded,
+
+  {% endif %}
+{% endfor %} 
+} from '@eezze/decorators/models/types';
+
+@EActionInput()
+export default class {{ service | pascalCase }}ActionInput extends BaseActionInput {
+
+	{% for item in actionInput %}
+    {% set baseType = 'string' %}
+    {% set hasValidValue = false %}
+
+    {% if item.type == 'number' %}
+      {% set hasValidValue = true %}
+      {% set baseType = 'number' %}
+      @Int({
+
+    {% elseif item.type == 'object' or item.type == 'list' %}
+      {% set hasValidValue = true %}
+      {% set baseType = 'object' %}
+
+      @Obj({
+
+    {% elseif item.type == 'string' %}
+      {% set hasValidValue = true %}
+      {% set baseType = 'string' %}
+
+      @String({
+
+    {% elseif item.type == 'boolean' %}
+      {% set hasValidValue = true %}
+      {% set baseType = 'boolean' %}
+
+      @Boolean({
+
+    {% elseif item.type == 'email' %}
+      {% set hasValidValue = true %}
+      {% set baseType = 'string' %}
+
+      @Email({
+
+    {% elseif item.type == 'json' %}
+      {% set hasValidValue = true %}
+      {% set baseType = 'string' %}
+
+      @Json({
+
+    {% elseif item.type == 'text' %}
+      {% set hasValidValue = true %}
+      {% set baseType = 'string' %}
+
+      @Text({
+    {% elseif item.type == 'jwt-token' %}
+
+      {% set hasValidValue = true %}
+      {% set isJwtToken = true %}
+      {% set baseType = 'string' %}
+
+      @JWTToken({
+    {% endif %}
+
+    {% if hasValidValue %}
+
+      {% if item.required %}
+        required: true,
+      {% endif %}
+
+      {% if item.serializeProperty %}
+          serializeProperty: true,
+      {% endif %}
+
+      {% if item.refreshOnValidate %}
+        refreshOnValidate: true,
+      {% endif %}
+
+      {% if item.valutKey %}
+        secret: process.env['{{ item.valutKey }}'],
+      {% endif %}
+
+      {% if item.expiresIn is defined %}
+        expiresIn: { minutes: {{ item.expiresIn }} },
+      {% endif %}
+
+      {% if item.additionalHeaders is defined %}
+        {% set hasProperties = false %}
+        {% for property in item.additionalHeaders %}
+            {% set hasProperties = true %}
+        {% endfor %}
+
+        {% if hasProperties %}
+        additionalHeaders: {
+          {% for h in item.additionalHeaders %}
+            '{{ h.key }}': {{ (ez.matches('process\.env', h.value) ? h.value : "'" ~ h.value ~ "'") | raw }},
+          {% endfor %}
+        },
+        {% endif %}
+      {% endif %}
+
+      {% if item.props %}
+
+        {% for ii in item.props %}
+
+          {% if isJwtToken and ii.property == 'serialize' %}
+          {% else %}
+
+            {% include 'action-variable-context.ezt' with {
+              mainProp: ii.property,
+              prop: ii,
+              isExtendedType: false,
+            } %}
+
+          {% endif %}
+
+        {% endfor %}
+
+      {% endif %}
+    
+      {% if item.message %}
+        message: `{{ item.message }}`,
+      {% else %}
+        message: '{{ service | pascalCase }} "{{ item.property }}" was not set',
+      {% endif %}
+    })
+    {{ item.property }}: {{ baseType }};
+
+    {% endif %}
+
+    {% if isJwtToken %}
+      @JWTTokenDecoded({
+        {% for ii in item.props %}
+
+          {% if isJwtToken and ii.property == 'serialize'%}
+          
+            {% include 'action-variable-context.ezt' with {
+              mainProp: ii.property,
+              prop: ii,
+              isExtendedType: true,
+            } %}
+
+          {% endif %}
+
+        {% endfor %}
+      })
+      {{ item.property }}Decoded: {{ baseType }};
+
+    {% endif %}
+
+	{% endfor %}
+}

@@ -1,0 +1,57 @@
+#!/bin/bash
+
+MAX_ATTEMPTS=3
+SLEEP_SECONDS=10
+MIGRATION_DIR="migration"
+
+# Function to check MySQL connection
+check_mysql_connection() {
+    local db_host="$1"
+    local db_port="$2"
+    local attempt=1
+
+    while [ $attempt -le $MAX_ATTEMPTS ]; do
+        echo "Attempting to connect to MySQL at $db_host:$db_port (Attempt $attempt/$MAX_ATTEMPTS)"
+        if mysqladmin ping -h "$db_host" -P "$db_port" --silent; then
+            echo "Successfully connected to MySQL at $db_host:$db_port."
+            return 0
+        else
+            echo "Failed to connect to MySQL at $db_host:$db_port. Retrying in $SLEEP_SECONDS seconds..."
+            sleep $SLEEP_SECONDS
+        fi
+        attempt=$((attempt+1))
+    done
+
+    echo "Failed to connect to MySQL at $db_host:$db_port after $MAX_ATTEMPTS attempts."
+    return 1
+}
+
+# Function to run migrations for a specific database
+run_migrations_for_database() {
+    local db_folder="$1"
+
+    echo "Running migrations for database in folder: $db_folder"
+    cd "$MIGRATION_DIR/$db_folder"
+
+    npm run create-migration && npm run run-migration
+    echo "Migrations ran for $db_folder."
+    
+    cd ../../
+
+    return 0
+}
+
+# Main logic
+{% for database in databases %}
+echo "Processing database: {{ database.name }}"
+if check_mysql_connection "{{ database.host }}" "{{ database.port }}"; then
+    run_migrations_for_database "{{ database.name }}";
+else
+    echo "MySQL connection check failed for {{ database.name }}. Exiting."
+    exit 1
+fi
+{% endfor %}
+
+# After running migrations
+echo "Migrations completed. Executing the command passed to Docker..."
+exec "$@"

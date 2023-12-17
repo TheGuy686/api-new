@@ -1,0 +1,622 @@
+export default [
+    {
+        term: 'I would',
+        matches: [
+            '.*?i.*?d.*?', // Matches "I'd"
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?', // Matches "I would"
+            '.*?i.*?d.*?', // Matches "Id"
+            '.*?i.*?\'*?d.*?', // Matches "I'd" with optional apostrophe
+            '.*?i.*?w.*?d.*?', // Matches "Iwd"
+            '.*?i.*?w.*?d.*?\'*?', // Matches "Iwd" with optional apostrophe
+            '.*?i.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "I'would"
+            '.*?i.*?w.*?ould.*?', // Matches "Iwould"
+            '.*?i.*?\'*?would.*?', // Matches "Iwould" with optional apostrophe
+            '.*?i.*?w.*?\'*?d.*?', // Matches "Iw'd" with optional apostrophe
+            '.*?i.*?w.*?\'*?d.*?\'*?', // Matches "Iw'd" with optional apostrophe both sides
+            '.*?i.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "I'would" with optional apostrophe
+            '.*?i.*?w.*?u.*?l.*?d.*?\'*?', // Matches "Iwould" with optional apostrophe
+            '.*?i.*?\'*?w.*?ould.*?\'*?', // Matches "Iwould" with optional apostrophes both sides
+            '.*?i.*?\'*?w.*?\'*?o.*?u.*?l.*?d.*?\'*?', // Matches "I'would" with optional apostrophes both sides
+            '.*?i.*?\'*?w.*?ould.*?\'*?', // Matches "I'would" with optional apostrophes both sides
+            '.*?i.*?w.*?\'*?d.*?\'*?', // Matches "Iw'd" with optional apostrophes both sides
+            '.*?i.*?\'*?w.*?d.*?\'*?', // Matches "Iw'd" with optional apostrophes both sides
+            '.*?i.*?w.*?d.*?\'*?\'*?', // Matches "Iw'd" with optional apostrophes both sides
+            '.*?i.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "I'would" with optional apostrophes both sides
+            '.*?i.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "I'would" with optional apostrophes both sides
+            '.*?i.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "I'would" with optional apostrophes both sides
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "Iwould" with optional apostrophe
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?', // Matches "Iwould"
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "Iwould" with optional apostrophe
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "Iwould" with optional apostrophe
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?', // Matches "Iwould"
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "Iwould" with optional apostrophe
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?', // Matches "Iwould"
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "Iwould" with optional apostrophe
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?', // Matches "Iwould"
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "Iwould" with optional apostrophe
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?', // Matches "Iwould"
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "Iwould" with optional apostrophe
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?', // Matches "Iwould"
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "Iwould" with optional apostrophe
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?', // Matches "Iwould"
+            '.*?i.*?w.*?o.*?u.*?l.*?d.*?\'*?' // Matches "Iwould"
+        ]
+    },
+    {
+        term: 'I will',
+        matches: [
+            '.*?i.*?l.*?', // Matches "I'll"
+            '.*?i.*?w.*?i.*?l.*?l.*?', // Matches "I will"
+            '.*?i.*?\'*?l.*?', // Matches "I'll" with optional apostrophe
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?wi.*?l.*?', // Matches "Iwil"
+            '.*?i.*?w.*?ill.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?l.*?', // Matches "I will"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "I will"
+            '.*?i.*?\'*?w.*?i.*?l.*?', // Matches "I'will"
+            '.*?i.*?w.*?\'*?i.*?l.*?', // Matches "Iw'ill"
+            '.*?i.*?\'*?w.*?i.*?ll.*?', // Matches "I'will"
+            '.*?i.*?\'*?w.*?i.*?l.*?', // Matches "I'will"
+            '.*?i.*?w.*?\'*?i.*?l.*?', // Matches "Iw'il"
+            '.*?i.*?w.*?i.*?\'*?l.*?', // Matches "Iwil'"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill'"
+            '.*?i.*?\'*?w.*?i.*?ll.*?\'*?', // Matches "I'will'"
+            '.*?i.*?\'*?w.*?i.*?l.*?\'*?', // Matches "I'will'"
+            '.*?i.*?w.*?i.*?\'*?l.*?', // Matches "Iwil'"
+            '.*?i.*?\'*?w.*?i.*?l.*?\'*?', // Matches "I'will'"
+            '.*?i.*?w.*?i.*?l.*?\'*?', // Matches "Iwil'"
+            '.*?i.*?\'*?w.*?i.*?ll.*?', // Matches "I'will"
+            '.*?i.*?\'*?w.*?i.*?ll.*?\'*?', // Matches "I'will"
+            '.*?i.*?\'*?w.*?i.*?l.*?', // Matches "I'will"
+            '.*?i.*?\'*?w.*?i.*?l.*?\'*?', // Matches "I'will"
+            '.*?i.*?\'*?w.*?i.*?l.*?\'*?', // Matches "I'will"
+            '.*?i.*?\'*?w.*?i.*?ll.*?\'*?', // Matches "I'will"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?\'*?w.*?i.*?ll.*?', // Matches "I'will"
+            '.*?i.*?\'*?w.*?i.*?ll.*?\'*?', // Matches "I'will"
+            '.*?i.*?w.*?i.*?l.*?', // Matches "Iwill"
+            '.*?i.*?\'*?w.*?i.*?l.*?', // Matches "I'will"
+            '.*?i.*?\'*?w.*?i.*?l.*?\'*?', // Matches "I'will"
+            '.*?i.*?w.*?i.*?l.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?\'*?', // Matches "Iwill"
+            '.*?i.*?w.*?i.*?ll.*?', // Matches "Iwill"
+        ]
+    },
+    {
+        term: 'you would',
+        matches: [
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?\'*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?yo.*?u.*?d.*?', // Matches "you'd"
+            '.*?yo.*?u.*?\'*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?ou.*?d.*?', // Matches "you'd"
+            '.*?y.*?ou.*?\'*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?ud.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?\'*?o.*?u.*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?\'*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophes
+            '.*?yo.*?u.*?\'*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?yo.*?u.*?\'*?d.*?\'*?', // Matches "you'd" with optional apostrophes
+            '.*?yo.*?u.*?d.*?', // Matches "you'd"
+            '.*?yo.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?ou.*?\'*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?ou.*?\'*?d.*?\'*?', // Matches "you'd" with optional apostrophes
+            '.*?y.*?ou.*?d.*?', // Matches "you'd"
+            '.*?y.*?ou.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?ud.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?\'*?o.*?u.*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?\'*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophes
+            '.*?yo.*?u.*?\'*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?yo.*?u.*?\'*?d.*?\'*?', // Matches "you'd" with optional apostrophes
+            '.*?yo.*?u.*?d.*?', // Matches "you'd"
+            '.*?yo.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?ou.*?\'*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?ou.*?\'*?d.*?\'*?', // Matches "you'd" with optional apostrophes
+            '.*?y.*?ou.*?d.*?', // Matches "you'd"
+            '.*?y.*?ou.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?ud.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?ud.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?\'*?o.*?u.*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?\'*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophes
+            '.*?yo.*?u.*?\'*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?yo.*?u.*?\'*?d.*?\'*?', // Matches "you'd" with optional apostrophes
+            '.*?yo.*?u.*?d.*?', // Matches "you'd"
+            '.*?yo.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?ou.*?\'*?d.*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?ou.*?\'*?d.*?\'*?', // Matches "you'd" with optional apostrophes
+            '.*?y.*?ou.*?d.*?', // Matches "you'd"
+            '.*?y.*?ou.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?ud.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?', // Matches "you'd" with optional apostrophe
+            '.*?y.*?o.*?u.*?d.*?', // Matches "you'd"
+            '.*?y.*?o.*?u.*?d.*?\'*?' // Matches "you'd" with optional apostrophe
+        ]
+    },
+    {
+        term: 'he would',
+        matches: [
+            '.*?h.*?e.*?d.*?', // Matches "he'd"
+            '.*?h.*?\'*?d.*?', // Matches "he'd" with optional apostrophe
+            '.*?he.*?d.*?', // Matches "he'd"
+            '.*?he.*?\'*?d.*?', // Matches "he'd" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "he'would"
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he'would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "he'would"
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he'would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "he'would"
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he'would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "he'would"
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he'would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "he'would"
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he'would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "he'would"
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he'would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "he'would"
+            '.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he'would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "he would" with optional apostrophe
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "he would"
+            '.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?' // Matches "he would" with optional apostrophe
+        ]
+    },
+    {
+        term: 'she would',
+        matches: [
+            '.*?s.*?h.*?e.*?d.*?', // Matches "she'd"
+            '.*?s.*?\'*?d.*?', // Matches "she'd" with optional apostrophe
+            '.*?sh.*?e.*?d.*?', // Matches "she'd"
+            '.*?sh.*?e.*?\'*?d.*?', // Matches "she'd" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "she'would"
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she'would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "she'would"
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she'would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "she'would"
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she'would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "she'would"
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she'would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?d.*?', // Matches "she'd"
+            '.*?s.*?\'*?d.*?', // Matches "she'd" with optional apostrophe
+            '.*?sh.*?e.*?d.*?', // Matches "she'd"
+            '.*?sh.*?e.*?\'*?d.*?', // Matches "she'd" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "she'would"
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she'would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "she'would"
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she'would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "she'would"
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she'would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "she'would"
+            '.*?s.*?h.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she'would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "she would" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "she would"
+            '.*?s.*?h.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?' // Matches "she would" with optional apostrophe
+        ]
+    },
+    {
+        term: 'it would',
+        matches: [
+            '.*?i.*?t.*?d.*?', // Matches "it'd"
+            '.*?i.*?\'*?d.*?', // Matches "it'd" with optional apostrophe
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?', // Matches "it would"
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it would" with optional apostrophe
+            '.*?i.*?t.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "it'would"
+            '.*?i.*?t.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it'would" with optional apostrophe
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?', // Matches "it would"
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it would" with optional apostrophe
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?', // Matches "it would"
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it would" with optional apostrophe
+            '.*?i.*?t.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "it'would"
+            '.*?i.*?t.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it'would" with optional apostrophe
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?', // Matches "it would"
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it would" with optional apostrophe
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?', // Matches "it would"
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it would" with optional apostrophe
+            '.*?i.*?t.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "it'would"
+            '.*?i.*?t.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it'would" with optional apostrophe
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?', // Matches "it would"
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it would" with optional apostrophe
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?', // Matches "it would"
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it would" with optional apostrophe
+            '.*?i.*?t.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "it'would"
+            '.*?i.*?t.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it'would" with optional apostrophe
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?', // Matches "it would"
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it would" with optional apostrophe
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?', // Matches "it would"
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it would" with optional apostrophe
+            '.*?i.*?t.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "it'would"
+            '.*?i.*?t.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "it'would" with optional apostrophe
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?', // Matches "it would"
+            '.*?i.*?t.*?w.*?o.*?u.*?l.*?d.*?\'*?' // Matches "it would" with optional apostrophe
+        ]
+    },
+    {
+        term: 'we would',
+        matches: [
+            '.*?w.*?e.*?d.*?', // Matches "we'd"
+            '.*?w.*?\'*?d.*?', // Matches "we'd" with optional apostrophe
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "we would"
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we would" with optional apostrophe
+            '.*?w.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "we'would"
+            '.*?w.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we'would" with optional apostrophe
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "we would"
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we would" with optional apostrophe
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "we would"
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we would" with optional apostrophe
+            '.*?w.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "we'would"
+            '.*?w.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we'would" with optional apostrophe
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "we would"
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we would" with optional apostrophe
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "we would"
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we would" with optional apostrophe
+            '.*?w.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "we'would"
+            '.*?w.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we'would" with optional apostrophe
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "we would"
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we would" with optional apostrophe
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "we would"
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we would" with optional apostrophe
+            '.*?w.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "we'would"
+            '.*?w.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we'would" with optional apostrophe
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "we would"
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we would" with optional apostrophe
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?', // Matches "we would"
+            '.*?w.*?e.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "we would" with optional apostrophe
+            '.*?w.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "we'would"
+            '.*?w.*?e.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?' // Matches "we'would" with optional apostrophe
+        ]
+    },
+    {
+        term: 'they would',
+        matches: [
+            '.*?t.*?h.*?e.*?y.*?d.*?', // Matches "they'd"
+            '.*?t.*?\'*?d.*?', // Matches "they'd" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?', // Matches "they would"
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "they'would"
+            '.*?t.*?h.*?e.*?y.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they'would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?', // Matches "they would"
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?', // Matches "they would"
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "they'would"
+            '.*?t.*?h.*?e.*?y.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they'would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?', // Matches "they would"
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?', // Matches "they would"
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "they'would"
+            '.*?t.*?h.*?e.*?y.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they'would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?', // Matches "they would"
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?', // Matches "they would"
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "they'would"
+            '.*?t.*?h.*?e.*?y.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they'would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?', // Matches "they would"
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?', // Matches "they would"
+            '.*?t.*?h.*?e.*?y.*?w.*?o.*?u.*?l.*?d.*?\'*?', // Matches "they would" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?\'*?w.*?o.*?u.*?l.*?d.*?', // Matches "they'would"
+            '.*?t.*?h.*?e.*?y.*?\'*?w.*?o.*?u.*?l.*?d.*?\'*?' // Matches "they'would" with optional apostrophe
+        ]
+    },
+    {
+        term: 'you will',
+        matches: [
+            '.*?y.*?o.*?u.*?l.*?', // Matches "you'll"
+            '.*?y.*?\'*?l.*?', // Matches "you'll" with optional apostrophe
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?', // Matches "you will"
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?\'*?', // Matches "you will" with optional apostrophe
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?', // Matches "you'will"
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "you'will" with optional apostrophe
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?', // Matches "you will"
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?\'*?', // Matches "you will" with optional apostrophe
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?', // Matches "you will"
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?\'*?', // Matches "you will" with optional apostrophe
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?', // Matches "you'will"
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "you'will" with optional apostrophe
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?', // Matches "you will"
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?\'*?', // Matches "you will" with optional apostrophe
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?', // Matches "you'will"
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "you'will" with optional apostrophe
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?', // Matches "you will"
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?\'*?', // Matches "you will" with optional apostrophe
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?', // Matches "you'will"
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "you'will" with optional apostrophe
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?', // Matches "you will"
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?\'*?', // Matches "you will" with optional apostrophe
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?', // Matches "you'will"
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "you'will" with optional apostrophe
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?', // Matches "you will"
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?\'*?', // Matches "you will" with optional apostrophe
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?', // Matches "you'will"
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "you'will" with optional apostrophe
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?', // Matches "you will"
+            '.*?y.*?o.*?u.*?w.*?i.*?l.*?l.*?\'*?', // Matches "you will" with optional apostrophe
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?', // Matches "you'will"
+            '.*?y.*?\'*?w.*?i.*?l.*?l.*?\'*?' // Matches "you'will" with optional apostrophe
+        ]
+    },
+    {
+        term: 'he will',
+        matches: [
+            '.*?h.*?e.*?l.*?', // Matches "he'll"
+            '.*?h.*?\'*?l.*?', // Matches "he'll" with optional apostrophe
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "he will"
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "he will" with optional apostrophe
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?', // Matches "he'will"
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "he'will" with optional apostrophe
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "he will"
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "he will" with optional apostrophe
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "he will"
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "he will" with optional apostrophe
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?', // Matches "he'will"
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "he'will" with optional apostrophe
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "he will"
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "he will" with optional apostrophe
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?', // Matches "he'will"
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "he'will" with optional apostrophe
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "he will"
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "he will" with optional apostrophe
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?', // Matches "he'will"
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "he'will" with optional apostrophe
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "he will"
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "he will" with optional apostrophe
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?', // Matches "he'will"
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "he'will" with optional apostrophe
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "he will"
+            '.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "he will" with optional apostrophe
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?', // Matches "he'will"
+            '.*?h.*?\'*?w.*?i.*?l.*?l.*?\'*?' // Matches "he'will" with optional apostrophe
+        ]
+    },
+    {
+        term: 'she will',
+        matches: [
+            '.*?s.*?h.*?e.*?l.*?', // Matches "she'll"
+            '.*?s.*?\'*?l.*?', // Matches "she'll" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "she will"
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "she will" with optional apostrophe
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?', // Matches "she'will"
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "she'will" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "she will"
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "she will" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "she will"
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "she will" with optional apostrophe
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?', // Matches "she'will"
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "she'will" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "she will"
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "she will" with optional apostrophe
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?', // Matches "she'will"
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "she'will" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "she will"
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "she will" with optional apostrophe
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?', // Matches "she'will"
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "she'will" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "she will"
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "she will" with optional apostrophe
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?', // Matches "she'will"
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "she'will" with optional apostrophe
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?', // Matches "she will"
+            '.*?s.*?h.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "she will" with optional apostrophe
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?', // Matches "she'will"
+            '.*?s.*?\'*?w.*?i.*?l.*?l.*?\'*?' // Matches "she'will" with optional apostrophe
+        ]
+    },
+    {
+        term: 'it will',
+        matches: [
+            '.*?i.*?t.*?l.*?', // Matches "it'll"
+            '.*?i.*?\'*?l.*?', // Matches "it'll" with optional apostrophe
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?', // Matches "it will"
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?\'*?', // Matches "it will" with optional apostrophe
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?', // Matches "i'twill"
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "i'twill" with optional apostrophe
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?', // Matches "it will"
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?\'*?', // Matches "it will" with optional apostrophe
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?', // Matches "it will"
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?\'*?', // Matches "it will" with optional apostrophe
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?', // Matches "i'twill"
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "i'twill" with optional apostrophe
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?', // Matches "it will"
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?\'*?', // Matches "it will" with optional apostrophe
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?', // Matches "i'twill"
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "i'twill" with optional apostrophe
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?', // Matches "it will"
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?\'*?', // Matches "it will" with optional apostrophe
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?', // Matches "i'twill"
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "i'twill" with optional apostrophe
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?', // Matches "it will"
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?\'*?', // Matches "it will" with optional apostrophe
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?', // Matches "i'twill"
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "i'twill" with optional apostrophe
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?', // Matches "it will"
+            '.*?i.*?t.*?w.*?i.*?l.*?l.*?\'*?', // Matches "it will" with optional apostrophe
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?', // Matches "i'twill"
+            '.*?i.*?\'*?w.*?i.*?l.*?l.*?\'*?' // Matches "i'twill" with optional apostrophe
+        ]
+    },
+    {
+        term: 'we will',
+        matches: [
+            '.*?w.*?e.*?l.*?', // Matches "we'll"
+            '.*?w.*?\'*?l.*?', // Matches "we'll" with optional apostrophe
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?', // Matches "we will"
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "we will" with optional apostrophe
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?', // Matches "wewill"
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "wewill" with optional apostrophe
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?', // Matches "we will"
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "we will" with optional apostrophe
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?', // Matches "we will"
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "we will" with optional apostrophe
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?', // Matches "wewill"
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "wewill" with optional apostrophe
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?', // Matches "we will"
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "we will" with optional apostrophe
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?', // Matches "wewill"
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "wewill" with optional apostrophe
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?', // Matches "we will"
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "we will" with optional apostrophe
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?', // Matches "wewill"
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "wewill" with optional apostrophe
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?', // Matches "we will"
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "we will" with optional apostrophe
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?', // Matches "wewill"
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "wewill" with optional apostrophe
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?', // Matches "we will"
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "we will" with optional apostrophe
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?', // Matches "wewill"
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "wewill" with optional apostrophe
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?', // Matches "we will"
+            '.*?w.*?e.*?w.*?i.*?l.*?l.*?\'*?', // Matches "we will" with optional apostrophe
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?', // Matches "wewill"
+            '.*?w.*?\'*?w.*?i.*?l.*?l.*?\'*?' // Matches "wewill" with optional apostrophe
+        ]
+    },
+    {
+        term: 'they will',
+        matches: [
+            '.*?t.*?h.*?e.*?y.*?l.*?', // Matches "they'll"
+            '.*?t.*?\'*?l.*?', // Matches "they'll" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?', // Matches "they will"
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?\'*?', // Matches "they will" with optional apostrophe
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?', // Matches "t'will"
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "t'will" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?', // Matches "they will"
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?\'*?', // Matches "they will" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?', // Matches "they will"
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?\'*?', // Matches "they will" with optional apostrophe
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?', // Matches "t'will"
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "t'will" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?', // Matches "they will"
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?\'*?', // Matches "they will" with optional apostrophe
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?', // Matches "t'will"
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "t'will" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?', // Matches "they will"
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?\'*?', // Matches "they will" with optional apostrophe
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?', // Matches "t'will"
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "t'will" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?', // Matches "they will"
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?\'*?', // Matches "they will" with optional apostrophe
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?', // Matches "t'will"
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "t'will" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?', // Matches "they will"
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?\'*?', // Matches "they will" with optional apostrophe
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?', // Matches "t'will"
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?\'*?', // Matches "t'will" with optional apostrophe
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?', // Matches "they will"
+            '.*?t.*?h.*?e.*?y.*?w.*?i.*?l.*?l.*?\'*?', // Matches "they will" with optional apostrophe
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?', // Matches "t'will"
+            '.*?t.*?\'*?w.*?i.*?l.*?l.*?\'*?' // Matches "t'will" with optional apostrophe
+        ]
+    }
+]

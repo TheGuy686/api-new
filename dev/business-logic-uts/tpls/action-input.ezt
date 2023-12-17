@@ -1,0 +1,5 @@
+{% if prop | length > 0 %}
+    input: {% include 'action-properties-entry.ezt' with { action: prop, isAlwaysObject: isAlwaysObject } %},
+{% else %}
+    input: (adm: ADM) => ({}),
+{% endif %}

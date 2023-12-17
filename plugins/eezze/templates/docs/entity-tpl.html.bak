@@ -1,0 +1,96 @@
+{% import "macros.ezt" as ezm %}
+
+{% set c = { ez: ez } %}
+
+<html>
+<body style="font-family: 'Arial', sans-serif; background-color: #fff; margin: 20px;">
+
+    {{ ezm.h1(c, 'Hello World') }}
+
+    {{ ezm.p(c, 'This is a Word document created programmatically using mammoth.js.') }}
+
+    {{ ezm.ul(c) }}
+
+        {{ ezm.li(c) }} to here</li>
+
+        {{ ezm.li(c) }} to here</li>
+
+        {{ ezm.li(c) }} to here</li>
+
+        {{ ezm.li(c) }} to here</li>
+
+    </ul>
+
+    <table style="width: 100vw; border-collapse: collapse; margin: 15px 0;">
+        
+        <tr>
+
+            <th>hello</th>
+            <th>hello</th>
+
+        </tr>
+
+        <tr> 
+
+            <td>ryan</td>
+            <td>cooke</td>
+
+        </tr>
+    
+    </table>
+
+    <div style="width: 100%">
+
+        {{ ezm.tbl() }}
+
+            <caption>
+
+                A summary of the UK's most famous punk bands
+
+            </caption>
+
+            <thead>
+
+                <tr>
+
+                    {{ ezm.th(c) }}
+
+                        Field Name
+
+                    </th>
+
+                    {{ ezm.th(c) }}
+
+                        Type
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    {{ ezm.td(c) }}Buzzcocks</td>
+                    {{ ezm.td(c) }}1976</td>
+                </tr>
+
+            </tbody>
+
+            <tfoot>
+
+                <tr>
+                    {{ ezm.th(c, { scope: 'row', colspan: 3 }) }}Total albums</th>
+                    {{ ezm.td(c, { colspan: 4 }) }}77</td>
+                    {{ ezm.td(c, { colspan: 4 }) }}77</td>
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+    </div>
+
+</body>
+</html>

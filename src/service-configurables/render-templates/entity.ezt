@@ -1,0 +1,254 @@
+{% autoescape false %}
+
+{% import "entity-model-name.ezt" as modelName %}
+{% import "entity-relation-pascal-case.ezt" as pascalRelation %}
+{% import "entity-relation-camel-case.ezt" as camelRelation %}
+
+{% set stringDataTypes = {
+    'CHAR': 'CHAR',
+    'VARCHAR': 'VARCHAR',
+    'BINARY': 'BINARY',
+    'TINYBLOB': 'TINYBLOB',
+    'TINYTEXT': 'TINYTEXT',
+    'TEXT': 'TEXT',
+    'BLOB': 'BLOB',
+    'MEDIUMTEXT': 'MEDIUMTEXT',
+    'MEDIUMBLOB': 'MEDIUMBLOB',
+    'LONGTEXT': 'LONGTEXT',
+    'LONGBLOB': 'LONGBLOB',
+    'ENUM': 'ENUM',
+    'SET': 'SET'
+} %}
+
+{% set numericDataTypes = {
+    'BIT': 'BIT',
+    'TINYINT': 'TINYINT',
+    'BOOL': 'BOOL',
+    'SMALLINT': 'SMALLINT',
+    'MEDIUMINT': 'MEDIUMINT',
+    'INT': 'INT',
+    'BIGINT': 'BIGINT',
+    'MEDIUMBLOB': 'MEDIUMBLOB',
+    'FLOAT': 'FLOAT',
+    'DOUBLE': 'DOUBLE',
+    'DECIMAL': 'DECIMAL'
+} %}
+
+{% set dateTimeDataTypes = {
+    'DATE': 'DATE',
+    'DATETIME': 'DATETIME',
+    'TIMESTAMP': 'TIMESTAMP',
+    'TIME': 'TIME',
+    'YEAR': 'YEAR'
+} %}
+
+{% set isInt = false %}
+{% set isFloat = false %}
+{% set isDecimal = false %}
+{% set isString = false %}
+{% set isBool = false %}
+{% set isDate = false %}
+{% set isEmail = false %}
+{% set isJson = false %}
+{% set isText = false %}
+
+import { BaseModel } from '@eezze/base';
+
+{% set modelsImported = [] %}
+{% set primaryKey = '' %}
+
+{# import model #}
+{% for item in columns %}
+    {% if item.relationships %}
+        {% for relationship in item.relationships %}
+          {% if relationship.table not in modelsImported %}    
+            {% set modelsImported = modelsImported|merge([relationship.table]) %}
+            import {{ modelName.name(relationship.table) }} from 'models/{{relationship.table}}-model';
+          {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+
+import { EModel, UID, 
+{% for item in columns %}
+  {% if item.dataType in ['BOOL', 'TINYINT', 'BIT'] and not isBool %}
+    {% set isBool = true %}
+    Boolean,
+  {% endif %}
+  {% if item.dataType in ['SMALLINT', 'MEDIUMINT', 'INT', 'BIGINT'] and not isInt %}
+    {% set isInt = true %}
+    Int,
+   {% endif %}
+  {% if item.dataType in ['DOUBLE', 'DECIMAL'] and not isDecimal %}
+    {% set isDecimal = true %}
+    Decimal,
+  {% endif %}
+  {% if item.dataType in ['FLOAT'] and not isFloat %}
+    {% set isFloat = true %}
+    Float,
+  {% endif %}
+  {% if item.dataType == 'EMAIL' and not isEmail %}
+    {% set isEmail = true %}
+    Email,
+  {% endif %}
+  {% if item.dataType == 'JSON' and not isJson %}
+    {% set isJson = true %}
+    Json,
+  {% endif %}
+  {% if item.dataType in ['CHAR', 'VARCHAR'] and not isString %}
+    {% set isString = true %}
+    String,
+  {% endif %}
+  {% if item.dataType in ['TEXT', 'MEDIUMTEXT', 'LONGTEXT'] and not isText %}
+    {% set isText = true %}
+    Text,
+  {% endif %}
+{% endfor %}
+} from '@eezze/decorators/models';
+{# Relationship types import #}
+
+{% set hasRelationships = false %}
+{% set relationTypes = [] %}
+{% for field in columns %}
+  {% if field.relationships is defined %}
+    {% set hasRelationships = true %}
+    {% for relation in field.relationships %}
+      {% if relation.type not in relationTypes %}
+          {% set relationTypes = relationTypes|merge([relation.type]) %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+{% if hasRelationships %}
+import { 
+    {% for type in relationTypes %}
+         {{ type | replace({'-':' '}) | title | replace({' ':'', 'to':'To'}) }},
+    {% endfor %}
+} from '@eezze/decorators/models/relation-types/relations';
+{% endif %}
+
+{# Model object properties #}
+
+@EModel()
+export default class {{ pascalRelation.name(entity) }}Model extends BaseModel {
+  {% for item in columns %}
+    {% apply spaceless %}
+    {% if item.relationships is defined %}
+      {# for relationships, no setters here except for primary key #}
+      {% if item.dataType in ['SMALLINT', 'MEDIUMINT', 'INT', 'BIGINT'] %}
+        {% if item.key['primary'] is defined and item.key['primary'] %}
+          {% set primaryKey = (item.columnName) %}
+          @UID()
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% if item.dataType == 'EMAIL' %}@Emails(){% endif %}
+      {% if item.dataType == 'JSON' %}@Json(){% endif %}
+      {% if item.dataType in ['CHAR', 'VARCHAR'] %}@String(){% endif %}
+      {% if item.dataType in ['BOOL', 'TINYINT', 'BIT'] %}@Boolean(){% endif %}
+      {% if item.dataType in ['TEXT', 'MEDIUMTEXT', 'LONGTEXT'] %}@Text(){% endif %}
+      {% if item.dataType in ['DOUBLE', 'DECIMAL'] %}@Decimal(){% endif %}
+      {% if item.dataType in ['FLOAT'] %}@Float(){% endif %}
+      {% if item.dataType in ['SMALLINT', 'MEDIUMINT', 'INT', 'BIGINT'] %}
+        {% if item.key['primary'] is defined and item.key['primary'] %}
+          {% set primaryKey = (item.columnName) %}
+          @UID()
+        {% else %}
+          @Int()
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+    {# only applies to non relationship properties and primary keys regardless if they have a relationship or not #}
+    {% if item.relationships is not defined or ( item.key['primary'] is defined and item.key['primary'] ) %}
+        {{ item.columnName }}:
+        {% if item.dataType in ['CHAR', 'VARCHAR', 'TEXT', 'MEDIUMTEXT', 'LONGTEXT'] %}string;
+        {% elseif item.dataType in ['BOOL', 'TINYINT', 'BIT'] %}boolean;
+        {% elseif item.dataType in ['DOUBLE', 'DECIMAL', 'FLOAT', 'SMALLINT', 'MEDIUMINT', 'INT'] %}number;
+        {% elseif item.dataType in ['BIGINT'] %}bigint;
+        {% else %} string;{% endif %}
+      {% endif %}
+    {% endapply %}
+  {% endfor %}
+
+  {# Relationship decorator configurations #}
+
+  {% if hasRelationships %}
+    {% set relationshipSetter = [] %}
+    {% for it in columns %}
+      {% if it.relationships is defined and it.relationships %}
+      
+        {% for relationship in it.relationships %}
+          {% if relationship['type'] == 'one-to-one' and relationship.table ~ '' ~ relationship.type not in relationshipSetter %}
+            {% set relationshipSetter = relationshipSetter|merge([relationship.table ~ '' ~ relationship.type]) %}
+            {% if relationship['direction'] == 'output' and it.columnName is defined %}
+            @OneToOne({ joinOn: ['{{relationship.column}}'], model: '{{ modelName.name(relationship.table) }}', column: '{{it.columnName}}' }) {{ camelRelation.name(relationship.table) }}: {{ modelName.name(relationship.table) }}
+            {% else %}
+            @OneToOne({ joinOn: ['{{it.columnName}}'], model: '{{ modelName.name(relationship.table) }}', foreignKey: '{{relationship.column}}' }) {{ camelRelation.name(relationship.table) }}: {{ modelName.name(relationship.table) }}
+            {% endif %}  
+          {% endif %}
+
+          {% if relationship['type'] == 'one-to-many' and relationship.table ~ '' ~ relationship.type not in relationshipSetter %}
+            {% set relationshipSetter = relationshipSetter|merge([relationship.table ~ '' ~ relationship.type]) %}
+            @OneToMany({ joinOn: ['{{relationship.column}}'], model: '{{ modelName.name(relationship.table) }}', column:'{{primaryKey}}' }) {{ camelRelation.name(relationship.table) }}: {{ modelName.name(relationship.table) }}[] = [];
+          {% endif %}
+
+          {% if relationship['type'] == 'many-to-one' and relationship.table ~ '' ~ relationship.type not in relationshipSetter %}
+            {% set relationshipSetter = relationshipSetter|merge([relationship.table ~ '' ~ relationship.type]) %}
+            @ManyToOne({ joinOn: ['{{primaryKey}}'], model: '{{ modelName.name(relationship.table) }}', column: '{{it.columnName}}' }) {{ camelRelation.name(relationship.table) }}: {{ modelName.name(relationship.table) }}
+          {% endif %}
+
+          {% if relationship['type'] == 'many-to-many' and relationship.table ~ '' ~ relationship.type not in relationshipSetter %}
+            {% set relationshipSetter = relationshipSetter|merge([relationship.table ~ '' ~ relationship.type]) %}
+            {% set owner = it.entityName %}
+            {% if relationship['direction'] == 'input' %}{% set owner = relationship.table %}{% endif %}
+            
+             {# owner: key property should set the owner model name, E.g. model name; user -> relation with type -> user_types_type #}
+            @ManyToMany({ model: '{{ modelName.name(relationship.table) }}', column: 'id', owner: '{{owner}}' }) {{ camelRelation.name(relationship.table) }}: {{ modelName.name(relationship.table) }}[] = [];
+          {% endif %} 
+        {% endfor %}
+
+      {% endif %}
+    {% endfor %} 
+
+  {% endif %}
+
+  {# Constructor #}
+
+  constructor(args: any) {
+    super();
+
+    {% for item in columns %}
+      {% if item.relationships is not defined %}
+      this.{{ item.columnName }} = args.{{ item.columnName }};
+      {% endif %}
+    {% endfor %}
+  }
+
+  {# Relationship setters #}
+
+  {% set modelSetter = [] %}
+  {% for item in columns %}
+    {% if item.relationships is defined and item.relationships %}
+      {% for relation in item.relationships %}
+        
+        {# set function model #}
+        {% if relation.table not in modelSetter %}
+          {% set modelSetter = modelSetter|merge([relation.table]) %}
+          {% set relationName = camelRelation.name(relation.table) %}
+          set{{ pascalRelation.name(relation.table) }} ( {{ relationName }}: {{ modelName.name(relation.table) }} ) {
+          {% if relation['type'] == 'one-to-many' or relation['type'] == 'many-to-many' %}
+            this.{{ relationName }}.push( {{ relationName }} );
+          {% else %}
+            this.{{ relationName }} = {{ relationName }};
+          {% endif %}
+          }
+        {% endif %}
+
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+      
+{% endautoescape %}
+}

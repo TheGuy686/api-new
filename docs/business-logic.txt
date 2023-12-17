@@ -1,0 +1,20 @@
+
+
+-- process -- uts -- int
+           |     |   |--------- use-case-data.js - this comes from the FE model
+           |     |-- string
+           |     |-- boolean
+           |
+           |- output -- int --- ut-use-case.ts
+           |
+           |- parser - render-template-shared code with decoratordsfasdfs
+
+               execute
+               output
+               validate
+
+Success 9/10
+
+Errors: 
+
+    name 

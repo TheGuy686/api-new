@@ -1,0 +1,28 @@
+import { EAction,  GetAll, GetOne } from '@eezze/decorators';
+import BaseAction from '@eezze/base/action/BaseAction';
+import { RenderTemplate } from '@eezze/decorators/actions/file-actions';
+
+@EAction({
+    targetRepo: 'FileStorage.ServiceRepo'
+})
+export default class GenAllControllersAction extends BaseAction {
+    @GetAll({addToChain: true})
+    @RenderTemplate({
+        templateName: 'controller',
+        toPath: `${process.env['PROJECTS_FILE_ROOT']}/\${ item.serviceId }/constroller.ts`,
+        actionListSource: (deps: any) => (deps?.successResult?.body),
+        templateVars: (item: any) => {
+            return ({
+                controller: item?.serviceId,
+                restful: item?.restful != undefined ? JSON.parse(item.restful) : undefined,
+                ws: item?.ws != undefined ? JSON.parse(item.ws) : undefined,
+            });
+        },
+    })
+    async _exec() {}
+}
+
+type Constructor = new (...args: any[]) => {};
+
+function Scale<TBase extends Constructor>(Base: TBase) {
+  return class Scaling extends Base {

@@ -1,0 +1,10 @@
+name:  Task Board
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  createTaskBoard:
+    authenticator: ExpressAuthentication
+  updateTaskBoard:
+    authenticator: ExpressAuthentication

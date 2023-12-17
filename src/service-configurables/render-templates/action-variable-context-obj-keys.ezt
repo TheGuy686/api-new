@@ -1,0 +1,21 @@
+{% if mainProp is defined %}
+
+    {{ mainProp }}: [
+
+{% endif %}
+
+{% if prop is defined %}
+
+    {% for pr in prop %}
+
+        '{{ pr.property }}',
+
+    {% endfor %}
+    
+{% endif %}
+
+{% if mainProp is defined %}
+
+    ],
+
+{% endif %}

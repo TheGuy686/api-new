@@ -1,0 +1,4 @@
+// {{ ma.name | raw }} - {{ li.name | raw }}
+{{ lcAlias | default('ilc') }}.{{ (li.returns == 'string' ? 'text' : li.returns) | camelCase }}.custom(() => {
+	{{ li.logic.raw | raw}}
+})

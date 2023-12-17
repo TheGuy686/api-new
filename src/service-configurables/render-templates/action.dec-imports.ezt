@@ -1,0 +1,101 @@
+{% if action.schema._action.action == 'login' %}
+
+    Login,
+
+{% elseif action.schema._action.action == 'create-one' %}
+
+    CreateOne,
+
+{% elseif action.schema._action.action == 'create-one-if-not-exists' %}
+
+    CreateOneIfNotExists,
+
+{% elseif action.schema._action.action == 'delete-one' %}
+
+    DeleteOne,
+
+{% elseif action.schema._action.action == 'get-list' %}
+
+    GetAll,
+
+{% elseif action.schema._action.action == 'get-one' %}
+
+    GetOne,
+
+{% elseif action.schema._action.action == 'get-one-and-update' %}
+
+    GetOneAndUpdate,
+
+{% elseif action.schema._action.action == 'update-one' %}
+
+    UpdateOne,
+
+{% elseif action.schema._action.action == 'do' %}
+
+    Do,
+
+{% elseif action.schema._action.action == 'save' %}
+
+    FileSave,
+
+{% elseif action.schema._action.action == 'delete' %}
+
+    FileDelete,
+
+{% elseif action.schema._action.action == 'read' %}
+
+    FileRead,
+
+{% elseif action.schema._action.action == 'base64' %}
+
+    Base64Converter,
+
+{% elseif action.schema._action.action == 'render-template' %}
+
+    RenderTemplate,
+
+{% elseif action.schema._action.action == 'update' %}
+
+    {# does not exist #}
+
+{% elseif action.schema._action.action == 'list' %}
+
+    List,
+
+{% elseif action.schema._action.action == 'redirect' %}
+
+    Redirect,
+
+{% elseif action.schema._action.action == 'send-smtp-email' %}
+
+    SendSMTPEmail,
+
+{% elseif action.schema._action.action == 'rest-action' %}
+
+    RestAction,
+
+{% elseif action.schema._action.action == 'socket-action' %}
+
+    SocketAction,
+
+{% elseif action.schema._action.action == 'command' %}
+
+    Command,
+
+{% elseif action.schema._action.action == 'service-call' %}
+
+    ServiceCaller,
+
+{% endif %}
+
+{% if sdef.onSuccess is defined %}
+
+    Success,
+
+{% endif %}
+
+{% if sdef.onError is defined %}
+
+    Error,
+
+{% endif %}

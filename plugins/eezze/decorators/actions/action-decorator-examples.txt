@@ -1,0 +1,6 @@
+@GetOneAndUpdate({
+    checkOn: ['email'],
+    withValues: (res: any) => ({
+        resetPasswordToken: EezzeJwtToken.sign(res?.payload?.email, {minutes: 15}).token,
+    }),
+})

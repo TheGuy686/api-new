@@ -1,0 +1,28 @@
+import BaseActionInput from '@eezze/base/BaseActionInput';
+import { ActionDataManager } from '@eezze/classes';
+import { EActionInput } from '@eezze/decorators';
+import { String } from '@eezze/decorators/models/types';
+
+@EActionInput()
+export default class ReadActionInput extends BaseActionInput {
+	@String({
+		required: true,
+		input: (adm: ActionDataManager) => adm.request.requestBody?.actionId,
+		message: 'Action "actionId" was not set',
+	})
+	actionId: string;
+
+	@String({
+		required: true,
+		input: (adm: ActionDataManager) => adm.request.auth?.user?.id,
+		message: 'Action "userId" was not set',
+	})
+	userId: string;
+
+	@String({
+		required: true,
+		input: (adm: ActionDataManager) => adm.request.requestBody?.projectId,
+		message: 'Action "projectId" was not set',
+	})
+	projectId: string;
+}

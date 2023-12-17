@@ -1,0 +1,35 @@
+{
+    "name": "User",
+    "columns": {
+        "id": {
+            "type": "text",
+            "unique": false,
+            "primary": true,
+            "nullable": false
+        },
+        "name": {
+            "type": "text",
+            "unique": false,
+            "primary": false,
+            "nullable": false
+        },
+        "lastName": {
+            "type": "text",
+            "unique": false,
+            "primary": false,
+            "nullable": false
+        },
+        "attribute": {
+            "type": "text",
+            "unique": false,
+            "primary": false,
+            "nullable": false
+        },
+        "phoneNumber": {
+            "type": "text",
+            "unique": false,
+            "primary": false,
+            "nullable": false
+        }
+    }
+}

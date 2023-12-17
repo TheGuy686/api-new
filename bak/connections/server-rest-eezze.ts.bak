@@ -1,0 +1,18 @@
+import { EConnection } from '@eezze/decorators';
+
+@EConnection({
+    id: 4,
+<<<<<<< HEAD:bak/connections/server-rest-eezze.ts.bak
+    isSecure: true,
+    protocol: 'http',
+    secureProtocol: 'wss',
+=======
+    isSecure: false,
+    protocol: 'http',
+    secureProtocol: 'https',
+>>>>>>> 6e907b27b4203a6ad8bf8100f817165906bf1d7e:src/connections/server-rest-eezze.ts
+    localhost: '0.0.0.0',
+    types: [ 'installable-services' ],
+    port: process.env.DEFAULT_REST_SERVER_PORT,
+})
+export default class ServerRestEezzeConnection {}

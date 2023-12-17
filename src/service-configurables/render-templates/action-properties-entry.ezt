@@ -1,0 +1,67 @@
+{{ ez.dlog('ACTION From top layer: ', action) }}
+
+{% if action is defined %}
+
+    {% if action.baseType == 'logic-chain' and action.actions | length > 0 %}
+            
+        async (adm: ADM, lc: LogicChain) => {
+
+            {% if isAlwaysObject %}
+
+                {% for prop in action %}
+
+                    lc.assign(
+                        '{{ prop.property }}',
+                        (_lc: LogicChain) => {
+                            {% include 'action-lc-item.ezt' with { action: action } %}
+                        }
+                    );
+
+                {% endfor %}
+
+            {% else %}
+
+                {% include 'action-lc-item.ezt' with { action: action } %}
+
+            {% endif %}
+
+            {% if isAlwaysObject %}
+
+                return {
+                    {% for prop in action %}
+
+                        '{{ prop.property }}': lc.prop('{{ prop.property }}'),
+
+                    {% endfor %}
+                }
+
+            {% else %}
+
+                // evaluate the result and then return the result
+                return await lc.result();
+
+            {% endif %}
+        }
+
+    {% elseif action.baseType == 'context-mapping' %}
+eles if
+        (adm: ADM) => {{ action.raw }}
+        
+    {% elseif action.baseType == 'primitive' %}
+     
+        () => {{ action.raw }}
+        
+    {% else %}
+ 
+        {{ ez.dlog('invalid action base type: ', action) }}
+
+        // invalid action.baseType
+
+    {% endif %}
+
+
+{% else %}
+
+    // "action" was not defined
+
+{% endif %}

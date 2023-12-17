@@ -1,0 +1,20 @@
+{% macro name(relation) %}
+{% import _self as macros %}
+{% apply spaceless %}
+{% if '-' in relation %}
+    {% set camelCase = '' %}
+    {% for word in relation|split('-') %}
+        {% if loop.first %}
+            {% set camelCase = word %}
+        {% elseif loop.last %}
+            {{([camelCase, (word|title)]|join)}}
+        {% else %}
+            {% set camelCase = ([camelCase, (word|title)]|join) %}
+        {% endif %}
+    {% endfor %}
+{% else %}
+    {{ relation |lower }}
+{% endif %}
+
+{% endapply %}
+{% endmacro %}

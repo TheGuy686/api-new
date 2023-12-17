@@ -1,0 +1,10 @@
+name:  Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  generateTerraformUpdate:
+    authenticator: ExpressAuthentication
+  generateTerraformCreate:
+    authenticator: ExpressAuthentication

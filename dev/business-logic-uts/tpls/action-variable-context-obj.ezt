@@ -1,0 +1,87 @@
+{% if mainProp %}
+
+    {{ mainProp }}: (adm: ADM, lc: LogicChain) => {
+
+{% else %}
+
+    na: (adm: ADM) => {
+
+{% endif %}
+
+{% if prop is defined %}
+
+    {% if prop is iterable %}
+
+        {# take care of all the assignments first #}
+        {% for pr in prop %}
+
+            {% if pr.baseType == 'logic-chain' and pr.actions | length > 0 %}
+                    
+                lc.{{ pr.type }}.assign(
+                    '{{ pr.property }}',
+                    async (ilc: LogicChain) => {
+                        {% include 'action-lc-item.ezt' with { action: pr } %}
+
+                        // return the value of the evaluated inner logic chain
+                        return await {{ lcAlias | default('ilc') }}.results();
+                    }
+                );
+
+            {% endif %}
+
+        {% endfor %}
+
+        {# now we need to take care of the return object #}
+        return {
+            {% for pr in prop %}
+
+                {% if pr.baseType == 'logic-chain' and pr.actions | length > 0 %}
+                        
+                    '{{ pr.property }}': lc.prop('{{ pr.property }}'),
+                    
+                {% elseif pr.baseType == 'context-mapping' %}
+
+                    '{{ pr.property }}': {{ pr.raw }},
+                    
+                {% elseif pr.baseType == 'primitive' %}
+
+                    {% if pr.type == 'text' %}
+
+                        '{{ pr.property }}': `{{ pr.raw }}`,
+
+                    {% elseif pr.type == 'number' %}
+
+                        '{{ pr.property }}': {{ pr.raw }},
+
+                    {% elseif pr.type == 'boolean' %}
+
+                        '{{ pr.property }}': !!{{ pr.raw }},
+
+                    {% else %}
+
+                        '{{ pr.property }}': `{{ pr.raw }}`,
+
+                    {% endif %}
+
+                {% else %}
+
+                    // invalid prop.baseType for "{{ pr.property }}"
+
+                {% endif %}
+
+            {% endfor %}
+        };
+
+    {% else %}
+
+        // prop needs to be a valid array
+
+    {% endif %}
+
+{% else %}
+
+    // "prop" was not defined
+
+{% endif %}
+
+},

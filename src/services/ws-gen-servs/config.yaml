@@ -1,0 +1,14 @@
+name:  Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  generateServAll:
+    authenticator: ExpressAuthentication
+  generateServCreateUpdate:
+    authenticator: ExpressAuthentication
+  generateServDelete:
+    authenticator: ExpressAuthentication
+  generateServRefresh:
+    authenticator: ExpressAuthentication

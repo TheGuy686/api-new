@@ -1,0 +1,16 @@
+name: Role CRUD Service
+description:
+version: 1.0
+license: Not MIT
+author: Ryan J. Cooke
+services:
+  createRole:
+    authenticator: ExpressAuthentication
+  deleteRole:
+    authenticator: ExpressAuthentication
+  readAllRoles:
+    authenticator: ExpressAuthentication
+  readRole:
+    authenticator: ExpressAuthentication
+  updateRole:
+    authenticator: ExpressAuthentication

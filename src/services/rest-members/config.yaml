@@ -1,0 +1,14 @@
+name:  Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  allMembers:
+    authenticator: ExpressAuthentication
+  createMember:
+    authenticator: ExpressAuthentication
+  deleteMember:
+    authenticator: ExpressAuthentication
+  inviteMembers:
+    authenticator: ExpressAuthentication

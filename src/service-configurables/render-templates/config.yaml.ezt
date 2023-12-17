@@ -1,0 +1,12 @@
+name: {{ serviceId }}Service
+description: {{ description }}
+version: {{ version }}
+license: {{ licence }}
+author: {{ author }}
+services:
+{% for serv in services %}
+{% if serv.authenticator is defined %}
+    {{ serv.name | camelCase }}:
+        authenticator: {{ serv.authenticator }}
+{% endif %}
+{% endfor %}

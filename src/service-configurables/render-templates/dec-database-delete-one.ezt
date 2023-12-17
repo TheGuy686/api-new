@@ -1,0 +1,20 @@
+// #{{ action.name }}
+@DeleteOne({
+    {% if action.schema.repo %}
+        repo: '{{ action.schema.repo }}',
+    {% endif %}
+    
+    {% if action.schema.maximumDepth %}
+        maximumDepth: {{ action.schema.maximumDepth }},
+    {% endif %}
+
+    {% if action.schema.failOnEmpty %}
+        failOnEmpty: {{ action.schema.failOnEmpty == 1 ? 'true' : 'false' }},
+    {% endif %}
+
+    {% if action.schema.input %}
+        {% include 'action-variable-context-obj-keys.ezt' with { mainProp: 'checkOn', prop: action.schema.input } %}
+    {% endif %}
+
+    {% include 'dec-finalize.ezt' with { action: action } %}
+})

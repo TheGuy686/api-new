@@ -1,0 +1,124 @@
+require('module-alias/register');
+require('dotenv-json')({ path: '.env.json' });
+require('source-map-support').install();
+
+import { deleteFile, fileExists, isDir, mkdir, readFile, rmdir, writeFile } from '../libs/FileMethods';
+import PDC from '../classes/DocPdc';
+import Logger from '../classes/Logger';
+import os from 'node:os';
+
+import EezzeTpl from '../classes/EezzeTpl';
+import { eexec } from '../libs/Command';
+
+import shelljs from 'shelljs';
+import { generateRandomString } from '../libs/StringMethods';
+
+const fs = require('fs');
+const HTMLtoDOCX = require('html-to-docx');
+
+const tmp = '/var/www/html/test/';
+
+console.clear();
+
+const projectInfo = {
+    name: 'Eezze',
+}
+
+const theme = {
+    primary: '#012840',
+}
+
+const templates = {
+    'macros.ezt': readFile({
+        path: `${__dirname}/../templates/docs`,
+        file: 'macros.ezt',
+    }),
+    'entity.ezt': readFile({
+        path: `${__dirname}/../templates/docs`,
+        file: 'entity-tpl.html',
+    }),
+};
+
+async function generateDsDocument(key: string, ds: any) {
+    const tmpNames: any = {
+        models: {},
+    };
+
+    const outputDir = `${__dirname}/../../../docs-api/models/`;
+
+    console.log(`rm ${outputDir}`);
+
+    await shelljs.ls(`rm ${outputDir}*`);
+
+    const htmlContent = await EezzeTpl.render({
+        templateVars: {
+            theme,
+            projectInfo,
+        },
+        templates,
+        template: 'entity',
+        prettify: false,
+    });
+
+    // const tmpFile = `${tmp}${ds.metadata.name}.html`;
+    const outputFile = `${ds.metadata.name}.docx`;
+
+    const tmpName = generateRandomString(15);
+
+    tmpNames.models[tmpName] = outputFile;
+
+    writeFile({
+        createPathIfNotExists: false,
+        // path: os.tmpdir(),
+        path: tmp,
+        file: `${ds.metadata.name}.html`,
+        data: htmlContent,
+    });
+
+    // delete out the old file if it exists
+    if (fileExists(`${outputDir}${outputFile}`)) deleteFile(`${outputDir}${outputFile}`);
+
+    // const outputCmd = `libreoffice --headless --convert-to odt ${tmpFile} --outdir ${outputDir} ${tmpName}`;
+
+    // console.log(`\nRUnning: ${outputCmd}\n`);
+
+    // const res = await shelljs.exec(outputCmd, { silent: true });
+
+    // console.log('\n\nREs: ', res.stdout);
+
+    const fileBuffer = await HTMLtoDOCX(htmlContent, null, {
+        table: { row: { cantSplit: true } },
+        footer: true,
+        pageNumber: true,
+    });
+    
+    fs.writeFile(`${outputDir}${outputFile}`, fileBuffer, (error: any) => {
+        if (error) {
+            console.log('Docx file creation failed');
+            return;
+        }
+        console.log('Docx file created successfully');
+    });
+
+    // deleteFile(tmpFile);
+}
+
+(async () => {
+    const output: any = await PDC.initDependancyCache(new Logger('doc_parser'));
+
+    let mdl: any;
+
+    const mdlsRoot = `${__dirname}/../../../docs-api/models/`;
+
+    if (!isDir(mdlsRoot)) mkdir(mdlsRoot);
+
+    
+    // first we need to generate all the entity files for each datasource
+    if (typeof output?.models) {
+        // first loop over the grouped models and dss
+        for (const ds in output.models) {
+            await generateDsDocument(ds, output.models[ds]);
+        }
+    }
+
+})();

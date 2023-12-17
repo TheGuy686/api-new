@@ -1,0 +1,34 @@
+import { EConnection } from '@eezze/decorators';
+
+@EConnection({
+    id: {{ id }},
+
+    {% if serviceTypes %}
+	    types: {{ ez.pj('serviceTypes') }},
+    {% endif %}
+
+    {% if secure %}
+	    secure: {{ secure }},
+    {% endif %}
+
+    {% if protocol %}
+	    protocol: '{{ protocol }}',
+    {% endif %}
+
+    {% if secureProtocol %}
+	    secureProtocol: '{{ secureProtocol }}',
+    {% endif %}
+
+    {% if host %}
+	    host: '{{ host }}',
+    {% endif %}
+
+    {% if localhost %}
+	    localhost: '{{ localhost }}',
+    {% endif %}
+
+    {% if port %}
+        port: '{{ port }}',
+    {% endif %}
+})
+export default class {{ name | pascalCase }} {}

@@ -1,0 +1,51 @@
+modified:   .env.example
+        modified:   .env.json
+        modified:   .env.json.production
+        modified:   README.md
+        modified:   bak/dss/file-storage-action.ts.bak
+        modified:   bak/dss/file-storage-cms.ts.bak
+        modified:   bak/dss/file-storage-datasource.ts.bak
+        modified:   bak/dss/file-storage-deployment.ts.bak
+        modified:   bak/dss/file-storage-entity.ts.bak
+        modified:   bak/dss/file-storage-migration-files.ts.bak
+        modified:   bak/dss/file-storage-newaction.ts.bak
+        modified:   bak/dss/file-storage-parameter.ts.bak
+        modified:   bak/dss/file-storage-project-stats.ts.bak
+        modified:   bak/dss/file-storage-repgen.ts.bak
+        modified:   bak/dss/file-storage-requestbody.ts.bak
+        modified:   bak/dss/file-storage-service.ts.bak
+        modified:   bak/dss/file-storage-servicegroup.ts.bak
+        modified:   bak/dss/file-storage-servicepreset.ts.bak
+        modified:   bak/dss/file-storage-statuscode.ts.bak
+        modified:   docs/examples/auth/datasources/json-db-users.ts
+        modified:   docs/examples/auth/services/project/runTest/action/index.ts
+        modified:   docs/examples/decorators/index.ts
+        modified:   docs/service-creation.md
+        modified:   package-lock.json
+        modified:   package.json
+        modified:   src/datasources/file-storage-datasourcetype.ts
+        modified:   src/datasources/file-storage-migration-files.ts
+        modified:   src/datasources/file-storage-statuscode.ts
+        modified:   src/dev/examples/actions/RenderTemplateMultiple.txt
+        new file:   src/service-configurables/render-templates/project-dockerfile.ezt
+        modified:   src/service-configurables/render-templates/project-package.ezt
+        new file:   src/service-configurables/render-templates/terraform-state.ezt
+        new file:   src/service-configurables/render-templates/terraform-tfvar.ezt
+        modified:   src/services/rest-projects/createProject/action.ts
+        modified:   src/services/rest-projects/updateProject/action.ts
+        modified:   src/services/ws-gen-controllers/generateControllerDelete/action.ts
+        modified:   src/services/ws-gen-deployments/generateDeploymentDelete/action.ts
+        modified:   src/services/ws-gen-projects/config.yaml
+        modified:   src/services/ws-gen-projects/controller.ws.ts
+        deleted:    src/services/ws-gen-projects/generateProjectCreate/config.yaml
+        renamed:    src/services/ws-gen-projects/generateProjectCreate/response.ts -> src/services/ws-gen-projects/generateProjectCreate/output.ts
+        modified:   src/services/ws-gen-projects/generateProjectDelete/action.ts
+        new file:   src/services/ws-gen-projects/generateProjectUpdate/action.ts
+        new file:   src/services/ws-gen-projects/generateProjectUpdate/input.ts
+        new file:   src/services/ws-gen-projects/generateProjectUpdate/output.ts
+        modified:   src/services/ws-gen-servs/generateServDelete/action.ts
+        modified:   src/services/ws-gen-terraform/config.yaml
+        modified:   src/services/ws-gen-terraform/controller.ws.ts
+        deleted:    src/services/ws-gen-terraform/generateTerraformAll/action.ts
+        deleted:    src/services/ws-gen-terraform/generateTerraformAll/input.ts
+        modified:   src/services/ws-gen-terraform/generateTerraformCreate/input.ts

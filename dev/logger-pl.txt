@@ -1,0 +1,22 @@
+{
+  projectId: 86,
+  data: {
+    id: '2uVOVvAL8L',
+    sourceRequestId: 'LI4ps',
+    time: { from: 1695871267004, to: 1695871267027, duration: 23 },
+    level: 'DEBUG',
+    type: 'eezze_project_api',
+    callSrc: undefined,
+    sourceIp: '::ffff:192.168.144.192',
+    message: 'REST: PUT "/v1/credentials-vault"',
+    requestMetadata: '{\n' +
+      '    "fullUrl": "http://192.168.144.192:2002/v1/credentials-vault",\n' +
+      '    "urlParams": {},\n' +
+      '    "requestBody": {},\n' +
+      '    "requestIp": "::ffff:192.168.144.192"\n' +
+      '}',
+    createdAt: 1695871267029,
+    urlPath: '/v1/credentials-vault',
+    method: 'PUT'
+  }
+}

@@ -1,0 +1,33 @@
+import { EAction, DeleteOne, SocketAction } from '@eezze/decorators';
+import BaseAction from '@eezze/base/action/BaseAction';
+import ActionDataManager from '@eezze/classes/ActionDataManager';
+
+@EAction({
+	roles: ['ROLE_ADMIN', 'ROLE_USER'],
+	targetRepo: 'FileStorage.ActionRepo',
+})
+export default class DeleteActionAction extends BaseAction {
+	@DeleteOne({
+		checkOn: ['actionId'],
+		input: (adm: ActionDataManager) => {
+			return {
+				actionId: adm.input.actionId
+			}
+		}
+	})
+	@SocketAction({
+		headers: (adm: ActionDataManager) => {
+			return {
+				'authorization': adm.request.auth.idToken
+			}
+		},
+		eventName: 'generate-action-delete',
+		datasource: 'integration-eezze-ws',
+		payload: (adm: ActionDataManager) => {
+			// console.log("adm", adm.request.auth);
+			let inp = JSON.parse(JSON.stringify(adm.input));
+			return inp;
+		}
+	})
+	async _exec() { }
+}

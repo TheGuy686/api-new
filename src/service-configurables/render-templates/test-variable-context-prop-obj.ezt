@@ -1,0 +1,3 @@
+SomeObj({
+    {% include 'action-variable-context-obj.ezt' with { mainProp: 'input', prop: input } %}
+})

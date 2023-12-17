@@ -1,0 +1,9 @@
+import { EConnection } from '@eezze/decorators';
+
+@EConnection({
+    id: 2,
+    types: [ 'installable-services' ],
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASS,
+})
+export default class ServerDefaultConnection {}

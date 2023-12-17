@@ -1,0 +1,313 @@
+{% macro space(magnitudes, context) %}
+
+    {% for i in 0..magnitudes %}
+
+        <br>
+
+    {% endfor %}
+    
+{% endmacro %}
+
+{% macro entityRel(context, relCode) %}
+    {% if relCode == 'OTO' %}
+blue
+    {% elseif relCode == 'OTM' %}
+orange
+    {% elseif relCode == 'MTO' %}
+green
+    {% elseif relCode == 'MTM' %}
+purple
+    {% endif %}
+{% endmacro %}
+
+{% macro h1(context, txt, styles) %}
+
+    {% if context.ez.isObj(styles)  %}
+
+        {% set styleString = "font-family: 'inter', sans-serif;" %}
+
+        {% for property, value in styles %}
+
+            {% if property == 'margin-top' %}
+
+                <br style="padding-top: {{ value }};" />
+
+            {% else %}
+
+                {% set styleString = styleString ~ property ~ ": " ~ value ~ ";" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        <span style="font-size: 28px; font-weight: bold; color: {{ context.theme.primary }}; {{ styleString }}">{{ txt }}</span>
+
+    {% else %}
+
+        <span style="font-size: 28px; font-weight: bold; margin: 20px 0; font-family: 'inter', sans-serif; color: {{ context.theme.primary }};">{{ txt }}</span>
+
+    {% endif %}
+
+{% endmacro %}
+
+{% macro h2(context, txt, styles) %}
+
+    {% if context.ez.isObj(styles)  %}
+
+        {% set styleString = "font-family: 'inter', sans-serif;" %}
+
+        {% for property, value in styles %}
+
+            {% if property == 'margin-top' %}
+
+                <br style="padding-top: {{ value }};" />
+
+            {% else %}
+
+                {% set styleString = styleString ~ property ~ ": " ~ value ~ ";" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        <span style="font-size: 22px; font-weight: bold; font-family: 'inter', sans-serif; {{ styleString }}; color: {{ context.theme.secondary }};">{{ txt }}</span>
+
+    {% else %}
+
+        <span style="font-size: 22px; font-weight: bold; margin: 15px 0; font-family: 'inter', sans-serif;color: {{ context.theme.secondary }};">{{ txt }}</span>
+
+    {% endif %}
+
+{% endmacro %}
+
+{% macro h3(context, txt, styles) %}
+
+    {% if context.ez.isObj(styles)  %}
+
+        {% set styleString = "font-family: 'inter', sans-serif;" %}
+
+        {% for property, value in styles %}
+
+            {% if property == 'margin-top' %}
+
+                <br style="padding-top: {{ value }};" />
+
+            {% else %}
+
+                {% set styleString = styleString ~ property ~ ": " ~ value ~ ";" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        <h3 style="font-size: 22px;  {{ styleString }}">{{ txt | raw }}</h3>
+
+    {% else %}
+
+        <h3 style="font-size: 22px; margin: 8px 0; font-family: 'inter', sans-serif;">{{ txt | raw }}</h3>
+
+    {% endif %}
+
+{% endmacro %}
+
+{% macro h4(context, txt, styles) %}
+
+    {% if context.ez.isObj(styles)  %}
+
+        {% set styleString = "font-family: 'inter', sans-serif;" %}
+
+        {% for property, value in styles %}
+
+            {% if property == 'margin-top' %}
+
+                <br style="padding-top: {{ value }};" />
+
+            {% else %}
+
+                {% set styleString = styleString ~ property ~ ": " ~ value ~ ";" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        <span style="font-size: 18px; font-weight: bold; {{ styleString }}">{{ txt | raw }}</span>
+
+    {% else %}
+
+        <span style="font-size: 18px; margin-top: 1px; font-weight: 8bold0; margin-bottom: 1px; font-family: 'inter', sans-serif;">{{ txt | raw }}</span>
+
+    {% endif %}
+
+{% endmacro %}
+
+{% macro info(context, txt, styles) %}
+{% if context.ez.isObj(styles)  %}
+{% set styleString = "font-family: 'inter', sans-serif;" %}
+{% for property, value in styles %}
+{% if property == 'margin-top' %}
+<br style="padding-top: {{ value }};" />
+{% else %}
+{% set styleString = styleString ~ property ~ ": " ~ value ~ ";" %}
+{% endif %}
+{% endfor %}
+<span style="font-size: 14px; color: #616161; {{ styleString }}">{{ txt | raw }}</span>
+{% else %}
+<span style="font-size: 14px; padding-top: 1.5px; padding-bottom: 1.5px; color: #616161; font-family: 'inter', sans-serif;">{{ txt | raw }}</span>
+{% endif %}
+{% endmacro %}
+
+{% macro p(context, txt, styles) %}
+
+    {% if context.ez.isObj(styles)  %}
+
+        {% set styleString = "font-family: 'inter', sans-serif;" %}
+
+        {% for property, value in styles %}
+
+            {% if property == 'margin-top' %}
+
+                <br style="padding-top: {{ value }};" />
+
+            {% else %}
+
+                {% set styleString = styleString ~ property ~ ": " ~ value | raw ~ ";" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        <p style="font-size: 16px; {{ styleString }}">{{ txt }}</p>
+
+    {% else %}
+
+        <p style="font-size: 16px; line-height: 1.5; margin: 10px 0; font-family: 'inter', sans-serif;">{{ txt }}</p>
+
+    {% endif %}
+
+{% endmacro %}
+
+{% macro ul(context, styles) %}
+
+    {% if context.ez.isObj(styles)  %}
+
+        {% set styleString = "font-family: 'inter', sans-serif;" %}
+
+        {% for property, value in styles %}
+
+            {% if property == 'margin-top' %}
+
+                <br style="padding-top: {{ value }};" />
+
+            {% else %}
+
+                {% set styleString = styleString ~ property ~ ": " ~ value ~ ";" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        <ul style="list-style: disc; margin: 15px 0 15px 20px; {{ styleString }}">
+
+    {% else %}
+
+        <ul style="list-style: disc; margin: 15px 0 15px 20px; font-family: 'inter', sans-serif;">
+
+    {% endif %}
+
+{% endmacro %}
+
+{% macro li(context, styles) %}
+
+    {% if context.ez.isObj(styles)  %}
+
+        {% set styleString = "font-family: 'inter', sans-serif;" %}
+
+        {% for property, value in styles %}
+
+            {% if property == 'margin-top' %}
+
+                <br style="padding-top: {{ value }};" />
+
+            {% else %}
+
+                {% set styleString = styleString ~ property ~ ": " ~ value ~ ";" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        <li style="font-size: 16px; line-height: 1.5; {{ styleString }}">
+    {% else %}
+
+        <li style="font-size: 16px; line-height: 1.5; font-family: 'inter', sans-serif;">
+    {% endif %}
+{% endmacro %}
+
+{% macro tbl(context, styles) %}
+
+    {% if context.ez.isObj(styles) %}
+
+        {% set styleString = "font-family: 'inter', sans-serif;" %}
+
+        {% for property, value in styles %}
+
+            {% if property == 'margin-top' %}
+
+                <br style="padding-top: {{ value }};" />
+
+            {% else %}
+
+                {% set styleString = styleString ~ property ~ ": " ~ value ~ ";" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        <table style="width: 100%; border-collapse: collapse; margin: 15px 0; {{ styleString }}">
+
+    {% else %}
+
+        <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-family: 'inter', sans-serif;">
+
+    {% endif %}
+
+{% endmacro %}
+
+{% macro th(context, options, styles) %}
+{% set attrString = '' %}
+{% if context.ez.isObj(options)  %}
+    {% for attr, value in options %}
+        {% set attrString = attrString ~ property ~ "=\"" ~ value ~ "\" " %}
+    {% endfor %}
+{% endif %}
+
+{% if context.ez.isObj(styles)  %}
+    {% set styleString = '' %}
+    {% for property, value in styles %}
+        {% set styleString = styleString ~ property ~ ": " ~ value ~ ";" %}
+    {% endfor %}
+    <th {{ attrString | raw }} style="border: 1px solid #ccc; text-align: left; background-color: #f0f0f0; font-weight: bold; padding: 14px 18px; {{ styleString }}">
+{% else %}
+    <th {{ attrString | raw }} style="border: 1px solid #ccc; text-align: left; background-color: #f0f0f0; font-weight: bold; padding: 14px 18px; font-family: 'inter', sans-serif;">
+{% endif %}
+{% endmacro %}
+
+{% macro td(context, options, styles) %}
+{% set attrString = '' %}
+{% if context.ez.isObj(options)  %}
+    {% for attr, value in options %}
+        {% set attrString = attrString ~ property ~ "=\"" ~ value ~ "\" " %}
+    {% endfor %}
+{% endif %}
+{% if context.ez.isObj(styles)  %}
+    {% set styleString = '' %}
+    {% for property, value in styles %}
+        {% set styleString = styleString ~ property ~ ": " ~ value ~ ";" %}
+    {% endfor %}
+    <td {{ attrString | raw }} style="border: 1px solid #ccc; text-align: left; padding: 14px 18px; {{ styleString }}">
+{% else %}
+    <td {{ attrString | raw }} style="border: 1px solid #ccc; text-align: left; padding: 14px 18px; font-family: 'inter', sans-serif;">
+{% endif %}
+{% endmacro %}
+
+{% macro pb() %}<div style="page-break-after: always;"></div>{% endmacro %}

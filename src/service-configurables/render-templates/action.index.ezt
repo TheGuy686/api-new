@@ -1,0 +1,62 @@
+{% set IS_FUNCTION = true %}
+{% set IS_NOT_A_FUNCTION = false %}
+
+import BaseAction from '@eezze/base/action/BaseAction';
+import { ActionDataManager as ADM, LogicChain } from '@eezze/classes';
+import {
+    EAction, 
+
+    {% for action in logic %}
+
+        {% include 'action.dec-imports.ezt' with { action: action } %}
+        
+    {% endfor %}
+
+} from '@eezze/decorators';
+
+@EAction({
+    {% if roles %}
+	    roles: {{ ez.pj('roles') }},
+    {% endif %}
+
+    {% if targetRepo %}
+        targetRepo: '{{ targetRepo }}Repo',
+    {% endif %}
+
+    {% if condition %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'condition', prop: condition } %}
+    {% endif %}
+})
+export default class {{ service | pascalCase }}Action extends BaseAction {
+
+    {% set hasDec = false %}
+    {% for action in logic %}
+
+        {% if action.schema._action.action != 'success' and action.schema._action.action != 'error' %}
+
+            {% include 'dec-' ~ action.schema._action.category ~ '-' ~ action.schema._action.action ~ '.ezt' with { action: action } %}
+
+            {% set hasDec = true %}
+
+        {% endif %}
+        
+    {% endfor %}
+
+    {% if hasDec %}
+
+        async _exec() {}
+
+    {% endif %}
+
+    {% if sdef.onSuccess is defined %}
+
+        {% include 'action-on-success.ezt' with { hook: sdef.onSuccess } %}
+
+    {% endif %}
+
+    {% if sdef.onError is defined %}
+
+        {% include 'action-on-error.ezt' with { hook: sdef.onError } %}
+
+    {% endif %}
+}

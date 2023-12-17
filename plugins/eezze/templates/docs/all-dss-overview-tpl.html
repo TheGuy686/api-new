@@ -1,0 +1,114 @@
+{% import "macros.ezt" as ezm %}
+
+{% set c = { ez: ez, theme: theme } %}
+
+<html>
+<head>
+<style>
+    font-face {
+        font-family: 'inter', sans-serif;
+    }
+
+    body {
+        font-family: 'inter', sans-serif;
+    }
+</style>
+</head>
+
+<body style="font-family: 'inter', sans-serif; background-color: #fff; margin: 20px;">
+
+    <img style="height: 70px; width: auto; border: none; margin-bottom: 28px;" src="{{ projectInfo.logo }}" />
+
+    {{ ezm.h3(c, projectInfo.companyName) }}
+
+    {% if projectInfo.address is defined %}
+
+        {% for l in projectInfo.address %}
+
+            {{ ezm.info(c, l, { 'margin': '0px', 'padding': '0px' }) }}
+
+        {% endfor %}
+
+    {% endif %}
+
+    {{ ezm.space(4, c) }}
+
+    {{ ezm.h2(c, 'Data Sources Overview for: ', { 
+        'margin-bottom': '0px',
+        'padding-bottom': '0px',
+        'padding-top': '50px',
+        'margin-top': '250px',
+    }) }}
+
+    {{ ezm.h1(c, ez.capitalCase(projectInfo.name), { 'padding-top': '0px', 'word-spacing': '0', 'font-size': '34px' }) }}
+
+    {{ ezm.info(c, 'Date of creation: ' + projectInfo.dataOfLastEdit, { 'font-size': '14px', 'font-weight': '400' }) }}
+
+    {{ ezm.pb() }}
+
+    {INSERT-TOC-HERE}
+
+    {{ ezm.pb() }}
+
+    {{ ezm.h1(c, 'Vocabulary') }}
+
+    {{ ezm.space(1, c) }}
+
+    {{ ezm.ul(c) }}
+
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>Dynamic</b>: <i>DYNAMIC (variable value) - This can be any value that has business logic attached to the mapped value. The business logic can be as simple or complex as defined by the project owner / admin.</i></span></li>
+        {{ ezm.li(c) }}<span style="font-family: 'inter', sans-serif;"><b>MySql</b>: <i>MySQL Database (Mysql) - A widely used, open-source relational database management system (RDBMS) that stores data in structured tables and is commonly employed in web applications, business, and various software projects. MySQL is known for its performance, scalability, and ease of use, making it a popular choice for data storage and retrieval.</i></span></li>
+
+    </ul>
+
+    {{ ezm.pb() }}
+
+    {{ ezm.h1(c, 'Data Sources') }}
+
+    {% for ds in dss %}
+
+        {{ ezm.h2(c, ds.name, { 'padding-bottom': '10px;', 'margin-top': '20px;' }) }}
+
+        {{ ezm.p(c, 'description') }}   
+
+        {{ ezm.tbl(c, { 'margin-top': '10px' }) }}                        
+
+            <tbody>
+
+                {% if ds.props.isThridParty is not defined or ds.props.isThridParty == false %}
+
+                    <tr>
+                        {{ ezm.th(c) }} Connection:</th>
+                        {{ ezm.td(c) }} {{ ds.connection }}</td>
+                    </tr>
+
+                {% endif %}
+
+                {% for key, p in ds.props %}
+
+                    {% if key == 'secure' %}
+
+                        <tr>
+                            {{ ezm.th(c) }} {{ key | capitalCase }}:</th>
+                            {{ ezm.td(c) }} <span style="color: {{ p == true ? 'green' : 'red' }};">{{ p == true ? 'SECURE' : 'NOT SECURE' | raw }}</span></td>
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+                            {{ ezm.th(c) }} {{ key }}:</th>
+                            {{ ezm.td(c) }} {{ ez.isBool(p) ? (p ? 'YES' : 'NO') : p }}</td>
+                        </tr>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% endfor %}
+
+</body>
+</html>

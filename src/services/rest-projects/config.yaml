@@ -1,0 +1,34 @@
+name:  Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  allProjects:
+    authenticator: ExpressAuthentication
+  createProject:
+    authenticator: ExpressAuthentication
+  deleteProject:
+    authenticator: ExpressAuthentication
+  updateProject:
+    authenticator: ExpressAuthentication
+  deployProject:
+    authenticator: ExpressAuthentication
+  getProjectOpenApiSpec:
+    authenticator: ExpressAuthentication
+  updateProjectLogo:
+    authenticator: ExpressAuthentication
+  createProjectFromScaffold:
+    authenticator: ExpressAuthentication
+  uploadProjectLogo:
+    authenticator: ExpressAuthentication
+  getProjectTreeFromInput:
+    authenticator: ExpressAuthentication
+  askAi:
+    authenticator: ExpressAuthentication
+  askAiProject:
+    authenticator: ExpressAuthentication
+  askAiRoles:
+    authenticator: ExpressAuthentication
+  dependenciesFromTags:
+    authenticator: ExpressAuthentication

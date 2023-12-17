@@ -1,0 +1,11 @@
+terraform {
+  backend "s3" {
+    bucket  = "tfstate-eezze-projects" # managed by terraform-eezze-static-site repo
+    key     = "{{ projectId }}-backend-{{ project }}-{{ connection_name }}.tfstate" # this needs to be a generated key such that each project has its own state file.
+    region  = "us-east-1"
+    profile = "eezze-prod"
+
+    encrypt = true
+    acl     = "private"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "openapi:v3": "file:///home/rpstreef/projects/eezze/eezze-generator-backend/docs/examples/openapi/growtrack-api.yaml"
+  }
+}

@@ -1,0 +1,19 @@
+import { RestController } from '@eezze/base';
+import { EController, EGet, EPost, EPut, EDelete } from '@eezze/decorators';
+
+@EController({
+	server: 'eezze-project-api',
+})
+export default class RestActionsController extends RestController {
+	@EGet({ path: '/action' }) static async readAction() {}
+
+	@EGet({ path: '/action/all' }) static async readActionAll() {}
+
+	@EPost({ path: '/action' }) static async createAction() {}
+
+	@EPut({ path: '/action' }) static async updateAction() {}
+
+	@EPut({ path: '/action/all' }) static async updateActionAll() {}
+
+	@EDelete({ path: '/action' }) static async deleteAction() {}
+}

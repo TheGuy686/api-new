@@ -1,0 +1,4 @@
+projectId: '{{ projectId }}'
+name: '{{ name }}'
+description: '{{ description }}'
+industry: '{{ industry }}'

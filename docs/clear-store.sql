@@ -1,0 +1,11 @@
+TRUNCATE TABLE store;
+TRUNCATE TABLE store_review;
+TRUNCATE TABLE store_service;
+TRUNCATE TABLE store_service_connection;
+TRUNCATE TABLE store_service_config;
+TRUNCATE TABLE store_service_group;
+TRUNCATE TABLE store_service_credentials_vault;
+TRUNCATE TABLE store_service_datasource;
+TRUNCATE TABLE store_service_group;
+TRUNCATE TABLE store_service_role;
+TRUNCATE TABLE store_service_value_store;

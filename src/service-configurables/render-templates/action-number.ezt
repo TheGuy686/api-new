@@ -1,0 +1,16 @@
+// {{ ma.name | raw }} - {{ li.name | raw }}
+{% if li.logic.subtype == 'calculation' %}
+    {{ lcAlias | default('ilc') }}.number.calc('{{ li.logic.raw }}', [
+        {% for variable in li.logic.variables %}
+            {{ variable.value }},
+        {% endfor %}
+    ]);
+
+{% elseif li.type == 'number-operation' %}
+    {{ lcAlias | default('ilc') }}.number.{{ li.logic.subtype | camelCase }}(
+        {% for arg in li.logic.opArgs %}
+            {{ arg.value }},
+        {% endfor %}
+    );
+
+{% endif %}

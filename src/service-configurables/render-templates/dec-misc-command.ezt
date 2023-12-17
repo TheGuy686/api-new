@@ -1,0 +1,20 @@
+// #{{ action.name }}
+@Command({
+    {% if action.schema.runAsynchronous %}
+        isAsync: {{ action.schema.runAsynchronous == 1 ? 'true' : 'false' }},
+    {% endif %}
+
+    {% if action.schema.rootFolder %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'rootFolder', prop: action.schema.rootFolder } %}
+    {% endif %}
+
+    {% if action.schema.command %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'command', prop: action.schema.command } %}
+    {% endif %}
+
+    {% if action.schema.output %}
+        {% include 'action-variable-context-obj.ezt' with { mainProp: 'output', prop: action.schema.output } %}
+    {% endif %}
+
+    {% include 'dec-finalize.ezt' with { action: action } %}
+})

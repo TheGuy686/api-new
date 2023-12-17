@@ -1,0 +1,47 @@
+{% for act in action.actions %}
+
+    {% if act.type == 'number-operation' %}
+
+        {% include 'action-number.ezt' with { ma: action, li: act, lcAlias: lcAlias } %}
+
+    {% elseif act.type == 'assign-values' %}
+
+        {% include 'action-assign-values.ezt' with { ma: action, li: act, lcAlias: lcAlias } %}
+
+    {% elseif act.type == 'formatter' %}
+
+        {% include 'action-formatter.ezt' with { ma: action, li: act, lcAlias: lcAlias } %}
+
+    {% elseif act.type == 'set-state-values' %}
+
+        {# ESet(adm.state, 'key', ()) #}
+
+    {% elseif act.type == 'set-stash-values' %}
+
+        {# ESet(adm.stash, 'key', ()) #}
+
+    {% elseif act.type == 'assign-primitive'  %}
+
+        {% include 'action-primitive.ezt' with { ma: action, li: act, lcAlias: lcAlias } %}
+
+    {% elseif act.type == 'condition-group' or act.type == 'condition'  %}
+
+        {% include 'action-conditional.ezt' with { ma: action, li: act, lcAlias: lcAlias } %}
+
+    {% elseif act.type == 'list-process'  %}
+
+        {% include 'action-list.ezt' with { ma: action, li: act, lcAlias: lcAlias } %}
+
+    {% elseif act.type == 'custom'  %}
+
+        {% include 'action-custom.ezt' with { ma: action, li: act, lcAlias: lcAlias } %}
+        
+    {% endif %}
+
+    {% if act.actions | length > 0 %}
+
+        {% include 'action-lc-item.ezt' with { ma: action, action: act, lcAlias: lcAlias } %}
+
+    {% endif %}
+
+{% endfor %}

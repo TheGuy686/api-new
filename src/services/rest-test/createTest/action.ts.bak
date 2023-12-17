@@ -1,0 +1,52 @@
+import { EAction, CreateOne, SocketAction, DataTransformer, RenderTemplate, GetList } from '@eezze/decorators';
+import BaseAction from '@eezze/base/action/BaseAction';
+import ActionDataManager from '@eezze/classes/ActionDataManager';
+import { EDate, EMath, EList, ECustom, ESet } from '@eezze/classes/logic';
+import { kebabCase, lcFirst, pascalCase } from '@eezze/libs/StringMethods';
+
+@EAction({
+	roles: ['ROLE_ADMIN', 'ROLE_USER'],
+	targetRepo: 'Mysql.ActionRepo',
+})
+export default class CreateTestAction extends BaseAction {
+	@DataTransformer({
+		output(adm: ActionDataManager) {
+			// calculation
+			let results = EMath.raw(adm.input.formula, { '${1}': 1, '${2}': 2, '${3}': 3})
+
+			// date
+			const date = EDate.format('', adm.input.dateMask, EDate.addDays(adm.input.dateValue, 2));
+
+			// list
+			EList([{something: 'else'}, {something: 'there'}], (item: any, index: number) => {
+				console.log(item);
+			})
+
+			// custom code
+			ECustom('\nconsole.log("test"); \n\n\n\n\n\n\n\n\n\n\n\n\n');
+
+			const set = {};
+
+			// assign values
+			ESet(
+                set,
+                'key',
+                EMath.addition(1, 2)
+            );
+
+            return results;
+		}
+	})
+	@GetList({})
+	@RenderTemplate({
+		prettify: false,
+		template: 'action.action-input',
+		templateVars: (adm: ActionDataManager) => ({
+			serviceGroupId: pascalCase('testGroup'),
+			serviceId: pascalCase('test'),
+			input: JSON.parse(adm.input?.keyValueItems),
+		})
+		// templates: (adm: ActionDataManager) => { return {}}
+	})
+	async _exec() {}
+}

@@ -1,0 +1,9 @@
+
+                                                                                import { EConnection } from '@eezze/decorators';
+
+@EConnection({
+    id: 6,
+    types: [ 'installable-services' ],
+    port: process.env.DEFAULT_FE_SERVER_PORT,
+})
+export default class ServerEezzeFrontEndConnection {}

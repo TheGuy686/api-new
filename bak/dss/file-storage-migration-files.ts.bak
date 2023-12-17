@@ -1,0 +1,8 @@
+import { EDataSource } from '@eezze/decorators';
+
+@EDataSource({
+    datasourceType: 'FileStorage',
+    createFileIfNotExists: false,
+    rootPath: process.env.PROJECTS_FILE_ROOT
+})
+export default class FileStorageMigrationFiles {}

@@ -1,0 +1,8 @@
+// #{{ action.name }}
+@Base64Converter({
+    {% if action.schema.content %}
+        {% include 'action-variable-context.ezt' with { mainProp: 'content', prop: action.schema.content } %}
+    {% endif %}
+
+    {% include 'dec-finalize.ezt' with { action: action } %}
+})

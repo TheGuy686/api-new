@@ -1,0 +1,16 @@
+name:  Service
+description: 
+version: 1.0
+license: Proprietary
+author: Ryan J. Cooke
+services:
+  createResponseCode:
+    authenticator: ExpressAuthentication
+  deleteResponseCode:
+    authenticator: ExpressAuthentication
+  readAllResponseCodes:
+    authenticator: ExpressAuthentication
+  readResponseCode:
+    authenticator: ExpressAuthentication
+  updateResponseCode:
+    authenticator: ExpressAuthentication

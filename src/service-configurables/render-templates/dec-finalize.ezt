@@ -1,0 +1,15 @@
+{% if action.schema.input %}
+    {% include 'action-variable-context-obj.ezt' with { mainProp: 'input', prop: action.schema.input } %}
+{% endif %}
+
+{% if action.schema.output %}
+    {% include 'action-variable-context.ezt' with { mainProp: 'output', prop: action.schema.output } %}
+{% endif %}
+
+{% if action.schema.onSuccess %}
+    {% include 'action-variable-context.ezt' with { mainProp: 'onSuccess', prop: action.schema.onSuccess } %}
+{% endif %}
+
+{% if action.schema.onError %}
+    {% include 'action-variable-context-obj.ezt' with { mainProp: 'onError', prop: action.schema.onError } %}
+{% endif %}
